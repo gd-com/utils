@@ -12,11 +12,11 @@ Written with this [api](http://docs.godotengine.org/en/latest/tutorials/misc/bin
 ### encode and decode
 
 ```javascript
-var gdCom = require('gd-com')
+var gdCom = require('@gd-com/utils')
 var wanted = 'test'
 
-gdCom.encode(wanted).then((encoded) => {
-  gdCom.decode(encoded,(decoded) => {
+gdCom.put_var(wanted).then((encoded) => {
+  gdCom.get_var(encoded).then((decoded) => {
     console.log(decoded)
   })
 })
