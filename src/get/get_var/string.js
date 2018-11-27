@@ -7,10 +7,10 @@ const getString = require('../get_string')
  * @param buf
  * @returns {Object}
  */
-function decode (genericDecoder, buf) {
+async function decode (genericDecoder, buf) {
   const len = buf.readUInt32LE(0)
   const pad = len % 4 === 0 ? 0 : 4 - (len % 4)
-  const value = getString(buf)
+  const value = await getString(buf)
 
   return Promise.resolve({
     value,

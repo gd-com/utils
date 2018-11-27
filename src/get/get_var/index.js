@@ -24,9 +24,9 @@ const decoderList = files.reduce((decoders, filename) => {
  * @param buffer
  * @returns {*}
  */
-function decode (buffer) {
-  const type = get16(buffer, 0)
-  const flag = get16(buffer, 2)
+async function decode (buffer) {
+  const type = await get16(buffer, 0)
+  const flag = await get16(buffer, 2)
   const data = buffer.slice(4)
 
   if (decoderList[type] == null) {

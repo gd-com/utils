@@ -7,13 +7,13 @@ const getFloat = require('../get_float')
  * @param buf
  * @returns {Object}
  */
-function decode (genericDecoder, buf) {
+async function decode (genericDecoder, buf) {
   return Promise.resolve({
     value: {
-      r: getFloat(buf, 0),
-      g: getFloat(buf, 4),
-      b: getFloat(buf, 8),
-      a: getFloat(buf, 12)
+      r: await getFloat(buf, 0),
+      g: await getFloat(buf, 4),
+      b: await getFloat(buf, 8),
+      a: await getFloat(buf, 12)
     },
     length: 16
   })

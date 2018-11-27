@@ -7,7 +7,7 @@ const putFloat = require('../put_float')
  * @param value
  * @returns {{value: Buffer, length: Number}}
  */
-function encode (value) {
+async function encode (value) {
   // always encode real as double cf : marshalls.cpp L842
   // if (x64) { // TODO x64
   // /* eslint-enable */
@@ -20,9 +20,9 @@ function encode (value) {
   //   })
   // }
 
-  let buf = putU16(FLOAT)
-  buf = putU16(0, buf) // flag  0 for float
-  buf = putFloat(value, buf)
+  let buf = await putU16(FLOAT)
+  buf = await putU16(0, buf) // flag  0 for float
+  buf = await putFloat(value, buf)
 
   return Promise.resolve({
     value: buf,

@@ -8,7 +8,7 @@ const get32 = require('../get_32')
  * @param flag
  * @returns {Object}
  */
-function decode (genericDecoder, buf, flag = 0) {
+async function decode (genericDecoder, buf, flag = 0) {
   let result = null
   if (flag === 1) {
     // TODO decode 64 bit integer
@@ -18,7 +18,7 @@ function decode (genericDecoder, buf, flag = 0) {
     }
   } else {
     result = {
-      value: get32(buf, 0),
+      value: await get32(buf, 0),
       length: 4
     }
   }

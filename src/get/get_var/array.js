@@ -7,9 +7,9 @@ const getU32 = require('../get_u32')
  * @param buf
  * @returns {Object}
  */
-function decode (genericDecoder, buf) {
-  const nbEntries = getU32(buf, 0) & 0x7FFFFFFF
-  // const shared = !!getU32(buf, 0) & 0x80000000
+async function decode (genericDecoder, buf) {
+  const nbEntries = await getU32(buf, 0) & 0x7FFFFFFF
+  // const shared = await !!getU32(buf, 0) & 0x80000000
 
   // start at 4 cause of nbEntries
   let promise = Promise.resolve({

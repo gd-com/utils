@@ -9,18 +9,18 @@ const getDouble = require('../get_double')
  * @param flag
  * @returns {Object}
  */
-function decode (genericDecoder, buf, flag) {
+async function decode (genericDecoder, buf, flag) {
   let result = null
   // always encode real as double cf : marshalls.cpp L842
   // but sometimes can be float if double is not necessary
   if (flag === 1) {
     result = {
-      value: getDouble(buf, 0),
+      value: await getDouble(buf, 0),
       length: 8
     }
   } else {
     result = {
-      value: getFloat(buf, 0),
+      value: await getFloat(buf, 0),
       length: 4
     }
   }

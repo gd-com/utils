@@ -6,9 +6,9 @@ const putU32 = require('../put_u32')
  * @param value
  * @returns {{value: Buffer, length: Number}}
  */
-function encode (value) {
-  let buf = putU32(BOOL)
-  buf = putU32(value ? 1 : 0, buf)
+async function encode (value) {
+  let buf = await putU32(BOOL)
+  buf = await putU32(value ? 1 : 0, buf)
 
   return Promise.resolve({
     value: buf,

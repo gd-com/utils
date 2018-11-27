@@ -14,9 +14,9 @@ function putString (value, buffer = null) {
   }
 
   if (buffer != null) {
-    return Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length)
+    return Promise.resolve(Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length))
   } else {
-    return newBuffer
+    return Promise.resolve(newBuffer)
   }
 }
 

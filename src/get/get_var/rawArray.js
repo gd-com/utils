@@ -7,8 +7,8 @@ const getU32 = require('../get_u32')
  * @param buf
  * @returns {Object}
  */
-function decode (genericDecoder, buf) {
-  const bufLength = getU32(buf, 0)
+async function decode (genericDecoder, buf) {
+  const bufLength = await getU32(buf, 0)
 
   return Promise.resolve({
     value: buf.slice(4, bufLength + 4),

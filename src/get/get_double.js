@@ -1,5 +1,5 @@
 function getDouble (buffer, offset = 0) {
-  return buffer.readDoubleLE(offset)
+  return Promise.resolve(buffer.readDoubleLE(offset))
 }
 
 module.exports = getDouble

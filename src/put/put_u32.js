@@ -3,9 +3,9 @@ function putU32 (value, buffer = null) {
   newBuffer.writeUInt32LE(value, 0)
 
   if (buffer != null) {
-    return Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length)
+    return Promise.resolve(Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length))
   } else {
-    return newBuffer
+    return Promise.resolve(newBuffer)
   }
 }
 
