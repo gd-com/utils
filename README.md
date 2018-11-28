@@ -4,6 +4,11 @@ Binary serialization helper godot and nodejs !
 
 Written with this [api](http://docs.godotengine.org/en/latest/tutorials/misc/binary_serialization_api.html)
 
+## Requirements
+
+- Godot 3.X
+- NodeJS 10.14.0 LTS or greater
+
 ## How to install
 
 `npm install --save @gd-com/utils`
