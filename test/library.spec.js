@@ -1,4 +1,5 @@
 const chai = require('chai')
+const Long = require('long')
 const gdCom = require('../src')
 const dataFile = require('./data-01.json')
 const dataDeepFile = require('./data-02.json')
@@ -52,7 +53,7 @@ describe('gd-com binary serializer', () => {
         .then(() => gdCom.put_8(value))
         .then((encoded) => gdCom.get_8(encoded))
         .then((decoded) => {
-            expect(decoded).to.deep.equal(value)
+          expect(decoded).to.deep.equal(value)
         })
     }, Promise.resolve())
   })
@@ -75,6 +76,18 @@ describe('gd-com binary serializer', () => {
       return promise
         .then(() => gdCom.put_32(value))
         .then((encoded) => gdCom.get_32(encoded))
+        .then((decoded) => {
+          expect(decoded).to.deep.equal(value)
+        })
+    }, Promise.resolve())
+  })
+
+  it(`should encode/decode int 64`, () => {
+    const values = [Long.MAX_VALUE.toNumber(), Long.MIN_VALUE.toNumber(), 10, 518]
+    return values.reduce((promise, value) => {
+      return promise
+        .then(() => gdCom.put_64(value))
+        .then((encoded) => gdCom.get_64(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -112,6 +125,18 @@ describe('gd-com binary serializer', () => {
       return promise
         .then(() => gdCom.put_u32(value))
         .then((encoded) => gdCom.get_u32(encoded))
+        .then((decoded) => {
+          expect(decoded).to.deep.equal(value)
+        })
+    }, Promise.resolve())
+  })
+
+  it(`should encode/decode uint 64`, () => {
+    const values = [Long.MAX_UNSIGNED_VALUE.toNumber(), 0, 10, 518]
+    return values.reduce((promise, value) => {
+      return promise
+        .then(() => gdCom.put_u64(value))
+        .then((encoded) => gdCom.get_u64(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
