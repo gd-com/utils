@@ -6,13 +6,8 @@ const { NULL } = require('../../constants')
  */
 function encode () {
   let buf = Buffer.alloc(4)
-
   buf.writeUInt32LE(NULL, 0)
-
-  return Promise.resolve({
-    value: buf,
-    length: buf.length
-  })
+  return Promise.resolve(buf)
 }
 
 module.exports = {

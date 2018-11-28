@@ -10,10 +10,7 @@ const putString = require('../put_string')
 async function encode (value) {
   let buf = await putU32(STRING)
   buf = await putString(value, buf)
-  return Promise.resolve({
-    value: buf,
-    length: buf.length
-  })
+  return Promise.resolve(buf)
 }
 
 module.exports = {

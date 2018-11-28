@@ -62,9 +62,13 @@ function prepare (value) {
  * @param value
  * @returns {*}
  */
-module.exports = (value) => {
-  const packet = (buffer) => {
-    return buffer.value
+module.exports = (value, buffer) => {
+  const packet = (newBuffer) => {
+    if (buffer != null) {
+      return Promise.resolve(Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length))
+    } else {
+      return Promise.resolve(newBuffer)
+    }
   }
 
   return prepare(value)

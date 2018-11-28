@@ -23,15 +23,12 @@ function encode (value) {
 
   for (let i in value) {
     if (value.hasOwnProperty(i)) {
-      value[i].value.copy(buf, bufPos)
+      value[i].copy(buf, bufPos)
       bufPos += value[i].length
     }
   }
 
-  return Promise.resolve({
-    value: buf,
-    length: buf.length
-  })
+  return Promise.resolve(buf)
 }
 
 module.exports = {

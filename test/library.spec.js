@@ -32,8 +32,8 @@ describe('gd-com binary serializer', () => {
 
       return dataType.reduce((promise, value) => {
         return promise
-          .then(() => gdCom.put_var(value))
-          .then((encoded) => gdCom.get_var(encoded))
+          .then(() => gdCom.putVar(value))
+          .then((encoded) => gdCom.getVar(encoded))
           .then((decoded) => {
             if (/Float/i.test(objecType)) {
               expect(decoded).to.be.closeTo(value, 0.00001)
@@ -50,8 +50,8 @@ describe('gd-com binary serializer', () => {
     const values = [-128, 127, 10, -10]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_8(value))
-        .then((encoded) => gdCom.get_8(encoded))
+        .then(() => gdCom.put8(value))
+        .then((encoded) => gdCom.get8(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -62,8 +62,8 @@ describe('gd-com binary serializer', () => {
     const values = [-32768, 32767, 10, -10]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_16(value))
-        .then((encoded) => gdCom.get_16(encoded))
+        .then(() => gdCom.put16(value))
+        .then((encoded) => gdCom.get16(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -74,8 +74,8 @@ describe('gd-com binary serializer', () => {
     const values = [-2147483648, 2147483647, 10, -10]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_32(value))
-        .then((encoded) => gdCom.get_32(encoded))
+        .then(() => gdCom.put32(value))
+        .then((encoded) => gdCom.get32(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -86,8 +86,8 @@ describe('gd-com binary serializer', () => {
     const values = [Long.MAX_VALUE.toNumber(), Long.MIN_VALUE.toNumber(), 10, 518]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_64(value))
-        .then((encoded) => gdCom.get_64(encoded))
+        .then(() => gdCom.put64(value))
+        .then((encoded) => gdCom.get64(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -99,8 +99,8 @@ describe('gd-com binary serializer', () => {
     const values = [0, 255, 10, 105]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_u8(value))
-        .then((encoded) => gdCom.get_u8(encoded))
+        .then(() => gdCom.putU8(value))
+        .then((encoded) => gdCom.getU8(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -111,8 +111,8 @@ describe('gd-com binary serializer', () => {
     const values = [0, 65535, 10, 518]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_u16(value))
-        .then((encoded) => gdCom.get_u16(encoded))
+        .then(() => gdCom.putU16(value))
+        .then((encoded) => gdCom.getU16(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -123,8 +123,8 @@ describe('gd-com binary serializer', () => {
     const values = [0, 4294967295, 10, 518]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_u32(value))
-        .then((encoded) => gdCom.get_u32(encoded))
+        .then(() => gdCom.putU32(value))
+        .then((encoded) => gdCom.getU32(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -135,8 +135,8 @@ describe('gd-com binary serializer', () => {
     const values = [Long.MAX_UNSIGNED_VALUE.toNumber(), 0, 10, 518]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_u64(value))
-        .then((encoded) => gdCom.get_u64(encoded))
+        .then(() => gdCom.putU64(value))
+        .then((encoded) => gdCom.getU64(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -148,8 +148,8 @@ describe('gd-com binary serializer', () => {
     const values = ['hello', 'world', 'hello world', 'hello world hello world']
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_string(value))
-        .then((encoded) => gdCom.get_string(encoded))
+        .then(() => gdCom.putString(value))
+        .then((encoded) => gdCom.getString(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.equal(value)
         })
@@ -161,8 +161,8 @@ describe('gd-com binary serializer', () => {
     const values = [10.520, -10.520]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_float(value))
-        .then((encoded) => gdCom.get_float(encoded))
+        .then(() => gdCom.putFloat(value))
+        .then((encoded) => gdCom.getFloat(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.closeTo(value, 0.00001)
         })
@@ -174,8 +174,8 @@ describe('gd-com binary serializer', () => {
     const values = [10.520, -10.520]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put_double(value))
-        .then((encoded) => gdCom.get_double(encoded))
+        .then(() => gdCom.putDouble(value))
+        .then((encoded) => gdCom.getDouble(encoded))
         .then((decoded) => {
           expect(decoded).to.deep.closeTo(value, 0.00001)
         })

@@ -24,10 +24,7 @@ async function encode (value) {
   buf = await putU16(0, buf) // flag  0 for float
   buf = await putFloat(value, buf)
 
-  return Promise.resolve({
-    value: buf,
-    length: buf.length
-  })
+  return Promise.resolve(buf)
 }
 
 module.exports = {

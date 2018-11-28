@@ -14,10 +14,7 @@ async function encode (value) {
 
   // TODO x64
 
-  return Promise.resolve({
-    value: buf,
-    length: buf.length
-  })
+  return Promise.resolve(buf)
 }
 
 module.exports = {
