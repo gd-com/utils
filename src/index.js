@@ -31,33 +31,33 @@ const putDouble = require('./put/put_double')
 const putString = require('./put/put_string')
 
 module.exports = {
-  get_8: get8.bind(get8),
-  get_16: get16.bind(get16),
-  get_32: get32.bind(get32),
-  get_64: get64.bind(get64),
+  get8: get8.bind(get8),
+  get16: get16.bind(get16),
+  get32: get32.bind(get32),
+  get64: get64.bind(get64),
 
-  get_u8: getU8.bind(getU8),
-  get_u16: getU16.bind(getU16),
-  get_u32: getU32.bind(getU32),
-  get_u64: getU64.bind(getU64),
+  getU8: getU8.bind(getU8),
+  getU16: getU16.bind(getU16),
+  getU32: getU32.bind(getU32),
+  getU64: getU64.bind(getU64),
 
-  get_float: getFloat.bind(getFloat),
-  get_double: getDouble.bind(getDouble),
-  get_string: getString.bind(getString),
-  get_var: getVar.bind(getVar),
+  getFloat: getFloat.bind(getFloat),
+  getDouble: getDouble.bind(getDouble),
+  getString: getString.bind(getString),
+  getVar: getVar.bind(getVar),
 
-  put_8: put8.bind(put8),
-  put_16: put16.bind(put16),
-  put_32: put32.bind(put32),
-  put_64: put64.bind(put64),
+  put8: put8.bind(put8),
+  put16: put16.bind(put16),
+  put32: put32.bind(put32),
+  put64: put64.bind(put64),
 
-  put_u8: putU8.bind(putU8),
-  put_u16: putU16.bind(putU16),
-  put_u32: putU32.bind(putU32),
-  put_u64: putU64.bind(putU64),
+  putU8: putU8.bind(putU8),
+  putU16: putU16.bind(putU16),
+  putU32: putU32.bind(putU32),
+  putU64: putU64.bind(putU64),
 
-  put_float: putFloat.bind(putFloat),
-  put_double: putDouble.bind(putDouble),
-  put_string: putString.bind(putString),
-  put_var: putVar.bind(putVar)
+  putFloat: putFloat.bind(putFloat),
+  putDouble: putDouble.bind(putDouble),
+  putString: putString.bind(putString),
+  putVar: putVar.bind(putVar)
 }
