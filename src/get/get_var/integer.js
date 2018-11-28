@@ -23,7 +23,7 @@ async function decode (genericDecoder, buf, flag = 0) {
     }
   }
 
-  return Promise.resolve(result)
+  return result
 }
 
 module.exports = {

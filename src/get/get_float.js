@@ -1,5 +1,5 @@
-function getFloat (buffer, offset = 0) {
-  return Promise.resolve(buffer.readFloatLE(offset))
+async function getFloat (buffer, offset = 0) {
+  return buffer.readFloatLE(offset)
 }
 
 module.exports = getFloat

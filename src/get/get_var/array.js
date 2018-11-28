@@ -12,30 +12,23 @@ async function decode (genericDecoder, buf) {
   // const shared = await !!getU32(buf, 0) & 0x80000000
 
   // start at 4 cause of nbEntries
-  let promise = Promise.resolve({
+  let data = {
     array: [],
     buffer: buf.slice(4),
     pos: 4
-  })
-
-  for (let index = 0; index < nbEntries; index++) {
-    promise = promise.then(
-      ({ array, buffer, pos }) => genericDecoder(buffer)
-        .then((decodedValue) => {
-          array.push(decodedValue.value)
-          buffer = buffer.slice(decodedValue.length + 4)
-          pos += decodedValue.length + 4
-          return { array, buffer, pos }
-        })
-    )
   }
 
-  return promise.then(({ array, pos }) => {
-    return {
-      value: array,
-      length: pos
-    }
-  })
+  for (let index = 0; index < nbEntries; index++) {
+    const decodedValue = await genericDecoder(data.buffer)
+    data.array.push(decodedValue.value)
+    data.buffer = data.buffer.slice(decodedValue.length + 4)
+    data.pos += decodedValue.length + 4
+  }
+
+  return {
+    value: data.array,
+    length: data.pos
+  }
 }
 
 module.exports = {

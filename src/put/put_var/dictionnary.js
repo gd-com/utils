@@ -5,7 +5,7 @@ const { DICTIONARY } = require('../../constants')
  * @param value
  * @returns {{value: Buffer, length: Number}}
  */
-function encode (value) {
+async function encode (value) {
   let len = 8
 
   for (let i in value) {
@@ -27,7 +27,7 @@ function encode (value) {
     }
   }
 
-  return Promise.resolve(buf)
+  return buf
 }
 
 module.exports = {

@@ -10,7 +10,7 @@ async function encode (value) {
   let buf = await putU32(BOOL)
   buf = await putU32(value ? 1 : 0, buf)
 
-  return Promise.resolve(buf)
+  return buf
 }
 
 module.exports = {

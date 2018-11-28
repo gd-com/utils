@@ -12,10 +12,10 @@ async function decode (genericDecoder, buf) {
   const pad = len % 4 === 0 ? 0 : 4 - (len % 4)
   const value = await getString(buf)
 
-  return Promise.resolve({
+  return {
     value,
     length: 4 + len + pad
-  })
+  }
 }
 
 module.exports = {

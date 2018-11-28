@@ -8,10 +8,10 @@ const getU32 = require('../get_u32')
  * @returns {Object}
  */
 async function decode (genericDecoder, buf) {
-  return Promise.resolve({
+  return {
     value: await getU32(buf, 0) === 1,
     length: 4
-  })
+  }
 }
 
 module.exports = {

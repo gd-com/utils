@@ -1,4 +1,4 @@
-function putString (value, buffer = null) {
+async function putString (value, buffer = null) {
   let len = Buffer.byteLength(value)
   let pad = len % 4 === 0 ? 0 : 4 - len % 4
   let newBuffer = Buffer.allocUnsafe(4 + len + pad)
@@ -14,10 +14,9 @@ function putString (value, buffer = null) {
   }
 
   if (buffer != null) {
-    return Promise.resolve(Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length))
-  } else {
-    return Promise.resolve(newBuffer)
+    return Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length)
   }
+  return newBuffer
 }
 
 module.exports = putString

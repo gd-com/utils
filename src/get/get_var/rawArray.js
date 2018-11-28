@@ -10,10 +10,10 @@ const getU32 = require('../get_u32')
 async function decode (genericDecoder, buf) {
   const bufLength = await getU32(buf, 0)
 
-  return Promise.resolve({
+  return {
     value: buf.slice(4, bufLength + 4),
     length: bufLength + 4 + 4 // type +  length
-  })
+  }
 }
 
 module.exports = {

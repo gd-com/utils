@@ -24,7 +24,7 @@ async function decode (genericDecoder, buf, flag) {
       length: 4
     }
   }
-  return Promise.resolve(result)
+  return result
 }
 
 module.exports = {
