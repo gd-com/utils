@@ -1,6 +1,5 @@
 const { INTEGER } = require('../../constants')
-const get32 = require('../get_32')
-const get64 = require('../get_64')
+const Long = require('long')
 
 /**
  * Decode integer
@@ -13,12 +12,12 @@ async function decode (genericDecoder, buf, flag = 0) {
   let result = null
   if (flag === 1) {
     result = {
-      value: await get64(buf, 0),
+      value: Long.fromBytesLE(buf.slice(0)).toNumber(),
       length: 8
     }
   } else {
     result = {
-      value: await get32(buf, 0),
+      value: buf.readInt32LE(0),
       length: 4
     }
   }

@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const get16 = require('../get_16')
 
 const files = fs.readdirSync(__dirname)
 
@@ -22,12 +21,13 @@ const decoderList = files.reduce((decoders, filename) => {
 /**
  * Decode data
  * @param buffer
+ * @param offset
  * @returns {*}
  */
-async function decode (buffer) {
-  const type = await get16(buffer, 0)
-  const flag = await get16(buffer, 2)
-  const data = buffer.slice(4)
+async function decode (buffer, offset = 0) {
+  const type = buffer.readInt16LE(offset)
+  const flag = buffer.readInt16LE(offset + 2)
+  const data = buffer.slice(offset + 4)
 
   if (decoderList[type] == null) {
     throw new Error(`Decode buffer error: Invalid type ${type}`)
@@ -36,4 +36,4 @@ async function decode (buffer) {
   return decoderList[type](decode, data, flag)
 }
 
-module.exports = (buf) => decode(buf).then((data) => data.value)
+module.exports = (buf) => decode(buf).then((data) => ({ value: data.value, length: data.length + 4 })) // +4 cause we don't export type length

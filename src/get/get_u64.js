@@ -1,7 +1,10 @@
 const Long = require('long')
 
 async function getU64 (buffer, offset = 0) {
-  return Long.fromBytesLE(buffer.slice(offset), true).toNumber()
+  return {
+    value: Long.fromBytesLE(buffer.slice(offset), true).toString(),
+    length: 8
+  }
 }
 
 module.exports = getU64

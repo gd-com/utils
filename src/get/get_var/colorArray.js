@@ -1,6 +1,5 @@
 const { COLOR_ARRAY } = require('../../constants')
 const color = require('./color')
-const getU32 = require('../get_u32')
 
 /**
  * Decode colorArray
@@ -10,7 +9,7 @@ const getU32 = require('../get_u32')
  * @returns {Object}
  */
 async function decode (genericDecoder, buf, flag) {
-  const nbEntries = await getU32(buf, 0)
+  const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
   let data = {

@@ -13,16 +13,104 @@ Written with this [api](http://docs.godotengine.org/en/latest/tutorials/misc/bin
 
 `npm install --save @gd-com/utils`
 
+### GdBuffer
 
-### encode and decode
+
 
 ```javascript
-var gdCom = require('@gd-com/utils')
+var gdCom = require('@gd-com/utils') // var { GdBuffer } = require('@gd-com/utils')
 var wanted = 'test'
 
-gdCom.put_var(wanted).then((encoded) => {
-  gdCom.get_var(encoded).then((decoded) => {
-    console.log(decoded)
+const buff = new gdCom.GdBuffer()
+
+await buff.putVar(wanted)
+
+const recieved = await buff.getVar()
+
+console.log(recieved === wanted) // is true
+
+// buffer is empty !
+
+```
+
+#### - get
+| Method | Return |
+|-------------------------------|------------------------------|
+| new GdBuffer() | GdBuffer Object |
+| new GdBuffer(buffer) | GdBuffer Object with initial buffer data|
+|-------------------------------|------------------------------|
+| getVar() | Object |
+| get8() | Object  |
+| get16() | Object  |
+| get32() | Object  |
+| get64() | Object  |
+| getU8() | Object  |
+| getU16() | Object  |
+| getU32() | Object  |
+| getU64() | Object  |
+| getFloat() | Object  |
+| getDouble() | Object  |
+| getString() | Object  |
+|-------------------------------|------------------------------|
+| putVar(value) | void |
+| put8(value) | void |
+| put16(value) | void |
+| put32(value) | void |
+| put64(value) | void |
+| putU8(value) | void |
+| putU16(value) | void |
+| putU32(value) | void |
+| putU64(value) | void |
+| putFloat(value) | void |
+| putDouble(value) | void |
+| putString(value) | void |
+|-------------------------------|------------------------------|
+| getBuffer() | Buffer |
+
+### Encode and Decode
+
+Use GdBuffer is recommanded !
+
+#### - get
+| Method | Return |
+|-------------------------------|------------------------------|
+| getVar(buffer, offset = 0) | Object {   value,   length } |
+| get8(buffer, offset = 0) | Object {   value,   length } |
+| get16(buffer, offset = 0) | Object {   value,   length } |
+| get32(buffer, offset = 0) | Object {   value,   length } |
+| get64(buffer, offset = 0) | Object {   value,   length } |
+| getU8(buffer, offset = 0) | Object {   value,   length } |
+| getU16(buffer, offset = 0) | Object {   value,   length } |
+| getU32(buffer, offset = 0) | Object {   value,   length } |
+| getU64(buffer, offset = 0) | Object {   value,   length } |
+| getFloat(buffer, offset = 0) | Object {   value,   length } |
+| getDouble(buffer, offset = 0) | Object {   value,   length } |
+| getString(buffer, offset = 0) | Object {   value,   length } |
+
+#### - put
+| Method | Return |
+|-------------------------------|------------------------------|
+| putVar(value, buffer = null) | Buffer |
+| put8(value, buffer = null) | Buffer |
+| put16(value, buffer = null) | Buffer |
+| put32(value, buffer = null) | Buffer |
+| put64(value, buffer = null) | Buffer |
+| putU8(value, buffer = null) | Buffer |
+| putU16(value, buffer = null) | Buffer |
+| putU32(value, buffer = null) | Buffer |
+| putU64(value, buffer = null) | Buffer |
+| putFloat(value, buffer = null) | Buffer |
+| putDouble(value, buffer = null) | Buffer |
+| putString(value, buffer = null) | Buffer |
+
+Usage example :
+```javascript
+var gdCom = require('@gd-com/utils') // var { putVar, getVar } = require('@gd-com/utils')
+var wanted = 'test'
+
+gdCom.putVar(wanted).then((encoded) => {
+  gdCom.getVar(encoded).then((decoded) => {
+    console.log(decoded.value)
   })
 })
 ```

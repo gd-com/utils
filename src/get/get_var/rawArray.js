@@ -1,6 +1,4 @@
 const { RAW_ARRAY } = require('../../constants')
-const getU32 = require('../get_u32')
-
 /**
  * Decode null
  * @param genericDecoder
@@ -8,7 +6,7 @@ const getU32 = require('../get_u32')
  * @returns {Object}
  */
 async function decode (genericDecoder, buf) {
-  const bufLength = await getU32(buf, 0)
+  const bufLength = buf.readUInt32LE(0)
 
   return {
     value: buf.slice(4, bufLength + 4),

@@ -1,5 +1,4 @@
 const { VECTOR3 } = require('../../constants')
-const getFloat = require('../get_float')
 
 /**
  * Decode Vector3
@@ -10,9 +9,9 @@ const getFloat = require('../get_float')
 async function decode (genericDecoder, buf) {
   return {
     value: {
-      x: await getFloat(buf, 0),
-      y: await getFloat(buf, 4),
-      z: await getFloat(buf, 8)
+      x: buf.readFloatLE(0),
+      y: buf.readFloatLE(4),
+      z: buf.readFloatLE(8)
     },
     length: 12
   }

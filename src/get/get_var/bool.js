@@ -1,5 +1,4 @@
 const { BOOL } = require('../../constants')
-const getU32 = require('../get_u32')
 
 /**
  * Decode boolean
@@ -9,7 +8,7 @@ const getU32 = require('../get_u32')
  */
 async function decode (genericDecoder, buf) {
   return {
-    value: await getU32(buf, 0) === 1,
+    value: buf.readUInt32LE(0) === 1,
     length: 4
   }
 }

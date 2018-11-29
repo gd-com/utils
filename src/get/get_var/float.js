@@ -1,6 +1,4 @@
 const { FLOAT } = require('../../constants')
-const getFloat = require('../get_float')
-const getDouble = require('../get_double')
 
 /**
  * Decode float
@@ -15,12 +13,12 @@ async function decode (genericDecoder, buf, flag) {
   // but sometimes can be float if double is not necessary
   if (flag === 1) {
     result = {
-      value: await getDouble(buf, 0),
+      value: buf.readDoubleLE(0),
       length: 8
     }
   } else {
     result = {
-      value: await getFloat(buf, 0),
+      value: buf.readFloatLE(0),
       length: 4
     }
   }

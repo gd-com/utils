@@ -1,5 +1,8 @@
 async function get32 (buffer, offset = 0) {
-  return buffer.readInt32LE(offset)
+  return {
+    value: buffer.readInt32LE(offset),
+    length: 4
+  }
 }
 
 module.exports = get32

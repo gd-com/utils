@@ -1,5 +1,4 @@
 const { DICTIONARY } = require('../../constants')
-const getU32 = require('../get_u32')
 
 /**
  * Decode Dictionnary
@@ -8,8 +7,8 @@ const getU32 = require('../get_u32')
  * @returns {Object}
  */
 async function decode (genericDecoder, buf) {
-  const nbEntries = await getU32(buf, 0) & 0x7FFFFFFF
-  // const shared = !!getU32(buf, 0) & 0x80000000
+  const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
+  // const shared = !!buf.readUInt32LE(0) & 0x80000000
 
   let data = {
     dictionary: {},

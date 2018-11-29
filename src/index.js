@@ -30,34 +30,151 @@ const putFloat = require('./put/put_float')
 const putDouble = require('./put/put_double')
 const putString = require('./put/put_string')
 
+class GdBuffer {
+  constructor (buffer = null) {
+    this.buffer = buffer
+    this.cursor = 0
+  }
+
+  async _internalGet (method) {
+    let result = await method(this.buffer.slice(this.cursor))
+    this.cursor += result.length
+    await this._internalResetBuffer()
+    return result.value
+  }
+
+  async _internalResetBuffer () {
+    if (this.buffer && this.buffer.length === this.cursor) {
+      this.buffer = null
+      this.cursor = 0
+    }
+  }
+
+  async putVar (variant) {
+    this.buffer = await putVar(variant, this.buffer)
+  }
+
+  async put8 (variant) {
+    this.buffer = await put8(variant, this.buffer)
+  }
+
+  async put16 (variant) {
+    this.buffer = await put16(variant, this.buffer)
+  }
+
+  async put32 (variant) {
+    this.buffer = await put32(variant, this.buffer)
+  }
+
+  async put64 (variant) {
+    this.buffer = await put64(variant, this.buffer)
+  }
+
+  async putU8 (variant) {
+    this.buffer = await putU8(variant, this.buffer)
+  }
+
+  async putU16 (variant) {
+    this.buffer = await putU16(variant, this.buffer)
+  }
+
+  async putU32 (variant) {
+    this.buffer = await putU32(variant, this.buffer)
+  }
+
+  async putU64 (variant) {
+    this.buffer = await putU64(variant, this.buffer)
+  }
+
+  async putFloat (variant) {
+    this.buffer = await putFloat(variant, this.buffer)
+  }
+
+  async putDouble (variant) {
+    this.buffer = await putDouble(variant, this.buffer)
+  }
+
+  async putString (variant) {
+    this.buffer = await putString(variant, this.buffer)
+  }
+
+  async getVar () {
+    return this._internalGet(getVar)
+  }
+
+  async get8 () {
+    return this._internalGet(get8)
+  }
+
+  async get16 () {
+    return this._internalGet(get16)
+  }
+
+  async get32 () {
+    return this._internalGet(get32)
+  }
+
+  async get64 () {
+    return this._internalGet(get64)
+  }
+
+  async getU8 () {
+    return this._internalGet(getU8)
+  }
+
+  async getU16 () {
+    return this._internalGet(getU16)
+  }
+
+  async getU32 () {
+    return this._internalGet(getU32)
+  }
+
+  async getU64 () {
+    return this._internalGet(getU64)
+  }
+
+  async getFloat () {
+    return this._internalGet(getFloat)
+  }
+
+  async getDouble () {
+    return this._internalGet(getDouble)
+  }
+
+  async getString () {
+    return this._internalGet(getString)
+  }
+
+  getBuffer () {
+    return this.buffer
+  }
+}
+
 module.exports = {
-  get8: get8.bind(get8),
-  get16: get16.bind(get16),
-  get32: get32.bind(get32),
-  get64: get64.bind(get64),
-
-  getU8: getU8.bind(getU8),
-  getU16: getU16.bind(getU16),
-  getU32: getU32.bind(getU32),
-  getU64: getU64.bind(getU64),
-
-  getFloat: getFloat.bind(getFloat),
-  getDouble: getDouble.bind(getDouble),
-  getString: getString.bind(getString),
-  getVar: getVar.bind(getVar),
-
-  put8: put8.bind(put8),
-  put16: put16.bind(put16),
-  put32: put32.bind(put32),
-  put64: put64.bind(put64),
-
-  putU8: putU8.bind(putU8),
-  putU16: putU16.bind(putU16),
-  putU32: putU32.bind(putU32),
-  putU64: putU64.bind(putU64),
-
-  putFloat: putFloat.bind(putFloat),
-  putDouble: putDouble.bind(putDouble),
-  putString: putString.bind(putString),
-  putVar: putVar.bind(putVar)
+  GdBuffer,
+  getVar,
+  get8,
+  get16,
+  get32,
+  get64,
+  getU8,
+  getU16,
+  getU32,
+  getU64,
+  getFloat,
+  getDouble,
+  getString,
+  putVar,
+  put8,
+  put16,
+  put32,
+  put64,
+  putU8,
+  putU16,
+  putU32,
+  putU64,
+  putFloat,
+  putDouble,
+  putString
 }

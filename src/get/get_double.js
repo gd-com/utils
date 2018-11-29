@@ -1,5 +1,8 @@
 async function getDouble (buffer, offset = 0) {
-  return buffer.readDoubleLE(offset)
+  return {
+    value: buffer.readDoubleLE(offset),
+    length: 8
+  }
 }
 
 module.exports = getDouble

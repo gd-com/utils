@@ -1,10 +1,41 @@
 const chai = require('chai')
 const Long = require('long')
-const gdCom = require('../src')
 const dataFile = require('./data-01.json')
 const dataDeepFile = require('./data-02.json')
 
 const expect = chai.expect
+
+const getVar = require('../src/get/get_var')
+
+const get8 = require('../src/get/get_8')
+const get16 = require('../src/get/get_16')
+const get32 = require('../src/get/get_32')
+const get64 = require('../src/get/get_64')
+
+const getU8 = require('../src/get/get_u8')
+const getU16 = require('../src/get/get_u16')
+const getU32 = require('../src/get/get_u32')
+const getU64 = require('../src/get/get_u64')
+
+const getFloat = require('../src/get/get_float')
+const getDouble = require('../src/get/get_double')
+const getString = require('../src/get/get_string')
+
+const putVar = require('../src/put/put_var')
+
+const put8 = require('../src/put/put_8')
+const put16 = require('../src/put/put_16')
+const put32 = require('../src/put/put_32')
+const put64 = require('../src/put/put_64')
+
+const putU8 = require('../src/put/put_u8')
+const putU16 = require('../src/put/put_u16')
+const putU32 = require('../src/put/put_u32')
+const putU64 = require('../src/put/put_u64')
+
+const putFloat = require('../src/put/put_float')
+const putDouble = require('../src/put/put_double')
+const putString = require('../src/put/put_string')
 
 let data = {
   Null: [ null ],
@@ -32,13 +63,13 @@ describe('gd-com binary serializer', () => {
 
       return dataType.reduce((promise, value) => {
         return promise
-          .then(() => gdCom.putVar(value))
-          .then((encoded) => gdCom.getVar(encoded))
+          .then(() => putVar(value))
+          .then((encoded) => getVar(encoded))
           .then((decoded) => {
             if (/Float/i.test(objecType)) {
-              expect(decoded).to.be.closeTo(value, 0.00001)
+              expect(decoded.value).to.be.closeTo(value, 0.00001)
             } else {
-              expect(decoded).to.deep.equal(value)
+              expect(decoded.value).to.deep.equal(value)
             }
           })
       }, Promise.resolve())
@@ -50,10 +81,10 @@ describe('gd-com binary serializer', () => {
     const values = [-128, 127, 10, -10]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put8(value))
-        .then((encoded) => gdCom.get8(encoded))
+        .then(() => put8(value))
+        .then((encoded) => get8(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(value)
         })
     }, Promise.resolve())
   })
@@ -62,10 +93,10 @@ describe('gd-com binary serializer', () => {
     const values = [-32768, 32767, 10, -10]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put16(value))
-        .then((encoded) => gdCom.get16(encoded))
+        .then(() => put16(value))
+        .then((encoded) => get16(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(value)
         })
     }, Promise.resolve())
   })
@@ -74,22 +105,22 @@ describe('gd-com binary serializer', () => {
     const values = [-2147483648, 2147483647, 10, -10]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put32(value))
-        .then((encoded) => gdCom.get32(encoded))
+        .then(() => put32(value))
+        .then((encoded) => get32(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(value)
         })
     }, Promise.resolve())
   })
 
   it(`should encode/decode int 64`, () => {
-    const values = [Long.MAX_VALUE.toNumber(), Long.MIN_VALUE.toNumber(), 10, 518]
+    const values = [Long.MAX_VALUE.toString(), Long.MIN_VALUE.toString(), '10', '518']
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.put64(value))
-        .then((encoded) => gdCom.get64(encoded))
+        .then(() => put64(value))
+        .then((encoded) => get64(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.be.equal(value)
         })
     }, Promise.resolve())
   })
@@ -99,10 +130,10 @@ describe('gd-com binary serializer', () => {
     const values = [0, 255, 10, 105]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.putU8(value))
-        .then((encoded) => gdCom.getU8(encoded))
+        .then(() => putU8(value))
+        .then((encoded) => getU8(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(value)
         })
     }, Promise.resolve())
   })
@@ -111,10 +142,10 @@ describe('gd-com binary serializer', () => {
     const values = [0, 65535, 10, 518]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.putU16(value))
-        .then((encoded) => gdCom.getU16(encoded))
+        .then(() => putU16(value))
+        .then((encoded) => getU16(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(value)
         })
     }, Promise.resolve())
   })
@@ -123,22 +154,22 @@ describe('gd-com binary serializer', () => {
     const values = [0, 4294967295, 10, 518]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.putU32(value))
-        .then((encoded) => gdCom.getU32(encoded))
+        .then(() => putU32(value))
+        .then((encoded) => getU32(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(value)
         })
     }, Promise.resolve())
   })
 
   it(`should encode/decode uint 64`, () => {
-    const values = [Long.MAX_UNSIGNED_VALUE.toNumber(), 0, 10, 518]
+    const values = [Long.MAX_UNSIGNED_VALUE.toString(), '0', '10', '518']
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.putU64(value))
-        .then((encoded) => gdCom.getU64(encoded))
+        .then(() => putU64(value))
+        .then((encoded) => getU64(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.be.equal(value)
         })
     }, Promise.resolve())
   })
@@ -148,10 +179,10 @@ describe('gd-com binary serializer', () => {
     const values = ['hello', 'world', 'hello world', 'hello world hello world']
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.putString(value))
-        .then((encoded) => gdCom.getString(encoded))
+        .then(() => putString(value))
+        .then((encoded) => getString(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(value)
         })
     }, Promise.resolve())
   })
@@ -161,10 +192,10 @@ describe('gd-com binary serializer', () => {
     const values = [10.520, -10.520]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.putFloat(value))
-        .then((encoded) => gdCom.getFloat(encoded))
+        .then(() => putFloat(value))
+        .then((encoded) => getFloat(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.closeTo(value, 0.00001)
+          expect(decoded.value).to.deep.closeTo(value, 0.00001)
         })
     }, Promise.resolve())
   })
@@ -174,10 +205,10 @@ describe('gd-com binary serializer', () => {
     const values = [10.520, -10.520]
     return values.reduce((promise, value) => {
       return promise
-        .then(() => gdCom.putDouble(value))
-        .then((encoded) => gdCom.getDouble(encoded))
+        .then(() => putDouble(value))
+        .then((encoded) => getDouble(encoded))
         .then((decoded) => {
-          expect(decoded).to.deep.closeTo(value, 0.00001)
+          expect(decoded.value).to.deep.closeTo(value, 0.00001)
         })
     }, Promise.resolve())
   })

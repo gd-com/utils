@@ -1,5 +1,8 @@
 async function getFloat (buffer, offset = 0) {
-  return buffer.readFloatLE(offset)
+  return {
+    value: buffer.readFloatLE(offset),
+    length: 4
+  }
 }
 
 module.exports = getFloat

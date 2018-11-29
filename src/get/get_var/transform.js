@@ -1,5 +1,4 @@
 const { TRANSFORM } = require('../../constants')
-const getFloat = require('../get_float')
 
 /**
  * Decode Transform
@@ -11,21 +10,21 @@ async function decode (genericDecoder, buf) {
   return {
     value: [
       [
-        await getFloat(buf, 0),
-        await getFloat(buf, 4),
-        await getFloat(buf, 8)
+        buf.readFloatLE(0),
+        buf.readFloatLE(4),
+        buf.readFloatLE(8)
       ], [
-        await getFloat(buf, 12),
-        await getFloat(buf, 16),
-        await getFloat(buf, 20)
+        buf.readFloatLE(12),
+        buf.readFloatLE(16),
+        buf.readFloatLE(20)
       ], [
-        await getFloat(buf, 24),
-        await getFloat(buf, 28),
-        await getFloat(buf, 32)
+        buf.readFloatLE(24),
+        buf.readFloatLE(28),
+        buf.readFloatLE(32)
       ], [
-        await getFloat(buf, 36),
-        await getFloat(buf, 40),
-        await getFloat(buf, 44)
+        buf.readFloatLE(36),
+        buf.readFloatLE(40),
+        buf.readFloatLE(44)
       ]
     ],
     length: 48

@@ -1,5 +1,4 @@
 const { COLOR } = require('../../constants')
-const getFloat = require('../get_float')
 
 /**
  * Decode color
@@ -10,10 +9,10 @@ const getFloat = require('../get_float')
 async function decode (genericDecoder, buf) {
   return {
     value: {
-      r: await getFloat(buf, 0),
-      g: await getFloat(buf, 4),
-      b: await getFloat(buf, 8),
-      a: await getFloat(buf, 12)
+      r: buf.readFloatLE(0),
+      g: buf.readFloatLE(4),
+      b: buf.readFloatLE(8),
+      a: buf.readFloatLE(12)
     },
     length: 16
   }

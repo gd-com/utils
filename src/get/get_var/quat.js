@@ -1,5 +1,4 @@
 const { QUAT } = require('../../constants')
-const getFloat = require('../get_float')
 
 /**
  * Decode Quaternion
@@ -11,12 +10,12 @@ async function decode (genericDecoder, buf) {
   return {
     value: {
       coordinate: {
-        x: await getFloat(buf, 0),
-        y: await getFloat(buf, 4),
-        z: await getFloat(buf, 8)
+        x: buf.readFloatLE(0),
+        y: buf.readFloatLE(4),
+        z: buf.readFloatLE(8)
       },
       size: {
-        w: await getFloat(buf, 12)
+        w: buf.readFloatLE(12)
       }
     },
     length: 16

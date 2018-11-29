@@ -1,5 +1,4 @@
 const { AABB } = require('../../constants')
-const getFloat = require('../get_float')
 
 /**
  * Decode AABB
@@ -11,21 +10,22 @@ async function decode (genericDecoder, buf) {
   return {
     value: [
       [
-        await getFloat(buf, 0),
-        await getFloat(buf, 4),
-        await getFloat(buf, 8)
+        buf.readFloatLE(buf, 0),
+        buf.readFloatLE(buf, 4),
+        buf.readFloatLE(buf, 8)
       ], [
-        await getFloat(buf, 12),
-        await getFloat(buf, 16),
-        await getFloat(buf, 20)
+
+        buf.readFloatLE(buf, 12),
+        buf.readFloatLE(buf, 16),
+        buf.readFloatLE(buf, 20)
       ], [
-        await getFloat(buf, 24),
-        await getFloat(buf, 28),
-        await getFloat(buf, 32)
+        buf.readFloatLE(buf, 24),
+        buf.readFloatLE(buf, 28),
+        buf.readFloatLE(buf, 32)
       ], [
-        await getFloat(buf, 36),
-        await getFloat(buf, 40),
-        await getFloat(buf, 44)
+        buf.readFloatLE(buf, 36),
+        buf.readFloatLE(buf, 40),
+        buf.readFloatLE(buf, 44)
       ]
     ],
     length: 48

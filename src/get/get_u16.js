@@ -1,5 +1,8 @@
 async function getU16 (buffer, offset = 0) {
-  return buffer.readUInt16LE(offset)
+  return {
+    value: buffer.readUInt16LE(offset),
+    length: 2
+  }
 }
 
 module.exports = getU16

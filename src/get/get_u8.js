@@ -1,5 +1,8 @@
 async function getU8 (buffer, offset = 0) {
-  return buffer.readUInt8(offset)
+  return {
+    value: buffer.readUInt8(offset),
+    length: 1
+  }
 }
 
 module.exports = getU8

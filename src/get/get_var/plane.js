@@ -1,5 +1,4 @@
 const { PLANE } = require('../../constants')
-const getFloat = require('../get_float')
 
 /**
  * Decode Plane
@@ -10,10 +9,10 @@ const getFloat = require('../get_float')
 async function decode (genericDecoder, buf) {
   return {
     value: {
-      x: await getFloat(buf, 0),
-      y: await getFloat(buf, 4),
-      z: await getFloat(buf, 8),
-      distance: await getFloat(buf, 12)
+      x: buf.readFloatLE(0),
+      y: buf.readFloatLE(4),
+      z: buf.readFloatLE(8),
+      distance: buf.readFloatLE(12)
     },
     length: 16
   }
