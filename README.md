@@ -90,18 +90,18 @@ Use GdBuffer is recommanded !
 #### - put
 | Method | Return |
 |-------------------------------|------------------------------|
-| putVar(value, buffer = null) | Buffer |
-| put8(value, buffer = null) | Buffer |
-| put16(value, buffer = null) | Buffer |
-| put32(value, buffer = null) | Buffer |
-| put64(value, buffer = null) | Buffer |
-| putU8(value, buffer = null) | Buffer |
-| putU16(value, buffer = null) | Buffer |
-| putU32(value, buffer = null) | Buffer |
-| putU64(value, buffer = null) | Buffer |
-| putFloat(value, buffer = null) | Buffer |
-| putDouble(value, buffer = null) | Buffer |
-| putString(value, buffer = null) | Buffer |
+| putVar(value) | Buffer |
+| put8(value) | Buffer |
+| put16(value) | Buffer |
+| put32(value) | Buffer |
+| put64(value) | Buffer |
+| putU8(value) | Buffer |
+| putU16(value) | Buffer |
+| putU32(value) | Buffer |
+| putU64(value) | Buffer |
+| putFloat(value) | Buffer |
+| putDouble(value) | Buffer |
+| putString(value) | Buffer |
 
 Usage example :
 ```javascript

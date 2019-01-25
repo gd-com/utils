@@ -1,4 +1,4 @@
-async function putString (value, buffer = null) {
+async function putString (value) {
   let len = Buffer.byteLength(value)
   let pad = len % 4 === 0 ? 0 : 4 - len % 4
   let newBuffer = Buffer.allocUnsafe(4 + len + pad)
@@ -11,10 +11,6 @@ async function putString (value, buffer = null) {
     for (let i = 0; i < pad; i++) {
       newBuffer.write('\0', i + pos)
     }
-  }
-
-  if (buffer != null) {
-    return Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length)
   }
   return newBuffer
 }

@@ -1,12 +1,7 @@
 const Long = require('long')
 
-async function put64 (value, buffer = null) {
-  const newBuffer = Buffer.from(Long.fromString(value.toString()).toBytesLE())
-
-  if (buffer != null) {
-    return Buffer.concat([buffer, newBuffer], buffer.length + newBuffer.length)
-  }
-  return newBuffer
+async function put64 (value) {
+  return Buffer.from(Long.fromString(value.toString()).toBytesLE())
 }
 
 module.exports = put64

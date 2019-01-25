@@ -20,11 +20,11 @@ async function encode (value) {
   //   })
   // }
 
-  let buf = await putU16(FLOAT)
-  buf = await putU16(0, buf) // flag  0 for float
-  buf = await putFloat(value, buf)
+  let type = await putU16(FLOAT)
+  let flag = await putU16(0) // flag  0 for float
+  let data = await putFloat(value)
 
-  return buf
+  return Buffer.concat([type, flag, data])
 }
 
 module.exports = {

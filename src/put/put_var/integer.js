@@ -8,13 +8,13 @@ const put32 = require('../put_32')
  * @returns {{value: Buffer, length: Number}}
  */
 async function encode (value) {
-  let buf = await putU16(INTEGER)
-  buf = await putU16(0, buf)
-  buf = await put32(value, buf)
+  let type = await putU16(INTEGER)
+  let flag = await putU16(0)
+  let data = await put32(value)
 
   // TODO x64
 
-  return buf
+  return Buffer.concat([type, flag, data])
 }
 
 module.exports = {
