@@ -182,10 +182,10 @@ describe('gd-com binary serializer', () => {
         })
     }, Promise.resolve())
   })
-})
 
-describe('gd-com GdBuffer', () => {
-  it(`should encode/decode with`, () => {
+  // gdBuffer Test
+
+  it(`gdBuffer should encode/decode`, () => {
     let buffer = new GdCom.GdBuffer()
 
     const values = ['test', 'test1', 'test2']
@@ -201,7 +201,7 @@ describe('gd-com GdBuffer', () => {
     }, Promise.resolve())
   })
 
-  it(`should encode/decode `, async () => {
+  it(`gdBuffer should encode/decode with buffer length`, async () => {
     let buffer = new GdCom.GdBuffer()
 
     await buffer.putVar('test')
@@ -216,5 +216,74 @@ describe('gd-com GdBuffer', () => {
     expect(test).to.be.equal('test')
 
     expect(buffer.getBuffer().length).to.be.equals(12)
+  })
+
+  it(`should encode/decode string and be empty`, () => {
+    let buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
+
+    const values = ['test', 'test1', 'test2']
+
+    return values.reduce((promise, value) => {
+      return promise
+        .then(() => buffer.putVar(value))
+        .then(() => buffer.getVar())
+        .then((test) => {
+          expect(test).to.be.equal(value)
+          expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
+        })
+    }, Promise.resolve())
+  })
+
+  it(`should encode/decode integer and be empty`, () => {
+    let buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
+
+    const values = [-100, 100, 500, 8520]
+
+    return values.reduce((promise, value) => {
+      return promise
+        .then(() => buffer.putVar(value))
+        .then(() => buffer.getVar())
+        .then((test) => {
+          expect(test).to.be.equal(value)
+          expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
+        })
+    }, Promise.resolve())
+  })
+
+  it(`should encode/decode float and be empty`, () => {
+    let buffer = new GdCom.GdBuffer(Buffer.alloc(0))
+
+    const values = [1.5, -1.5, 500.5, 8520, 8520]
+
+    return values.reduce((promise, value) => {
+      return promise
+        .then(() => buffer.putVar(value))
+        .then(() => buffer.getVar())
+        .then((test) => {
+          expect(test).to.be.equal(value)
+          expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
+        })
+    }, Promise.resolve())
+  })
+
+  it(`should encode/decode and contains test4`, async () => {
+    let buffer = new GdCom.GdBuffer(Buffer.alloc(0))
+
+    await buffer.putVar('test1')
+    await buffer.putVar('test2')
+    await buffer.putVar('test3')
+    await buffer.putVar('test4')
+
+    let test = await buffer.getVar()
+    expect(test).to.be.equal('test1')
+    expect(buffer.getBuffer().length).to.be.equals(48)
+
+    test = await buffer.getVar()
+    expect(test).to.be.equal('test2')
+    expect(buffer.getBuffer().length).to.be.equals(32)
+
+    test = await buffer.getVar()
+    expect(test).to.be.equal('test3')
+    expect(buffer.getBuffer().length).to.be.equals(16)
   })
 })

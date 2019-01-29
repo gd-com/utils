@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+* v3.0.0
+  * merge tcp, udp and ws features in @gd-com/utils
+
 * v2.1.3
   * put_var now return only buffer (in promise) 
 
