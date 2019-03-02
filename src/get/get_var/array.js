@@ -6,7 +6,7 @@ const { ARRAY } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-async function decode (genericDecoder, buf) {
+function decode(genericDecoder, buf) {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 
@@ -18,7 +18,7 @@ async function decode (genericDecoder, buf) {
   }
 
   for (let index = 0; index < nbEntries; index++) {
-    const decodedValue = await genericDecoder(data.buffer)
+    const decodedValue = genericDecoder(data.buffer)
     data.array.push(decodedValue.value)
     data.buffer = data.buffer.slice(decodedValue.length + 4)
     data.pos += decodedValue.length + 4

@@ -1,4 +1,4 @@
-async function getFloat (buffer, offset = 0) {
+function getFloat(buffer, offset = 0) {
   return {
     value: buffer.readFloatLE(offset),
     length: 4

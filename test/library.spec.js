@@ -8,11 +8,11 @@ const expect = chai.expect
 const GdCom = require('../src')
 
 let data = {
-  Null: [ null ],
-  Boolean: [ true, false ],
-  Integer: [ 42, -42, 0 ],
-  Float: [ -42.4, 42.45, 0.0, 0.15 ],
-  String: [ 'test', 'test2', 'true', 'false' ],
+  Null: [null],
+  Boolean: [true, false],
+  Integer: [42, -42, 0],
+  Float: [-42.4, 42.45, 0.0, 0.15],
+  String: ['test', 'test2', 'true', 'false'],
   Dictionary: [{
     test2: null,
     true: false,
@@ -21,7 +21,7 @@ let data = {
     dataDeepFile
   }],
   Array: [
-    [ null, true, false, 12, -12, 'test', 'test2' ],
+    [null, true, false, 12, -12, 'test', 'test2'],
     dataFile
   ]
 }
@@ -31,156 +31,121 @@ describe('gd-com binary serializer', () => {
     it(`should encode/decode variant ${objecType}`, () => {
       let dataType = data[objecType]
 
-      return dataType.reduce((promise, value) => {
-        return promise
-          .then(() => GdCom.putVar(value))
-          .then((encoded) => GdCom.getVar(encoded))
-          .then((decoded) => {
-            if (/Float/i.test(objecType)) {
-              expect(decoded.value).to.be.closeTo(value, 0.00001)
-            } else {
-              expect(decoded.value).to.deep.equal(value)
-            }
-          })
-      }, Promise.resolve())
+      dataType.forEach((value) => {
+        var encoded = GdCom.putVar(value);
+        var decoded = GdCom.getVar(encoded);
+
+        if (/Float/i.test(objecType)) {
+          expect(decoded.value).to.be.closeTo(value, 0.00001)
+        } else {
+          expect(decoded.value).to.deep.equal(value)
+        }
+      })
     })
   }
 
   // signed int
   it(`should encode/decode int 8`, () => {
     const values = [-128, 127, 10, -10]
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.put8(value))
-        .then((encoded) => GdCom.get8(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.put8(value);
+      var decoded = GdCom.get8(encoded);
+      expect(decoded.value).to.deep.equal(value)
+    })
   })
 
   it(`should encode/decode int 16`, () => {
     const values = [-32768, 32767, 10, -10]
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.put16(value))
-        .then((encoded) => GdCom.get16(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.put16(value);
+      var decoded = GdCom.get16(encoded);
+      expect(decoded.value).to.deep.equal(value)
+    })
   })
 
   it(`should encode/decode int 32`, () => {
     const values = [-2147483648, 2147483647, 10, -10]
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.put32(value))
-        .then((encoded) => GdCom.get32(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.put32(value);
+      var decoded = GdCom.get32(encoded);
+      expect(decoded.value).to.deep.equal(value)
+    })
   })
 
   it(`should encode/decode int 64`, () => {
     const values = [Long.MAX_VALUE.toString(), Long.MIN_VALUE.toString(), '10', '518']
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.put64(value))
-        .then((encoded) => GdCom.get64(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.be.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.put64(value);
+      var decoded = GdCom.get64(encoded);
+      expect(decoded.value).to.be.equal(value)
+    })
   })
 
   // unsigned int
   it(`should encode/decode uint 8`, () => {
     const values = [0, 255, 10, 105]
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.putU8(value))
-        .then((encoded) => GdCom.getU8(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.putU8(value);
+      var decoded = GdCom.getU8(encoded);
+      expect(decoded.value).to.deep.equal(value)
+    })
   })
 
   it(`should encode/decode uint 16`, () => {
     const values = [0, 65535, 10, 518]
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.putU16(value))
-        .then((encoded) => GdCom.getU16(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.putU16(value);
+      var decoded = GdCom.getU16(encoded);
+      expect(decoded.value).to.deep.equal(value)
+    })
   })
 
   it(`should encode/decode uint 32`, () => {
     const values = [0, 4294967295, 10, 518]
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.putU32(value))
-        .then((encoded) => GdCom.getU32(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.putU32(value);
+      var decoded = GdCom.getU32(encoded);
+      expect(decoded.value).to.deep.equal(value)
+    })
   })
 
   it(`should encode/decode uint 64`, () => {
     const values = [Long.MAX_UNSIGNED_VALUE.toString(), '0', '10', '518']
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.putU64(value))
-        .then((encoded) => GdCom.getU64(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.be.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.putU64(value);
+      var decoded = GdCom.getU64(encoded);
+      expect(decoded.value).to.be.equal(value)
+    })
   })
 
   // string
   it(`should encode/decode string`, () => {
     const values = ['hello', 'world', 'hello world', 'hello world hello world']
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.putString(value))
-        .then((encoded) => GdCom.getString(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.equal(value)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.putString(value);
+      var decoded = GdCom.getString(encoded);
+      expect(decoded.value).to.deep.equal(value)
+    })
   })
 
   // float
   it(`should encode/decode float`, () => {
     const values = [10.520, -10.520]
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.putFloat(value))
-        .then((encoded) => GdCom.getFloat(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.closeTo(value, 0.00001)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.putFloat(value);
+      var decoded = GdCom.getFloat(encoded);
+      expect(decoded.value).to.deep.closeTo(value, 0.00001)
+    })
   })
 
   // double
   it(`should encode/decode double`, () => {
     const values = [10.520, -10.520]
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => GdCom.putDouble(value))
-        .then((encoded) => GdCom.getDouble(encoded))
-        .then((decoded) => {
-          expect(decoded.value).to.deep.closeTo(value, 0.00001)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      var encoded = GdCom.putDouble(value);
+      var decoded = GdCom.getDouble(encoded);
+      expect(decoded.value).to.deep.closeTo(value, 0.00001)
+    })
   })
 
   // gdBuffer Test
@@ -190,29 +155,26 @@ describe('gd-com binary serializer', () => {
 
     const values = ['test', 'test1', 'test2']
 
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => buffer.putVar(value))
-        .then(() => buffer.getVar())
-        .then((test) => {
-          expect(test).to.be.equal(value)
-          expect(buffer.getBuffer().equals(Buffer.alloc(0))).to.be.equals(true)
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      buffer.putVar(value);
+      var test = buffer.getVar();
+      expect(test).to.be.equal(value)
+      expect(buffer.getBuffer().equals(Buffer.alloc(0))).to.be.equals(true)
+    })
   })
 
   it(`gdBuffer should encode/decode with buffer length`, async () => {
     let buffer = new GdCom.GdBuffer()
 
-    await buffer.putVar('test')
-    await buffer.putVar('test')
-    await buffer.putVar('test')
-    await buffer.putVar('test')
-    let test = await buffer.getVar()
+    buffer.putVar('test')
+    buffer.putVar('test')
+    buffer.putVar('test')
+    buffer.putVar('test')
+    let test = buffer.getVar()
     expect(test).to.be.equal('test')
-    test = await buffer.getVar()
+    test = buffer.getVar()
     expect(test).to.be.equal('test')
-    test = await buffer.getVar()
+    test = buffer.getVar()
     expect(test).to.be.equal('test')
 
     expect(buffer.getBuffer().length).to.be.equals(12)
@@ -223,15 +185,12 @@ describe('gd-com binary serializer', () => {
 
     const values = ['test', 'test1', 'test2']
 
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => buffer.putVar(value))
-        .then(() => buffer.getVar())
-        .then((test) => {
-          expect(test).to.be.equal(value)
-          expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      buffer.putVar(value);
+      var test = buffer.getVar()
+      expect(test).to.be.equal(value)
+      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
+    })
   })
 
   it(`should encode/decode integer and be empty`, () => {
@@ -239,15 +198,12 @@ describe('gd-com binary serializer', () => {
 
     const values = [-100, 100, 500, 8520]
 
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => buffer.putVar(value))
-        .then(() => buffer.getVar())
-        .then((test) => {
-          expect(test).to.be.equal(value)
-          expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      buffer.putVar(value);
+      var test = buffer.getVar();
+      expect(test).to.be.equal(value)
+      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
+    })
   })
 
   it(`should encode/decode float and be empty`, () => {
@@ -255,34 +211,31 @@ describe('gd-com binary serializer', () => {
 
     const values = [1.5, -1.5, 500.5, 8520, 8520]
 
-    return values.reduce((promise, value) => {
-      return promise
-        .then(() => buffer.putVar(value))
-        .then(() => buffer.getVar())
-        .then((test) => {
-          expect(test).to.be.equal(value)
-          expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-        })
-    }, Promise.resolve())
+    values.forEach((value) => {
+      buffer.putVar(value);
+      var test = buffer.getVar();
+      expect(test).to.be.equal(value)
+      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
+    })
   })
 
   it(`should encode/decode and contains test4`, async () => {
     let buffer = new GdCom.GdBuffer(Buffer.alloc(0))
 
-    await buffer.putVar('test1')
-    await buffer.putVar('test2')
-    await buffer.putVar('test3')
-    await buffer.putVar('test4')
+    buffer.putVar('test1')
+    buffer.putVar('test2')
+    buffer.putVar('test3')
+    buffer.putVar('test4')
 
-    let test = await buffer.getVar()
+    let test = buffer.getVar()
     expect(test).to.be.equal('test1')
     expect(buffer.getBuffer().length).to.be.equals(48)
 
-    test = await buffer.getVar()
+    test = buffer.getVar()
     expect(test).to.be.equal('test2')
     expect(buffer.getBuffer().length).to.be.equals(32)
 
-    test = await buffer.getVar()
+    test = buffer.getVar()
     expect(test).to.be.equal('test3')
     expect(buffer.getBuffer().length).to.be.equals(16)
   })

@@ -1,6 +1,6 @@
 const Long = require('long')
 
-async function putU64 (value) {
+function putU64(value) {
   return Long.fromNumber(value, true).toBytesLE()
 }
 

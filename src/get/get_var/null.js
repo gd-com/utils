@@ -6,7 +6,7 @@ const { NULL } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-async function decode (genericDecoder, buf) {
+function decode(genericDecoder, buf) {
   return {
     value: null,
     length: 0

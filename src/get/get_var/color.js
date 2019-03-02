@@ -6,7 +6,7 @@ const { COLOR } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-async function decode (genericDecoder, buf) {
+function decode(genericDecoder, buf) {
   return {
     value: {
       r: buf.readFloatLE(0),

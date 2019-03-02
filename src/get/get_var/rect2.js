@@ -6,7 +6,7 @@ const { RECT2 } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-async function decode (genericDecoder, buf) {
+ function decode (genericDecoder, buf) {
   return {
     value: {
       x1: buf.readFloatLE(0),

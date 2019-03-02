@@ -7,10 +7,10 @@ const put32 = require('../put_32')
  * @param value
  * @returns {{value: Buffer, length: Number}}
  */
-async function encode (value) {
-  let type = await putU16(INTEGER)
-  let flag = await putU16(0)
-  let data = await put32(value)
+function encode(value) {
+  let type = putU16(INTEGER)
+  let flag = putU16(0)
+  let data = put32(value)
 
   // TODO x64
 

@@ -8,7 +8,7 @@ const color = require('./color')
  * @param flag
  * @returns {Object}
  */
-async function decode (genericDecoder, buf, flag) {
+function decode(genericDecoder, buf, flag) {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
@@ -19,7 +19,7 @@ async function decode (genericDecoder, buf, flag) {
   }
 
   for (let index = 0; index < nbEntries; index++) {
-    const decodedValue = await color.decode(genericDecoder, data.buffer)
+    const decodedValue = color.decode(genericDecoder, data.buffer)
     data.array.push(decodedValue.value)
     data.buffer = data.buffer.slice(decodedValue.length)
     data.pos += decodedValue.length

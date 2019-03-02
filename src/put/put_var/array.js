@@ -4,7 +4,7 @@ const { ARRAY } = require('../../constants')
  * @param value
  * @returns {{value: Buffer, length: Number}}
  */
-async function encode (value) {
+function encode(value) {
   let len = 8
 
   for (let i in value) {
@@ -32,14 +32,12 @@ async function encode (value) {
 
 module.exports = {
   encode: (prepare, array) => {
-    return array.reduce((promise, item) => {
-      return promise.then((rawData) => {
-        return prepare(item).then((data) => {
-          rawData.push(data)
-          return rawData
-        })
-      })
-    }, Promise.resolve([])).then(encode)
+    var results = array.reduce((rawData, item) => {
+      var data = prepare(item);
+      rawData.push(data);
+      return rawData;
+    }, [])
+    return encode(results);
   },
   type: (typeName, value) => typeName === 'array'
 }

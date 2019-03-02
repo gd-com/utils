@@ -6,7 +6,7 @@ const { DICTIONARY } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-async function decode (genericDecoder, buf) {
+function decode(genericDecoder, buf) {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 
@@ -17,11 +17,11 @@ async function decode (genericDecoder, buf) {
   }
 
   for (let index = 0; index < nbEntries; index++) {
-    const decodedKey = await genericDecoder(data.buffer)
+    const decodedKey = genericDecoder(data.buffer)
     data.pos += decodedKey.length + 4 // 4 type length
     let nextBuffer = data.buffer.slice(decodedKey.length + 4)
 
-    const decodedValue = await genericDecoder(nextBuffer)
+    const decodedValue = genericDecoder(nextBuffer)
     data.pos += decodedValue.length + 4 // 4 type length
     data.dictionary[decodedKey.value] = decodedValue.value
     data.buffer = nextBuffer.slice(decodedValue.length + 4)

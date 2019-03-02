@@ -7,9 +7,9 @@ const putString = require('../put_string')
  * @param value
  * @returns {{value: Buffer, length: Number}}
  */
-async function encode (value) {
-  let type = await putU32(STRING)
-  let data = await putString(value)
+function encode(value) {
+  let type = putU32(STRING)
+  let data = putString(value)
   return Buffer.concat([type, data])
 }
 
