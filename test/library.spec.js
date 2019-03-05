@@ -163,7 +163,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`gdBuffer should encode/decode with buffer length`, async () => {
+  it(`gdBuffer should encode/decode with buffer length`, () => {
     let buffer = new GdCom.GdBuffer()
 
     buffer.putVar('test')
@@ -219,7 +219,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode and contains test4`, async () => {
+  it(`should encode/decode and contains test4`, () => {
     let buffer = new GdCom.GdBuffer(Buffer.alloc(0))
 
     buffer.putVar('test1')

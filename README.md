@@ -26,9 +26,9 @@ var wanted = 'test'
 
 const buff = new gdCom.GdBuffer()
 
-await buff.putVar(wanted)
+buff.putVar(wanted)
 
-const recieved = await buff.getVar()
+const recieved = buff.getVar()
 
 console.log(recieved === wanted) // is true
 
@@ -127,14 +127,14 @@ const { StreamTcp, GdBuffer, addLengthFront } = require('@gd-com/utils')
 
 let server = net.createServer((socket) => {
   const tcpSplit = new StreamTcp()
-  socket.pipe(tcpSplit).on('data', async (data) => {
+  socket.pipe(tcpSplit).on('data', (data) => {
     const packet = new GdBuffer(data)
 
-    const decoded = await packet.getVar()
+    const decoded = packet.getVar()
     console.log('receive :', decoded)
 
     const packetToSend = new GdBuffer()
-    await packetToSend.putVar(Math.random())
+    packetToSend.putVar(Math.random())
 
     // we need to put the packet length on top cause it's tcp
     let toSend = addLengthFront(packetToSend.getBuffer())
