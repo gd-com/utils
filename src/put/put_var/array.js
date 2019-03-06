@@ -32,8 +32,8 @@ function encode (value) {
 
 module.exports = {
   encode: (prepare, array) => {
-    var results = array.reduce((rawData, item) => {
-      var data = prepare(item)
+    const results = array.reduce((rawData, item) => {
+      const data = prepare(item)
       rawData.push(data)
       return rawData
     }, [])

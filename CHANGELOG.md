@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+* v4.0.0
+  * remove async/await thx @phated
+
 * v3.0.0
   * merge tcp, udp and ws features in @gd-com/utils
 

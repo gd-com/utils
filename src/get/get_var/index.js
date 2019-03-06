@@ -37,6 +37,6 @@ function decode (buffer, offset = 0) {
 }
 
 module.exports = (buf) => {
-  var data = decode(buf)
+  const data = decode(buf)
   return { value: data.value, length: data.length + 4 } // +4 cause we don't export type length
 }

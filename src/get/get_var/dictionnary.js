@@ -19,7 +19,7 @@ function decode (genericDecoder, buf) {
   for (let index = 0; index < nbEntries; index++) {
     const decodedKey = genericDecoder(data.buffer)
     data.pos += decodedKey.length + 4 // 4 type length
-    let nextBuffer = data.buffer.slice(decodedKey.length + 4)
+    const nextBuffer = data.buffer.slice(decodedKey.length + 4)
 
     const decodedValue = genericDecoder(nextBuffer)
     data.pos += decodedValue.length + 4 // 4 type length
