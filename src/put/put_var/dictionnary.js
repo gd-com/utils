@@ -5,7 +5,7 @@ const { DICTIONARY } = require('../../constants')
  * @param value
  * @returns {{value: Buffer, length: Number}}
  */
-function encode(value) {
+function encode (value) {
   let len = 8
 
   for (let i in value) {
@@ -33,12 +33,12 @@ function encode(value) {
 module.exports = {
   encode: (prepare, dictionary) => {
     var results = Object.keys(dictionary).reduce((rawData, key) => {
-      var rawKey = prepare(key);
-      var rawValue = prepare(dictionary[key]);
-      rawData.push(rawKey, rawValue);
-      return rawData;
+      var rawKey = prepare(key)
+      var rawValue = prepare(dictionary[key])
+      rawData.push(rawKey, rawValue)
+      return rawData
     }, [])
-    return encode(results);
+    return encode(results)
   },
   type: (typeName, value) => typeName === 'object'
 }

@@ -32,8 +32,8 @@ describe('gd-com binary serializer', () => {
       let dataType = data[objecType]
 
       dataType.forEach((value) => {
-        var encoded = GdCom.putVar(value);
-        var decoded = GdCom.getVar(encoded);
+        var encoded = GdCom.putVar(value)
+        var decoded = GdCom.getVar(encoded)
 
         if (/Float/i.test(objecType)) {
           expect(decoded.value).to.be.closeTo(value, 0.00001)
@@ -48,8 +48,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode int 8`, () => {
     const values = [-128, 127, 10, -10]
     values.forEach((value) => {
-      var encoded = GdCom.put8(value);
-      var decoded = GdCom.get8(encoded);
+      var encoded = GdCom.put8(value)
+      var decoded = GdCom.get8(encoded)
       expect(decoded.value).to.deep.equal(value)
     })
   })
@@ -57,8 +57,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode int 16`, () => {
     const values = [-32768, 32767, 10, -10]
     values.forEach((value) => {
-      var encoded = GdCom.put16(value);
-      var decoded = GdCom.get16(encoded);
+      var encoded = GdCom.put16(value)
+      var decoded = GdCom.get16(encoded)
       expect(decoded.value).to.deep.equal(value)
     })
   })
@@ -66,8 +66,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode int 32`, () => {
     const values = [-2147483648, 2147483647, 10, -10]
     values.forEach((value) => {
-      var encoded = GdCom.put32(value);
-      var decoded = GdCom.get32(encoded);
+      var encoded = GdCom.put32(value)
+      var decoded = GdCom.get32(encoded)
       expect(decoded.value).to.deep.equal(value)
     })
   })
@@ -75,8 +75,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode int 64`, () => {
     const values = [Long.MAX_VALUE.toString(), Long.MIN_VALUE.toString(), '10', '518']
     values.forEach((value) => {
-      var encoded = GdCom.put64(value);
-      var decoded = GdCom.get64(encoded);
+      var encoded = GdCom.put64(value)
+      var decoded = GdCom.get64(encoded)
       expect(decoded.value).to.be.equal(value)
     })
   })
@@ -85,8 +85,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode uint 8`, () => {
     const values = [0, 255, 10, 105]
     values.forEach((value) => {
-      var encoded = GdCom.putU8(value);
-      var decoded = GdCom.getU8(encoded);
+      var encoded = GdCom.putU8(value)
+      var decoded = GdCom.getU8(encoded)
       expect(decoded.value).to.deep.equal(value)
     })
   })
@@ -94,8 +94,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode uint 16`, () => {
     const values = [0, 65535, 10, 518]
     values.forEach((value) => {
-      var encoded = GdCom.putU16(value);
-      var decoded = GdCom.getU16(encoded);
+      var encoded = GdCom.putU16(value)
+      var decoded = GdCom.getU16(encoded)
       expect(decoded.value).to.deep.equal(value)
     })
   })
@@ -103,8 +103,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode uint 32`, () => {
     const values = [0, 4294967295, 10, 518]
     values.forEach((value) => {
-      var encoded = GdCom.putU32(value);
-      var decoded = GdCom.getU32(encoded);
+      var encoded = GdCom.putU32(value)
+      var decoded = GdCom.getU32(encoded)
       expect(decoded.value).to.deep.equal(value)
     })
   })
@@ -112,8 +112,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode uint 64`, () => {
     const values = [Long.MAX_UNSIGNED_VALUE.toString(), '0', '10', '518']
     values.forEach((value) => {
-      var encoded = GdCom.putU64(value);
-      var decoded = GdCom.getU64(encoded);
+      var encoded = GdCom.putU64(value)
+      var decoded = GdCom.getU64(encoded)
       expect(decoded.value).to.be.equal(value)
     })
   })
@@ -122,8 +122,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode string`, () => {
     const values = ['hello', 'world', 'hello world', 'hello world hello world']
     values.forEach((value) => {
-      var encoded = GdCom.putString(value);
-      var decoded = GdCom.getString(encoded);
+      var encoded = GdCom.putString(value)
+      var decoded = GdCom.getString(encoded)
       expect(decoded.value).to.deep.equal(value)
     })
   })
@@ -132,8 +132,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode float`, () => {
     const values = [10.520, -10.520]
     values.forEach((value) => {
-      var encoded = GdCom.putFloat(value);
-      var decoded = GdCom.getFloat(encoded);
+      var encoded = GdCom.putFloat(value)
+      var decoded = GdCom.getFloat(encoded)
       expect(decoded.value).to.deep.closeTo(value, 0.00001)
     })
   })
@@ -142,8 +142,8 @@ describe('gd-com binary serializer', () => {
   it(`should encode/decode double`, () => {
     const values = [10.520, -10.520]
     values.forEach((value) => {
-      var encoded = GdCom.putDouble(value);
-      var decoded = GdCom.getDouble(encoded);
+      var encoded = GdCom.putDouble(value)
+      var decoded = GdCom.getDouble(encoded)
       expect(decoded.value).to.deep.closeTo(value, 0.00001)
     })
   })
@@ -156,8 +156,8 @@ describe('gd-com binary serializer', () => {
     const values = ['test', 'test1', 'test2']
 
     values.forEach((value) => {
-      buffer.putVar(value);
-      var test = buffer.getVar();
+      buffer.putVar(value)
+      var test = buffer.getVar()
       expect(test).to.be.equal(value)
       expect(buffer.getBuffer().equals(Buffer.alloc(0))).to.be.equals(true)
     })
@@ -186,7 +186,7 @@ describe('gd-com binary serializer', () => {
     const values = ['test', 'test1', 'test2']
 
     values.forEach((value) => {
-      buffer.putVar(value);
+      buffer.putVar(value)
       var test = buffer.getVar()
       expect(test).to.be.equal(value)
       expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
@@ -199,8 +199,8 @@ describe('gd-com binary serializer', () => {
     const values = [-100, 100, 500, 8520]
 
     values.forEach((value) => {
-      buffer.putVar(value);
-      var test = buffer.getVar();
+      buffer.putVar(value)
+      var test = buffer.getVar()
       expect(test).to.be.equal(value)
       expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
     })
@@ -212,8 +212,8 @@ describe('gd-com binary serializer', () => {
     const values = [1.5, -1.5, 500.5, 8520, 8520]
 
     values.forEach((value) => {
-      buffer.putVar(value);
-      var test = buffer.getVar();
+      buffer.putVar(value)
+      var test = buffer.getVar()
       expect(test).to.be.equal(value)
       expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
     })

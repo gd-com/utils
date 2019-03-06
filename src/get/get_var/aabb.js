@@ -6,7 +6,7 @@ const { AABB } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-function decode(genericDecoder, buf) {
+function decode (genericDecoder, buf) {
   return {
     value: [
       [

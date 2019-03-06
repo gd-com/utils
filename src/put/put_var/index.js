@@ -16,17 +16,17 @@ const encoderList = files.reduce((encoders, filename) => {
   return encoders
 }, [])
 
-function isObject(value) {
+function isObject (value) {
   const type = typeof value
 
   return value != null && (type === 'object' || type === 'function')
 }
 
-function isArray(value) {
+function isArray (value) {
   return Array.isArray(value)
 }
 
-function getType(value) {
+function getType (value) {
   if (value == null) {
     return 'null'
   }
@@ -46,7 +46,7 @@ function getType(value) {
  * @param value
  * @returns {*}
  */
-function prepare(value) {
+function prepare (value) {
   let typeName = getType(value)
   let encoder = encoderList.filter((encoder) => encoder.type(typeName, value))
 

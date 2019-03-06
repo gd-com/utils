@@ -7,7 +7,7 @@ const putFloat = require('../put_float')
  * @param value
  * @returns {{value: Buffer, length: Number}}
  */
-function encode(value) {
+function encode (value) {
   // always encode real as double cf : marshalls.cpp L842
   // if (x64) { // TODO x64
   // /* eslint-enable */

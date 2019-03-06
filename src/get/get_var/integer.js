@@ -8,7 +8,7 @@ const Long = require('long')
  * @param flag
  * @returns {Object}
  */
-function decode(genericDecoder, buf, flag = 0) {
+function decode (genericDecoder, buf, flag = 0) {
   let result = null
   if (flag === 1) {
     result = {

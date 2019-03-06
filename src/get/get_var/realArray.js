@@ -8,7 +8,7 @@ const float = require('./float')
  * @param flag
  * @returns {Object}
  */
-function decode(genericDecoder, buf, flag) {
+function decode (genericDecoder, buf, flag) {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries

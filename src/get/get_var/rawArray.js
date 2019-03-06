@@ -5,7 +5,7 @@ const { RAW_ARRAY } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-function decode(genericDecoder, buf) {
+function decode (genericDecoder, buf) {
   const bufLength = buf.readUInt32LE(0)
 
   return {

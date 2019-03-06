@@ -6,7 +6,7 @@ const { ARRAY } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-function decode(genericDecoder, buf) {
+function decode (genericDecoder, buf) {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 

@@ -1,4 +1,4 @@
-function putString(value) {
+function putString (value) {
   let len = Buffer.byteLength(value)
   let pad = len % 4 === 0 ? 0 : 4 - len % 4
   let newBuffer = Buffer.allocUnsafe(4 + len + pad)

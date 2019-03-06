@@ -7,7 +7,7 @@ const { FLOAT } = require('../../constants')
  * @param flag
  * @returns {Object}
  */
-function decode(genericDecoder, buf, flag) {
+function decode (genericDecoder, buf, flag) {
   let result = null
   // always encode real as double cf : marshalls.cpp L842
   // but sometimes can be float if double is not necessary
