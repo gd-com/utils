@@ -32,9 +32,9 @@ function encode (value) {
 
 module.exports = {
   encode: (prepare, dictionary) => {
-    var results = Object.keys(dictionary).reduce((rawData, key) => {
-      var rawKey = prepare(key)
-      var rawValue = prepare(dictionary[key])
+    const results = Object.keys(dictionary).reduce((rawData, key) => {
+      const rawKey = prepare(key)
+      const rawValue = prepare(dictionary[key])
       rawData.push(rawKey, rawValue)
       return rawData
     }, [])

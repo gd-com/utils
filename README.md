@@ -111,11 +111,9 @@ Usage example :
 var gdCom = require('@gd-com/utils') // var { putVar, getVar } = require('@gd-com/utils')
 var wanted = 'test'
 
-gdCom.putVar(wanted).then((encoded) => {
-  gdCom.getVar(encoded).then((decoded) => {
-    console.log(decoded.value)
-  })
-})
+let encoded = gdCom.putVar(wanted)
+let decoded = gdCom.getVar(encoded)
+console.log(decoded.value)
 ```
 
 ### StreamTcp Splitter
