@@ -6,7 +6,7 @@ const { BOOL } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-async function decode (genericDecoder, buf) {
+function decode (genericDecoder, buf) {
   return {
     value: buf.readUInt32LE(0) === 1,
     length: 4

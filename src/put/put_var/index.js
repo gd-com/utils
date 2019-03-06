@@ -8,8 +8,8 @@ const encoderList = files.reduce((encoders, filename) => {
   const extname = path.extname(filePath)
 
   if (fs.statSync(filePath).isFile() &&
-      /^\.js$/i.test(extname) &&
-      __filename !== filePath) {
+    /^\.js$/i.test(extname) &&
+    __filename !== filePath) {
     encoders.push(require(filePath))
   }
 
@@ -63,5 +63,5 @@ function prepare (value) {
  * @returns {*}
  */
 module.exports = (value) => {
-  return prepare(value).then((d) => d)
+  return prepare(value)
 }

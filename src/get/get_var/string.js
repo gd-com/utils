@@ -5,7 +5,7 @@ const { STRING } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-async function decode (genericDecoder, buf) {
+function decode (genericDecoder, buf) {
   const len = buf.readUInt32LE(0)
   const pad = len % 4 === 0 ? 0 : 4 - (len % 4)
 

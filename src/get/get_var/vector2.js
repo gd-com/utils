@@ -6,7 +6,7 @@ const { VECTOR2 } = require('../../constants')
  * @param buf
  * @returns {Object}
  */
-async function decode (genericDecoder, buf) {
+function decode (genericDecoder, buf) {
   return {
     value: {
       x: buf.readFloatLE(0),

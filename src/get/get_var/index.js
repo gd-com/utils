@@ -8,8 +8,8 @@ const decoderList = files.reduce((decoders, filename) => {
   const extname = path.extname(filePath)
 
   if (fs.statSync(filePath).isFile() &&
-      /^\.js$/i.test(extname) &&
-      __filename !== filePath) {
+    /^\.js$/i.test(extname) &&
+    __filename !== filePath) {
     let decoder = require(filePath)
 
     decoders[decoder.type] = decoder.decode
@@ -24,7 +24,7 @@ const decoderList = files.reduce((decoders, filename) => {
  * @param offset
  * @returns {*}
  */
-async function decode (buffer, offset = 0) {
+function decode (buffer, offset = 0) {
   const type = buffer.readInt16LE(offset)
   const flag = buffer.readInt16LE(offset + 2)
   const data = buffer.slice(offset + 4)
@@ -36,4 +36,7 @@ async function decode (buffer, offset = 0) {
   return decoderList[type](decode, data, flag)
 }
 
-module.exports = (buf) => decode(buf).then((data) => ({ value: data.value, length: data.length + 4 })) // +4 cause we don't export type length
+module.exports = (buf) => {
+  var data = decode(buf)
+  return { value: data.value, length: data.length + 4 } // +4 cause we don't export type length
+}

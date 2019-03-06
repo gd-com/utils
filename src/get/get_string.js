@@ -1,4 +1,4 @@
-async function getString (buffer, offset = 0) {
+function getString (buffer, offset = 0) {
   const len = buffer.readUInt32LE(offset)
   const pad = len % 4 === 0 ? 0 : 4 - (len % 4)
 

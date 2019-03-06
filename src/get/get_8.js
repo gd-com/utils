@@ -1,4 +1,4 @@
-async function get8 (buffer, offset = 0) {
+function get8 (buffer, offset = 0) {
   return {
     value: buffer.readInt8(offset),
     length: 1

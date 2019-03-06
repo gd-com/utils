@@ -6,113 +6,113 @@ class GdBuffer {
     this._buffer = buffer
   }
 
-  async _internalGet (method) {
-    let result = await method(this._buffer)
+  _internalGet (method) {
+    let result = method(this._buffer)
     this._buffer = this._buffer.slice(result.length)
     return result.value
   }
 
-  async _internalPut (method, data) {
-    let result = await method(data)
+  _internalPut (method, data) {
+    let result = method(data)
     if (this._buffer.length > 0) {
       return Buffer.concat([this._buffer, result])
     }
     return result
   }
 
-  async putVar (data) {
-    this._buffer = await this._internalPut(Put.putVar, data)
+  putVar (data) {
+    this._buffer = this._internalPut(Put.putVar, data)
   }
 
-  async put8 (data) {
-    this._buffer = await this._internalPut(Put.put8, data)
+  put8 (data) {
+    this._buffer = this._internalPut(Put.put8, data)
   }
 
-  async put16 (data) {
-    this._buffer = await this._internalPut(Put.put16, data)
+  put16 (data) {
+    this._buffer = this._internalPut(Put.put16, data)
   }
 
-  async put32 (data) {
-    this._buffer = await this._internalPut(Put.put32, data)
+  put32 (data) {
+    this._buffer = this._internalPut(Put.put32, data)
   }
 
-  async put64 (data) {
-    this._buffer = await this._internalPut(Put.put64, data)
+  put64 (data) {
+    this._buffer = this._internalPut(Put.put64, data)
   }
 
-  async putU8 (data) {
-    this._buffer = await this._internalPut(Put.putU8, data)
+  putU8 (data) {
+    this._buffer = this._internalPut(Put.putU8, data)
   }
 
-  async putU16 (data) {
-    this._buffer = await this._internalPut(Put.putU16, data)
+  putU16 (data) {
+    this._buffer = this._internalPut(Put.putU16, data)
   }
 
-  async putU32 (data) {
-    this._buffer = await this._internalPut(Put.putU32, data)
+  putU32 (data) {
+    this._buffer = this._internalPut(Put.putU32, data)
   }
 
-  async putU64 (data) {
-    this._buffer = await this._internalPut(Put.putU64, data)
+  putU64 (data) {
+    this._buffer = this._internalPut(Put.putU64, data)
   }
 
-  async putFloat (data) {
-    this._buffer = await this._internalPut(Put.putFloat, data)
+  putFloat (data) {
+    this._buffer = this._internalPut(Put.putFloat, data)
   }
 
-  async putDouble (data) {
-    this._buffer = await this._internalPut(Put.putDouble, data)
+  putDouble (data) {
+    this._buffer = this._internalPut(Put.putDouble, data)
   }
 
-  async putString (data) {
-    this._buffer = await this._internalPut(Put.putString, data)
+  putString (data) {
+    this._buffer = this._internalPut(Put.putString, data)
   }
 
-  async getVar () {
+  getVar () {
     return this._internalGet(Get.getVar)
   }
 
-  async get8 () {
+  get8 () {
     return this._internalGet(Get.get8)
   }
 
-  async get16 () {
+  get16 () {
     return this._internalGet(Get.get16)
   }
 
-  async get32 () {
+  get32 () {
     return this._internalGet(Get.get32)
   }
 
-  async get64 () {
+  get64 () {
     return this._internalGet(Get.get64)
   }
 
-  async getU8 () {
+  getU8 () {
     return this._internalGet(Get.getU8)
   }
 
-  async getU16 () {
+  getU16 () {
     return this._internalGet(Get.getU16)
   }
 
-  async getU32 () {
+  getU32 () {
     return this._internalGet(Get.getU32)
   }
 
-  async getU64 () {
+  getU64 () {
     return this._internalGet(Get.getU64)
   }
 
-  async getFloat () {
+  getFloat () {
     return this._internalGet(Get.getFloat)
   }
 
-  async getDouble () {
+  getDouble () {
     return this._internalGet(Get.getDouble)
   }
 
-  async getString () {
+  getString () {
     return this._internalGet(Get.getString)
   }
 

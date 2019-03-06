@@ -1,4 +1,4 @@
-async function put8 (value) {
+function put8 (value) {
   let newBuffer = Buffer.allocUnsafe(1)
   newBuffer.writeInt8(value, 0)
   return newBuffer
