@@ -47,8 +47,8 @@ function getType (value) {
  * @returns {*}
  */
 function prepare (value) {
-  let typeName = getType(value)
-  let encoder = encoderList.filter((encoder) => encoder.type(typeName, value))
+  const typeName = getType(value)
+  const encoder = encoderList.filter((encoder) => encoder.type(typeName, value))
 
   if (encoder.length !== 1) {
     throw new Error(`Invalid value: no matching encoder found ${value}:${typeName}`)

@@ -12,7 +12,7 @@ function decode (genericDecoder, buf, flag) {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
-  let data = {
+  const data = {
     array: [],
     buffer: buf.slice(4),
     pos: 4

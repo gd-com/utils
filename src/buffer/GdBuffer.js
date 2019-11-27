@@ -7,13 +7,13 @@ class GdBuffer {
   }
 
   _internalGet (method) {
-    let result = method(this._buffer)
+    const result = method(this._buffer)
     this._buffer = this._buffer.slice(result.length)
     return result.value
   }
 
   _internalPut (method, data) {
-    let result = method(data)
+    const result = method(data)
     if (this._buffer.length > 0) {
       return Buffer.concat([this._buffer, result])
     }

@@ -11,7 +11,7 @@ function decode (genericDecoder, buf) {
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 
   // start at 4 cause of nbEntries
-  let data = {
+  const data = {
     array: [],
     buffer: buf.slice(4),
     pos: 4

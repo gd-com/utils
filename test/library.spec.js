@@ -7,7 +7,7 @@ const expect = chai.expect
 
 const GdCom = require('../src')
 
-let data = {
+const data = {
   Null: [null],
   Boolean: [true, false],
   Integer: [42, -42, 0],
@@ -27,9 +27,9 @@ let data = {
 }
 
 describe('gd-com binary serializer', () => {
-  for (let objecType in data) {
+  for (const objecType in data) {
     it(`should encode/decode variant ${objecType}`, () => {
-      let dataType = data[objecType]
+      const dataType = data[objecType]
 
       dataType.forEach((value) => {
         const encoded = GdCom.putVar(value)
@@ -45,7 +45,7 @@ describe('gd-com binary serializer', () => {
   }
 
   // signed int
-  it(`should encode/decode int 8`, () => {
+  it('should encode/decode int 8', () => {
     const values = [-128, 127, 10, -10]
     values.forEach((value) => {
       const encoded = GdCom.put8(value)
@@ -54,7 +54,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode int 16`, () => {
+  it('should encode/decode int 16', () => {
     const values = [-32768, 32767, 10, -10]
     values.forEach((value) => {
       const encoded = GdCom.put16(value)
@@ -63,7 +63,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode int 32`, () => {
+  it('should encode/decode int 32', () => {
     const values = [-2147483648, 2147483647, 10, -10]
     values.forEach((value) => {
       const encoded = GdCom.put32(value)
@@ -72,7 +72,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode int 64`, () => {
+  it('should encode/decode int 64', () => {
     const values = [Long.MAX_VALUE.toString(), Long.MIN_VALUE.toString(), '10', '518']
     values.forEach((value) => {
       const encoded = GdCom.put64(value)
@@ -82,7 +82,7 @@ describe('gd-com binary serializer', () => {
   })
 
   // unsigned int
-  it(`should encode/decode uint 8`, () => {
+  it('should encode/decode uint 8', () => {
     const values = [0, 255, 10, 105]
     values.forEach((value) => {
       const encoded = GdCom.putU8(value)
@@ -91,7 +91,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode uint 16`, () => {
+  it('should encode/decode uint 16', () => {
     const values = [0, 65535, 10, 518]
     values.forEach((value) => {
       const encoded = GdCom.putU16(value)
@@ -100,7 +100,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode uint 32`, () => {
+  it('should encode/decode uint 32', () => {
     const values = [0, 4294967295, 10, 518]
     values.forEach((value) => {
       const encoded = GdCom.putU32(value)
@@ -109,7 +109,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode uint 64`, () => {
+  it('should encode/decode uint 64', () => {
     const values = [Long.MAX_UNSIGNED_VALUE.toString(), '0', '10', '518']
     values.forEach((value) => {
       const encoded = GdCom.putU64(value)
@@ -119,7 +119,7 @@ describe('gd-com binary serializer', () => {
   })
 
   // string
-  it(`should encode/decode string`, () => {
+  it('should encode/decode string', () => {
     const values = ['hello', 'world', 'hello world', 'hello world hello world']
     values.forEach((value) => {
       const encoded = GdCom.putString(value)
@@ -129,7 +129,7 @@ describe('gd-com binary serializer', () => {
   })
 
   // float
-  it(`should encode/decode float`, () => {
+  it('should encode/decode float', () => {
     const values = [10.520, -10.520]
     values.forEach((value) => {
       const encoded = GdCom.putFloat(value)
@@ -139,7 +139,7 @@ describe('gd-com binary serializer', () => {
   })
 
   // double
-  it(`should encode/decode double`, () => {
+  it('should encode/decode double', () => {
     const values = [10.520, -10.520]
     values.forEach((value) => {
       const encoded = GdCom.putDouble(value)
@@ -150,8 +150,8 @@ describe('gd-com binary serializer', () => {
 
   // gdBuffer Test
 
-  it(`gdBuffer should encode/decode`, () => {
-    let buffer = new GdCom.GdBuffer()
+  it('gdBuffer should encode/decode', () => {
+    const buffer = new GdCom.GdBuffer()
 
     const values = ['test', 'test1', 'test2']
 
@@ -163,8 +163,8 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`gdBuffer should encode/decode with buffer length`, () => {
-    let buffer = new GdCom.GdBuffer()
+  it('gdBuffer should encode/decode with buffer length', () => {
+    const buffer = new GdCom.GdBuffer()
 
     buffer.putVar('test')
     buffer.putVar('test')
@@ -180,8 +180,8 @@ describe('gd-com binary serializer', () => {
     expect(buffer.getBuffer().length).to.be.equals(12)
   })
 
-  it(`should encode/decode string and be empty`, () => {
-    let buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
+  it('should encode/decode string and be empty', () => {
+    const buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
 
     const values = ['test', 'test1', 'test2']
 
@@ -193,8 +193,8 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode integer and be empty`, () => {
-    let buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
+  it('should encode/decode integer and be empty', () => {
+    const buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
 
     const values = [-100, 100, 500, 8520]
 
@@ -206,8 +206,8 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode float and be empty`, () => {
-    let buffer = new GdCom.GdBuffer(Buffer.alloc(0))
+  it('should encode/decode float and be empty', () => {
+    const buffer = new GdCom.GdBuffer(Buffer.alloc(0))
 
     const values = [1.5, -1.5, 500.5, 8520, 8520]
 
@@ -219,8 +219,8 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode and contains test4`, () => {
-    let buffer = new GdCom.GdBuffer(Buffer.alloc(0))
+  it('should encode/decode and contains test4', () => {
+    const buffer = new GdCom.GdBuffer(Buffer.alloc(0))
 
     buffer.putVar('test1')
     buffer.putVar('test2')

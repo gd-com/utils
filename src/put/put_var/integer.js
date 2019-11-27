@@ -8,9 +8,9 @@ const put32 = require('../put_32')
  * @returns {{value: Buffer, length: Number}}
  */
 function encode (value) {
-  let type = putU16(INTEGER)
-  let flag = putU16(0)
-  let data = put32(value)
+  const type = putU16(INTEGER)
+  const flag = putU16(0)
+  const data = put32(value)
 
   // TODO x64
 

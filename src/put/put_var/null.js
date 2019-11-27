@@ -5,7 +5,7 @@ const { NULL } = require('../../constants')
  * @returns {{value: Buffer, length: Number}}
  */
 function encode () {
-  let buf = Buffer.alloc(4)
+  const buf = Buffer.alloc(4)
   buf.writeUInt32LE(NULL, 0)
   return buf
 }

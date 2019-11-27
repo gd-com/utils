@@ -10,7 +10,7 @@ function decode (genericDecoder, buf) {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 
-  let data = {
+  const data = {
     dictionary: {},
     pos: 0,
     buffer: buf.slice(4)

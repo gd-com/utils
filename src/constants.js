@@ -16,7 +16,7 @@ module.exports = {
   BASIS: 12,
   TRANSFORM: 13,
   COLOR: 14,
-  NODE_PATH: 15, // todo
+  NODE_PATH: 15,
   RID: 16, // unsupported
   OBJECT: 17, // unsupported
   DICTIONARY: 18,

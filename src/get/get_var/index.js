@@ -10,7 +10,7 @@ const decoderList = files.reduce((decoders, filename) => {
   if (fs.statSync(filePath).isFile() &&
     /^\.js$/i.test(extname) &&
     __filename !== filePath) {
-    let decoder = require(filePath)
+    const decoder = require(filePath)
 
     decoders[decoder.type] = decoder.decode
   }

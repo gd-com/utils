@@ -20,9 +20,9 @@ function encode (value) {
   //   })
   // }
 
-  let type = putU16(FLOAT)
-  let flag = putU16(0) // flag  0 for float
-  let data = putFloat(value)
+  const type = putU16(FLOAT)
+  const flag = putU16(0) // flag  0 for float
+  const data = putFloat(value)
 
   return Buffer.concat([type, flag, data])
 }
