@@ -5,9 +5,9 @@ const putFloat = require('../put_float')
 /**
  * Encode Float
  * @param value
- * @returns {{value: Buffer, length: Number}}
+ * @returns {Buffer}
  */
-function encode (value) {
+function putVarFloat (value) {
   // always encode real as double cf : marshalls.cpp L842
   // if (x64) { // TODO x64
   // /* eslint-enable */
@@ -28,6 +28,6 @@ function encode (value) {
 }
 
 module.exports = {
-  encode: (prepare, value) => encode(value),
+  encode: (prepare, value) => putVarFloat(value),
   type: (typeName, value) => typeName === 'number' && !Number.isInteger(value)
 }

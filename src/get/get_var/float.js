@@ -3,11 +3,11 @@ const { FLOAT } = require('../../constants')
 /**
  * Decode float
  * @param genericDecoder
- * @param buf
+ * @param buf {Buffer}
  * @param flag
- * @returns {Object}
+ * @returns {{value: Number, length: Number}}
  */
-function decode (genericDecoder, buf, flag) {
+function getVarFloat (genericDecoder, buf, flag) {
   let result = null
   // always encode real as double cf : marshalls.cpp L842
   // but sometimes can be float if double is not necessary
@@ -26,6 +26,6 @@ function decode (genericDecoder, buf, flag) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarFloat,
   type: FLOAT
 }

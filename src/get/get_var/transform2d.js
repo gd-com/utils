@@ -3,10 +3,10 @@ const { TRANSFORM2D } = require('../../constants')
 /**
  * Decode Transform2d
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Object, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarTransform2d (genericDecoder, buf) {
   return {
     value: [
       [
@@ -25,6 +25,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarTransform2d,
   type: TRANSFORM2D
 }

@@ -17,9 +17,7 @@ const encoderList = files.reduce((encoders, filename) => {
 }, [])
 
 function isObject (value) {
-  const type = typeof value
-
-  return value != null && (type === 'object' || type === 'function')
+  return value !== null && typeof value === 'object'
 }
 
 function isArray (value) {
@@ -41,13 +39,8 @@ function getType (value) {
   return typeof value
 }
 
-/**
- * Prepare command message
- * @param value
- * @returns {*}
- */
-function prepare (value) {
-  const typeName = getType(value)
+function prepare (value, type = undefined) {
+  const typeName = type || getType(value)
   const encoder = encoderList.filter((encoder) => encoder.type(typeName, value))
 
   if (encoder.length !== 1) {
@@ -58,10 +51,14 @@ function prepare (value) {
 }
 
 /**
- * Encode data
- * @param value
+ * Encode Variant
+ * By default it can Number, Array, Object, Null, String for complex type you need to pass the type
+ * @param {*} value
+ * @param {TYPE} type
  * @returns {*}
  */
-module.exports = (value) => {
-  return prepare(value)
+function putVar (value, type) {
+  return prepare(value, type)
 }
+
+module.exports = putVar

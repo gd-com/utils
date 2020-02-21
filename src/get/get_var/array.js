@@ -3,10 +3,10 @@ const { ARRAY } = require('../../constants')
 /**
  * Decode Array
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Array, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarArray (genericDecoder, buf) {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 
@@ -31,6 +31,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarArray,
   type: ARRAY
 }

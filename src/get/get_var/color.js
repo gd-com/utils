@@ -3,10 +3,10 @@ const { COLOR } = require('../../constants')
 /**
  * Decode color
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Object, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarColor (genericDecoder, buf) {
   return {
     value: {
       r: buf.readFloatLE(0),
@@ -19,6 +19,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarColor,
   type: COLOR
 }

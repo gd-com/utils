@@ -4,10 +4,10 @@ const string = require('./string')
 /**
  * Decode Node Path
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: String, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarNodePath (genericDecoder, buf) {
   const strlen = buf.readUInt32LE(0)
   const nameCount = strlen & 0x7FFFFFFF
   const subnameCount = buf.readUInt32LE(4)
@@ -35,6 +35,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarNodePath,
   type: NODE_PATH
 }

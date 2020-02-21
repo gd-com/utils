@@ -3,9 +3,9 @@ const { DICTIONARY } = require('../../constants')
 /**
  * Encode dictionnary
  * @param value
- * @returns {{value: Buffer, length: Number}}
+ * @returns {Buffer}
  */
-function encode (value) {
+function putVarDictionnary (value) {
   let len = 8
 
   for (const i in value) {
@@ -38,7 +38,7 @@ module.exports = {
       rawData.push(rawKey, rawValue)
       return rawData
     }, [])
-    return encode(results)
+    return putVarDictionnary(results)
   },
   type: (typeName, value) => typeName === 'object'
 }

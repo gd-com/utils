@@ -1,14 +1,13 @@
-const { COLOR_ARRAY } = require('../../constants')
-const color = require('./color')
+const { POOL_STRING_ARRAY } = require('../../constants')
+const string = require('./string')
 
 /**
- * Decode colorArray
+ * Decode PoolStringArray
  * @param genericDecoder
- * @param buf
- * @param flag
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Array, length: Number}}
  */
-function decode (genericDecoder, buf, flag) {
+function getVarPoolStringArray (genericDecoder, buf) {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
@@ -19,7 +18,7 @@ function decode (genericDecoder, buf, flag) {
   }
 
   for (let index = 0; index < nbEntries; index++) {
-    const decodedValue = color.decode(genericDecoder, data.buffer)
+    const decodedValue = string.decode(genericDecoder, data.buffer)
     data.array.push(decodedValue.value)
     data.buffer = data.buffer.slice(decodedValue.length)
     data.pos += decodedValue.length
@@ -32,6 +31,6 @@ function decode (genericDecoder, buf, flag) {
 }
 
 module.exports = {
-  decode,
-  type: COLOR_ARRAY
+  decode: getVarPoolStringArray,
+  type: POOL_STRING_ARRAY
 }

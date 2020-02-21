@@ -1,9 +1,10 @@
 {
   "name": "@gd-com/utils",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "Serializer/deserializer utils for godot engine",
   "main": "src/index.js",
   "scripts": {
+    "generate-docs": "node_modules/.bin/jsdoc -c ./jsdoc.json",
     "lint": "./node_modules/.bin/standard lib/**/*.js example/**/*.js test/**/*.js",
     "test": "./node_modules/.bin/mocha --colors ./test/*.spec.js",
     "test:watch": "./node_modules/.bin/mocha --colors -w ./test/*.spec.js"
@@ -19,7 +20,6 @@
   "devDependencies": {
     "chai": "4.2.0",
     "mocha": "^6.2.2",
-    "nyc": "^14.1.1",
     "standard": "^14.3.1"
   },
   "keywords": [

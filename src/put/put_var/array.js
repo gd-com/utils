@@ -2,9 +2,9 @@ const { ARRAY } = require('../../constants')
 /**
  * Encode array
  * @param value
- * @returns {{value: Buffer, length: Number}}
+ * @returns {Buffer}
  */
-function encode (value) {
+function putVarArray (value) {
   let len = 8
 
   for (const i in value) {
@@ -37,7 +37,7 @@ module.exports = {
       rawData.push(data)
       return rawData
     }, [])
-    return encode(results)
+    return putVarArray(results)
   },
   type: (typeName, value) => typeName === 'array'
 }

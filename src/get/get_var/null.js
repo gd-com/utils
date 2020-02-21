@@ -3,10 +3,10 @@ const { NULL } = require('../../constants')
 /**
  * Decode null
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Null, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarNull (genericDecoder, buf) {
   return {
     value: null,
     length: 0
@@ -14,6 +14,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarNull,
   type: NULL
 }

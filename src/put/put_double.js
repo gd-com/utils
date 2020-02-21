@@ -1,3 +1,8 @@
+/**
+ * Encode Double
+ * @param value
+ * @returns {Buffer}
+ */
 function putDouble (value) {
   const newBuffer = Buffer.allocUnsafe(8)
   newBuffer.writeDoubleLE(value, 0)

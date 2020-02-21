@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+* v4.1.0
+  * remove useless function
+  * putVar can now encode Variant : AABB Color Plane Quat Rect2 Vector2 Vector3
+
 * v4.0.0
   * remove async/await thx @phated
 

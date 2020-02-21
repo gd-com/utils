@@ -1,3 +1,8 @@
+/**
+ * Encode String
+ * @param value
+ * @returns {Buffer}
+ */
 function putString (value) {
   const len = Buffer.byteLength(value)
   const newBuffer = Buffer.allocUnsafe(4 + len)

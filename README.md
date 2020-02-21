@@ -16,65 +16,24 @@ Written with this [api](http://docs.godotengine.org/en/latest/tutorials/misc/bin
 
 ##### For an example take a look *[@gd-com/examples](https://github.com/gd-com/examples)* !
 
-
-### GdBuffer
-
-
 ```javascript
-var gdCom = require('@gd-com/utils') // var { GdBuffer } = require('@gd-com/utils')
-var wanted = 'test'
+const gdCom = require('@gd-com/utils') // var { GdBuffer } = require('@gd-com/utils')
 
-const buff = new gdCom.GdBuffer()
+const test1 = gdCom.putVar(8)
 
-buff.putVar(wanted)
+const lengthBuffer = Buffer.alloc(4)
+lengthBuffer.writeUInt32LE(test1.length, 0)
 
-const recieved = buff.getVar()
+const finalBuffer = Buffer.concat([lengthBuffer, test1])
 
-console.log(recieved === wanted) // is true
-
-// buffer is empty !
+console.log(finalBuffer)
 
 ```
-
-#### - get
-| Method | Return |
-|-------------------------------|------------------------------|
-| new GdBuffer() | GdBuffer Object |
-| new GdBuffer(buffer) | GdBuffer Object with initial buffer data|
-|-------------------------------|------------------------------|
-| getVar() | Object |
-| get8() | Object  |
-| get16() | Object  |
-| get32() | Object  |
-| get64() | Object  |
-| getU8() | Object  |
-| getU16() | Object  |
-| getU32() | Object  |
-| getU64() | Object  |
-| getFloat() | Object  |
-| getDouble() | Object  |
-| getString() | Object  |
-|-------------------------------|------------------------------|
-| putVar(value) | void |
-| put8(value) | void |
-| put16(value) | void |
-| put32(value) | void |
-| put64(value) | void |
-| putU8(value) | void |
-| putU16(value) | void |
-| putU32(value) | void |
-| putU64(value) | void |
-| putFloat(value) | void |
-| putDouble(value) | void |
-| putString(value) | void |
-|-------------------------------|------------------------------|
-| getBuffer() | Buffer |
+## Available from gdCom
 
 ### Encode and Decode
 
-Use GdBuffer is recommanded !
-
-#### - get
+#### - getX
 | Method | Return |
 |-------------------------------|------------------------------|
 | getVar(buffer, offset = 0) | Object {   value,   length } |
@@ -90,10 +49,10 @@ Use GdBuffer is recommanded !
 | getDouble(buffer, offset = 0) | Object {   value,   length } |
 | getString(buffer, offset = 0) | Object {   value,   length } |
 
-#### - put
+#### - putX
 | Method | Return |
 |-------------------------------|------------------------------|
-| putVar(value) | Buffer |
+| putVar(value, type) | Buffer |
 | put8(value) | Buffer |
 | put16(value) | Buffer |
 | put32(value) | Buffer |
@@ -106,38 +65,84 @@ Use GdBuffer is recommanded !
 | putDouble(value) | Buffer |
 | putString(value) | Buffer |
 
-Usage example :
-```javascript
-var gdCom = require('@gd-com/utils') // var { putVar, getVar } = require('@gd-com/utils')
-var wanted = 'test'
+#### TYPE
 
-let encoded = gdCom.putVar(wanted)
-let decoded = gdCom.getVar(encoded)
-console.log(decoded.value)
-```
+| Name | Value |
+|-------------------------------|------------------------------|
+| NULL | 0 |
+| BOOL | 1 |
+| INTEGER | 2 |
+| FLOAT | 3 |
+| STRING | 4 |
+| VECTOR2 | 5 |
+| RECT2 | 6 |
+| VECTOR3 | 7 |
+| TRANSFORM2D | 8 |
+| PLANE | 9 |
+| QUATERNION | 10 |
+| AABB | 11 |
+| BASIS | 12 |
+| TRANSFORM | 13 |
+| COLOR | 14 |
+| NODE_PATH | 15 |
+| RID // unsupported | 16 |
+| OBJECT // unsupported | 17 |
+| DICTIONARY | 18 |
+| ARRAY | 19 |
+| POOL_BYTE_ARRAY | 20 |
+| POOL_INT_ARRAY | 21 |
+| POOL_REAL_ARRAY | 22 |
+| POOL_STRING_ARRAY | 23 |
+| POOL_VECTOR2_ARRAY | 24 |
+| POOL_VECTOR3_ARRAY | 25 |
+| POOL_COLOR_ARRAY | 26 |
+| MAX | 27 |
 
 ### StreamTcp Splitter
 
 ```javascript
+const Transform = require('stream').Transform
 
+class StreamTcp extends Transform {
+  _transform (chunk, enc, done) {
+    let buffer = chunk
+    while (buffer.length > 0) {
+      const length = buffer.readUInt16LE(0)
+
+      const bufferSplitted = buffer.slice(4, length + 4) // 4 cause the length bytes is in buffer
+      buffer = buffer.slice(length + 4, buffer.length) // 4 cause the length bytes is in buffer
+
+      this.push(bufferSplitted)
+    }
+    done()
+  }
+}
+
+module.exports = StreamTcp
+```
+
+```javascript
 const net = require('net')
-const { StreamTcp, GdBuffer, addLengthFront } = require('@gd-com/utils')
+const { putVar, getVar } = require('@gd-com/utils')
+
+const tcpSplit = new StreamTcp()
 
 let server = net.createServer((socket) => {
-  const tcpSplit = new StreamTcp()
   socket.pipe(tcpSplit).on('data', (data) => {
-    const packet = new GdBuffer(data)
+    const packet = new Buffer.from(data)
 
-    const decoded = packet.getVar()
-    console.log('receive :', decoded)
+    const decoded = getVar(packet)
+    console.log('receive :', decoded.value)
 
-    const packetToSend = new GdBuffer()
-    packetToSend.putVar(Math.random())
+    const packetToSend = putVar(Math.random())
 
     // we need to put the packet length on top cause it's tcp
-    let toSend = addLengthFront(packetToSend.getBuffer())
-    console.log('send :', toSend)
-    socket.write(toSend)
+    const lengthBuffer = Buffer.alloc(4)
+    lengthBuffer.writeUInt32LE(packetToSend.length, 0)
+    const finalBuffer = Buffer.concat([lengthBuffer, packetToSend])
+
+    console.log('send :', finalBuffer)
+    socket.write(finalBuffer)
   })
 
   socket.on('error', () => console.log('Bye :('))
@@ -181,3 +186,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * GDQuest
 * IG-Dev
 * **Salsa2k** for the [initial work](https://github.com/salsa2k/godotserver)
+
+## Buy me a coffe
+
+BTC : `3DHU92kNHRbe2374cE2DrxDfE6i6Mu7ZSv`
+
+ETH : `0x316dcd4F84606B7165f6ae2928594c3ef0FF3828`

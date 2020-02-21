@@ -1,14 +1,13 @@
-const { VECTOR2_ARRAY } = require('../../constants')
+const { POOL_VECTOR2_ARRAY } = require('../../constants')
 const vector2 = require('./vector2')
 
 /**
- * Decode vector2Array
+ * Decode PoolVector2Array
  * @param genericDecoder
- * @param buf
- * @param flag
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Array, length: Number}}
  */
-function decode (genericDecoder, buf, flag) {
+function getVarPoolVector2Array (genericDecoder, buf) {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
@@ -32,6 +31,6 @@ function decode (genericDecoder, buf, flag) {
 }
 
 module.exports = {
-  decode,
-  type: VECTOR2_ARRAY
+  decode: getVarPoolVector2Array,
+  type: POOL_VECTOR2_ARRAY
 }

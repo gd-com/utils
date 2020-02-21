@@ -1,14 +1,14 @@
-const { REAL_ARRAY } = require('../../constants')
+const { POOL_REAL_ARRAY } = require('../../constants')
 const float = require('./float')
 
 /**
- * Decode realArray
+ * Decode PoolRealArray
  * @param genericDecoder
- * @param buf
+ * @param buf {Buffer}
  * @param flag
- * @returns {Object}
+ * @returns {{value: Array, length: Number}}
  */
-function decode (genericDecoder, buf, flag) {
+function getVarPoolRealArray (genericDecoder, buf, flag) {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
@@ -32,6 +32,6 @@ function decode (genericDecoder, buf, flag) {
 }
 
 module.exports = {
-  decode,
-  type: REAL_ARRAY
+  decode: getVarPoolRealArray,
+  type: POOL_REAL_ARRAY
 }

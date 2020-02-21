@@ -21,15 +21,15 @@ function putString (value) {
 /**
  * Encode string
  * @param value
- * @returns {{value: Buffer, length: Number}}
+ * @returns {Buffer}
  */
-function encode (value) {
+function putVarString (value) {
   const type = putU32(STRING)
   const data = putString(value)
   return Buffer.concat([type, data])
 }
 
 module.exports = {
-  encode: (prepare, value) => encode(value),
+  encode: (prepare, value) => putVarString(value),
   type: (typeName, value) => typeName === 'string'
 }

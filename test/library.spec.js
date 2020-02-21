@@ -32,17 +32,208 @@ describe('gd-com binary serializer', () => {
       const dataType = data[objecType]
 
       dataType.forEach((value) => {
+        let newValue = value
+
         const encoded = GdCom.putVar(value)
         const decoded = GdCom.getVar(encoded)
 
+        // to omit godotType key in custom Object but not in Array
+        if (!Array.isArray(value) && value !== null && typeof value === 'object') {
+          const { godotType, ...withoutType } = value
+          newValue = withoutType
+        }
+
         if (/Float/i.test(objecType)) {
-          expect(decoded.value).to.be.closeTo(value, 0.00001)
+          expect(decoded.value).to.be.closeTo(newValue, 0.00001)
         } else {
-          expect(decoded.value).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(newValue)
         }
       })
     })
   }
+
+  it('should encode/decode variant Vector2', () => {
+    const dataType = [
+      { x: 1, y: 2 },
+      { x: -1, y: -2 },
+      { x: -42.4, y: 0.15 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.VECTOR2)
+      const decoded = GdCom.getVar(encoded)
+
+      // to omit godotType key in custom Object but not in Array
+      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
+        const { godotType, ...withoutType } = value
+        newValue = withoutType
+      }
+      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Rect2', () => {
+    const dataType = [
+      { x_coordinate: 1, y_coordinate: 2, x_size: 3, y_size: 4 },
+      { x_coordinate: -1, y_coordinate: -2, x_size: -3, y_size: -4 },
+      { x_coordinate: -42.54, y_coordinate: 0.520, x_size: 0.520, y_size: -42.54 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.RECT2)
+      const decoded = GdCom.getVar(encoded)
+
+      // to omit godotType key in custom Object but not in Array
+      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
+        const { godotType, ...withoutType } = value
+        newValue = withoutType
+      }
+      expect(decoded.value.x_coordinate).to.be.closeTo(newValue.x_coordinate, 0.00001)
+      expect(decoded.value.y_coordinate).to.be.closeTo(newValue.y_coordinate, 0.00001)
+      expect(decoded.value.x_size).to.be.closeTo(newValue.x_size, 0.00001)
+      expect(decoded.value.y_size).to.be.closeTo(newValue.y_size, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Vector3', () => {
+    const dataType = [
+      { x: 1, y: 2, z: 3 },
+      { x: -1, y: -2, z: -0.520 },
+      { x: -42.54, y: 0.520, z: 0.520 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.VECTOR3)
+      const decoded = GdCom.getVar(encoded)
+
+      // to omit godotType key in custom Object but not in Array
+      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
+        const { godotType, ...withoutType } = value
+        newValue = withoutType
+      }
+      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Plane', () => {
+    const dataType = [
+      { x: 1, y: 2, z: 3, distance: 2 },
+      { x: -1, y: -2, z: -0.520, distance: 2 },
+      { x: -42.54, y: 0.520, z: 0.520, distance: 2 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.PLANE)
+      const decoded = GdCom.getVar(encoded)
+
+      // to omit godotType key in custom Object but not in Array
+      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
+        const { godotType, ...withoutType } = value
+        newValue = withoutType
+      }
+      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
+      expect(decoded.value.distance).to.be.closeTo(newValue.distance, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Quat', () => {
+    const dataType = [
+      { x: 1, y: 2, z: 3, w: 2 },
+      { x: -1, y: -2, z: -0.520, w: 2 },
+      { x: -42.54, y: 0.520, z: 0.520, w: 2 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.QUATERNION)
+      const decoded = GdCom.getVar(encoded)
+
+      // to omit godotType key in custom Object but not in Array
+      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
+        const { godotType, ...withoutType } = value
+        newValue = withoutType
+      }
+      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
+      expect(decoded.value.w).to.be.closeTo(newValue.w, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant AABB', () => {
+    const dataType = [
+      { x_coordinate: 1, y_coordinate: 2, z_coordinate: 3, x_size: 4, y_size: 5, z_size: 6 },
+      { x_coordinate: -1, y_coordinate: -2, z_coordinate: -3, x_size: -4, y_size: -5, z_size: -6 },
+      { x_coordinate: 1.05, y_coordinate: -42.852, z_coordinate: 3.52, x_size: 4, y_size: 5, z_size: 6 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.AABB)
+      const decoded = GdCom.getVar(encoded)
+
+      // to omit godotType key in custom Object but not in Array
+      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
+        const { godotType, ...withoutType } = value
+        newValue = withoutType
+      }
+      expect(decoded.value.x_coordinate).to.be.closeTo(newValue.x_coordinate, 0.00001)
+      expect(decoded.value.y_coordinate).to.be.closeTo(newValue.y_coordinate, 0.00001)
+      expect(decoded.value.z_coordinate).to.be.closeTo(newValue.z_coordinate, 0.00001)
+      expect(decoded.value.x_size).to.be.closeTo(newValue.x_size, 0.00001)
+      expect(decoded.value.y_size).to.be.closeTo(newValue.y_size, 0.00001)
+      expect(decoded.value.z_size).to.be.closeTo(newValue.z_size, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Color', () => {
+    const dataType = [
+      { r: 0.1, g: 1, b: 0.5, a: 1 },
+      { r: 1, g: 0, b: 0.5, a: 1 },
+      { r: 0, g: 0.5, b: 1, a: 1 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.COLOR)
+      const decoded = GdCom.getVar(encoded)
+
+      // to omit godotType key in custom Object but not in Array
+      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
+        const { godotType, ...withoutType } = value
+        newValue = withoutType
+      }
+      expect(decoded.value.r).to.be.closeTo(newValue.r, 0.00001)
+      expect(decoded.value.g).to.be.closeTo(newValue.g, 0.00001)
+      expect(decoded.value.b).to.be.closeTo(newValue.b, 0.00001)
+      expect(decoded.value.a).to.be.closeTo(newValue.a, 0.00001)
+    })
+  })
+
+  // exception if is not a listed type
+  it('should throw Invalid value: no matching encoder found', () => {
+    try {
+      GdCom.putVar({}, GdCom.TYPE.MAX)
+    } catch (e) {
+      expect(true)
+    }
+  })
 
   // signed int
   it('should encode/decode int 8', () => {
@@ -146,97 +337,5 @@ describe('gd-com binary serializer', () => {
       const decoded = GdCom.getDouble(encoded)
       expect(decoded.value).to.deep.closeTo(value, 0.00001)
     })
-  })
-
-  // gdBuffer Test
-
-  it('gdBuffer should encode/decode', () => {
-    const buffer = new GdCom.GdBuffer()
-
-    const values = ['test', 'test1', 'test2']
-
-    values.forEach((value) => {
-      buffer.putVar(value)
-      const test = buffer.getVar()
-      expect(test).to.be.equal(value)
-      expect(buffer.getBuffer().equals(Buffer.alloc(0))).to.be.equals(true)
-    })
-  })
-
-  it('gdBuffer should encode/decode with buffer length', () => {
-    const buffer = new GdCom.GdBuffer()
-
-    buffer.putVar('test')
-    buffer.putVar('test')
-    buffer.putVar('test')
-    buffer.putVar('test')
-    let test = buffer.getVar()
-    expect(test).to.be.equal('test')
-    test = buffer.getVar()
-    expect(test).to.be.equal('test')
-    test = buffer.getVar()
-    expect(test).to.be.equal('test')
-
-    expect(buffer.getBuffer().length).to.be.equals(12)
-  })
-
-  it('should encode/decode string and be empty', () => {
-    const buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
-
-    const values = ['test', 'test1', 'test2']
-
-    values.forEach((value) => {
-      buffer.putVar(value)
-      const test = buffer.getVar()
-      expect(test).to.be.equal(value)
-      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-    })
-  })
-
-  it('should encode/decode integer and be empty', () => {
-    const buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
-
-    const values = [-100, 100, 500, 8520]
-
-    values.forEach((value) => {
-      buffer.putVar(value)
-      const test = buffer.getVar()
-      expect(test).to.be.equal(value)
-      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-    })
-  })
-
-  it('should encode/decode float and be empty', () => {
-    const buffer = new GdCom.GdBuffer(Buffer.alloc(0))
-
-    const values = [1.5, -1.5, 500.5, 8520, 8520]
-
-    values.forEach((value) => {
-      buffer.putVar(value)
-      const test = buffer.getVar()
-      expect(test).to.be.equal(value)
-      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-    })
-  })
-
-  it('should encode/decode and contains test4', () => {
-    const buffer = new GdCom.GdBuffer(Buffer.alloc(0))
-
-    buffer.putVar('test1')
-    buffer.putVar('test2')
-    buffer.putVar('test3')
-    buffer.putVar('test4')
-
-    let test = buffer.getVar()
-    expect(test).to.be.equal('test1')
-    expect(buffer.getBuffer().length).to.be.equals(48)
-
-    test = buffer.getVar()
-    expect(test).to.be.equal('test2')
-    expect(buffer.getBuffer().length).to.be.equals(32)
-
-    test = buffer.getVar()
-    expect(test).to.be.equal('test3')
-    expect(buffer.getBuffer().length).to.be.equals(16)
   })
 })
