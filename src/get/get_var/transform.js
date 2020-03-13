@@ -3,10 +3,10 @@ const { TRANSFORM } = require('../../constants')
 /**
  * Decode Transform
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Object, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarTransform (genericDecoder, buf) {
   return {
     value: [
       [
@@ -32,6 +32,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarTransform,
   type: TRANSFORM
 }

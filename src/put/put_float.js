@@ -1,5 +1,10 @@
+/**
+ * Encode Float
+ * @param value
+ * @returns {Buffer}
+ */
 function putFloat (value) {
-  let newBuffer = Buffer.allocUnsafe(4)
+  const newBuffer = Buffer.allocUnsafe(4)
   newBuffer.writeFloatLE(value, 0)
   return newBuffer
 }

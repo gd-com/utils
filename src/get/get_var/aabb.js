@@ -3,36 +3,24 @@ const { AABB } = require('../../constants')
 /**
  * Decode AABB
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: AABB, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarAABB (genericDecoder, buf) {
   return {
-    value: [
-      [
-        buf.readFloatLE(buf, 0),
-        buf.readFloatLE(buf, 4),
-        buf.readFloatLE(buf, 8)
-      ], [
-
-        buf.readFloatLE(buf, 12),
-        buf.readFloatLE(buf, 16),
-        buf.readFloatLE(buf, 20)
-      ], [
-        buf.readFloatLE(buf, 24),
-        buf.readFloatLE(buf, 28),
-        buf.readFloatLE(buf, 32)
-      ], [
-        buf.readFloatLE(buf, 36),
-        buf.readFloatLE(buf, 40),
-        buf.readFloatLE(buf, 44)
-      ]
-    ],
-    length: 48
+    value: {
+      x_coordinate: buf.readFloatLE(0),
+      y_coordinate: buf.readFloatLE(4),
+      z_coordinate: buf.readFloatLE(8),
+      x_size: buf.readFloatLE(12),
+      y_size: buf.readFloatLE(16),
+      z_size: buf.readFloatLE(20)
+    },
+    length: 24
   }
 }
 
 module.exports = {
-  decode,
+  decode: getVarAABB,
   type: AABB
 }

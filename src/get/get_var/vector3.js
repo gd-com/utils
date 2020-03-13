@@ -3,10 +3,10 @@ const { VECTOR3 } = require('../../constants')
 /**
  * Decode Vector3
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Object, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarVector3 (genericDecoder, buf) {
   return {
     value: {
       x: buf.readFloatLE(0),
@@ -18,6 +18,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarVector3,
   type: VECTOR3
 }

@@ -1,5 +1,10 @@
+/**
+ * Encode Unsigned Int 8
+ * @param value
+ * @returns {Buffer}
+ */
 function putU8 (value) {
-  let newBuffer = Buffer.allocUnsafe(1)
+  const newBuffer = Buffer.allocUnsafe(1)
   newBuffer.writeUInt8(value, 0)
   return newBuffer
 }

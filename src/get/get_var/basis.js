@@ -3,10 +3,10 @@ const { BASIS } = require('../../constants')
 /**
  * Decode BASIS
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Object, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarBasis (genericDecoder, buf) {
   return {
     value: [
       [
@@ -28,6 +28,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarBasis,
   type: BASIS
 }

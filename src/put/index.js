@@ -5,7 +5,7 @@ const { upperFirst } = require('../utils')
 const files = fs.readdirSync(__dirname)
 
 const filePathToFunctionName = (filePath) => {
-  let data = path.basename(filePath).replace(/.js/g, '').split('_')
+  const data = path.basename(filePath).replace(/.js/g, '').split('_')
   return data[0] + upperFirst(data[1])
 }
 

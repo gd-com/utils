@@ -3,14 +3,14 @@ const { DICTIONARY } = require('../../constants')
 /**
  * Decode Dictionnary
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Object, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarDictionnary (genericDecoder, buf) {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 
-  let data = {
+  const data = {
     dictionary: {},
     pos: 0,
     buffer: buf.slice(4)
@@ -34,6 +34,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarDictionnary,
   type: DICTIONARY
 }

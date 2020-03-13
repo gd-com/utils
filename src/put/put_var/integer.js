@@ -5,12 +5,12 @@ const put32 = require('../put_32')
 /**
  * Encode Integer
  * @param value
- * @returns {{value: Buffer, length: Number}}
+ * @returns {Buffer}
  */
-function encode (value) {
-  let type = putU16(INTEGER)
-  let flag = putU16(0)
-  let data = put32(value)
+function putVarInt (value) {
+  const type = putU16(INTEGER)
+  const flag = putU16(0)
+  const data = put32(value)
 
   // TODO x64
 
@@ -18,6 +18,6 @@ function encode (value) {
 }
 
 module.exports = {
-  encode: (prepare, value) => encode(value),
+  encode: (prepare, value) => putVarInt(value),
   type: (typeName, value) => typeName === 'number' && Number.isInteger(value)
 }

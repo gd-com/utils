@@ -10,7 +10,7 @@ const decoderList = files.reduce((decoders, filename) => {
   if (fs.statSync(filePath).isFile() &&
     /^\.js$/i.test(extname) &&
     __filename !== filePath) {
-    let decoder = require(filePath)
+    const decoder = require(filePath)
 
     decoders[decoder.type] = decoder.decode
   }
@@ -18,12 +18,6 @@ const decoderList = files.reduce((decoders, filename) => {
   return decoders
 }, {})
 
-/**
- * Decode data
- * @param buffer
- * @param offset
- * @returns {*}
- */
 function decode (buffer, offset = 0) {
   const type = buffer.readInt16LE(offset)
   const flag = buffer.readInt16LE(offset + 2)
@@ -36,7 +30,14 @@ function decode (buffer, offset = 0) {
   return decoderList[type](decode, data, flag)
 }
 
-module.exports = (buf) => {
+/**
+ * Decode Variant
+ * @param buf {Buffer}
+ * @returns {{value: *, length: Number}}
+ */
+function getVar (buf) {
   const data = decode(buf)
   return { value: data.value, length: data.length + 4 } // +4 cause we don't export type length
 }
+
+module.exports = getVar

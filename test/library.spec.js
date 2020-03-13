@@ -7,7 +7,7 @@ const expect = chai.expect
 
 const GdCom = require('../src')
 
-let data = {
+const data = {
   Null: [null],
   Boolean: [true, false],
   Integer: [42, -42, 0],
@@ -27,25 +27,175 @@ let data = {
 }
 
 describe('gd-com binary serializer', () => {
-  for (let objecType in data) {
+  for (const objecType in data) {
     it(`should encode/decode variant ${objecType}`, () => {
-      let dataType = data[objecType]
+      const dataType = data[objecType]
 
       dataType.forEach((value) => {
+        let newValue = value
+
         const encoded = GdCom.putVar(value)
         const decoded = GdCom.getVar(encoded)
 
         if (/Float/i.test(objecType)) {
-          expect(decoded.value).to.be.closeTo(value, 0.00001)
+          expect(decoded.value).to.be.closeTo(newValue, 0.00001)
         } else {
-          expect(decoded.value).to.deep.equal(value)
+          expect(decoded.value).to.deep.equal(newValue)
         }
       })
     })
   }
 
+  it('should encode/decode variant Vector2', () => {
+    const dataType = [
+      { x: 1, y: 2 },
+      { x: -1, y: -2 },
+      { x: -42.4, y: 0.15 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.VECTOR2)
+      const decoded = GdCom.getVar(encoded)
+
+      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Rect2', () => {
+    const dataType = [
+      { x_coordinate: 1, y_coordinate: 2, x_size: 3, y_size: 4 },
+      { x_coordinate: -1, y_coordinate: -2, x_size: -3, y_size: -4 },
+      { x_coordinate: -42.54, y_coordinate: 0.520, x_size: 0.520, y_size: -42.54 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.RECT2)
+      const decoded = GdCom.getVar(encoded)
+
+      expect(decoded.value.x_coordinate).to.be.closeTo(newValue.x_coordinate, 0.00001)
+      expect(decoded.value.y_coordinate).to.be.closeTo(newValue.y_coordinate, 0.00001)
+      expect(decoded.value.x_size).to.be.closeTo(newValue.x_size, 0.00001)
+      expect(decoded.value.y_size).to.be.closeTo(newValue.y_size, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Vector3', () => {
+    const dataType = [
+      { x: 1, y: 2, z: 3 },
+      { x: -1, y: -2, z: -0.520 },
+      { x: -42.54, y: 0.520, z: 0.520 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.VECTOR3)
+      const decoded = GdCom.getVar(encoded)
+
+      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Plane', () => {
+    const dataType = [
+      { x: 1, y: 2, z: 3, distance: 2 },
+      { x: -1, y: -2, z: -0.520, distance: 2 },
+      { x: -42.54, y: 0.520, z: 0.520, distance: 2 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.PLANE)
+      const decoded = GdCom.getVar(encoded)
+
+      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
+      expect(decoded.value.distance).to.be.closeTo(newValue.distance, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Quat', () => {
+    const dataType = [
+      { x: 1, y: 2, z: 3, w: 2 },
+      { x: -1, y: -2, z: -0.520, w: 2 },
+      { x: -42.54, y: 0.520, z: 0.520, w: 2 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.QUATERNION)
+      const decoded = GdCom.getVar(encoded)
+
+      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
+      expect(decoded.value.w).to.be.closeTo(newValue.w, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant AABB', () => {
+    const dataType = [
+      { x_coordinate: 1, y_coordinate: 2, z_coordinate: 3, x_size: 4, y_size: 5, z_size: 6 },
+      { x_coordinate: -1, y_coordinate: -2, z_coordinate: -3, x_size: -4, y_size: -5, z_size: -6 },
+      { x_coordinate: 1.05, y_coordinate: -42.852, z_coordinate: 3.52, x_size: 4, y_size: 5, z_size: 6 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.AABB)
+      const decoded = GdCom.getVar(encoded)
+
+      expect(decoded.value.x_coordinate).to.be.closeTo(newValue.x_coordinate, 0.00001)
+      expect(decoded.value.y_coordinate).to.be.closeTo(newValue.y_coordinate, 0.00001)
+      expect(decoded.value.z_coordinate).to.be.closeTo(newValue.z_coordinate, 0.00001)
+      expect(decoded.value.x_size).to.be.closeTo(newValue.x_size, 0.00001)
+      expect(decoded.value.y_size).to.be.closeTo(newValue.y_size, 0.00001)
+      expect(decoded.value.z_size).to.be.closeTo(newValue.z_size, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant Color', () => {
+    const dataType = [
+      { r: 0.1, g: 1, b: 0.5, a: 1 },
+      { r: 1, g: 0, b: 0.5, a: 1 },
+      { r: 0, g: 0.5, b: 1, a: 1 }
+    ]
+
+    dataType.forEach((value) => {
+      let newValue = value
+
+      const encoded = GdCom.putVar(value, GdCom.TYPE.COLOR)
+      const decoded = GdCom.getVar(encoded)
+
+      expect(decoded.value.r).to.be.closeTo(newValue.r, 0.00001)
+      expect(decoded.value.g).to.be.closeTo(newValue.g, 0.00001)
+      expect(decoded.value.b).to.be.closeTo(newValue.b, 0.00001)
+      expect(decoded.value.a).to.be.closeTo(newValue.a, 0.00001)
+    })
+  })
+
+  // exception if is not a listed type
+  it('should throw Invalid value: no matching encoder found', () => {
+    try {
+      GdCom.putVar({}, GdCom.TYPE.MAX)
+    } catch (e) {
+      expect(true)
+    }
+  })
+
   // signed int
-  it(`should encode/decode int 8`, () => {
+  it('should encode/decode int 8', () => {
     const values = [-128, 127, 10, -10]
     values.forEach((value) => {
       const encoded = GdCom.put8(value)
@@ -54,7 +204,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode int 16`, () => {
+  it('should encode/decode int 16', () => {
     const values = [-32768, 32767, 10, -10]
     values.forEach((value) => {
       const encoded = GdCom.put16(value)
@@ -63,7 +213,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode int 32`, () => {
+  it('should encode/decode int 32', () => {
     const values = [-2147483648, 2147483647, 10, -10]
     values.forEach((value) => {
       const encoded = GdCom.put32(value)
@@ -72,7 +222,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode int 64`, () => {
+  it('should encode/decode int 64', () => {
     const values = [Long.MAX_VALUE.toString(), Long.MIN_VALUE.toString(), '10', '518']
     values.forEach((value) => {
       const encoded = GdCom.put64(value)
@@ -82,7 +232,7 @@ describe('gd-com binary serializer', () => {
   })
 
   // unsigned int
-  it(`should encode/decode uint 8`, () => {
+  it('should encode/decode uint 8', () => {
     const values = [0, 255, 10, 105]
     values.forEach((value) => {
       const encoded = GdCom.putU8(value)
@@ -91,7 +241,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode uint 16`, () => {
+  it('should encode/decode uint 16', () => {
     const values = [0, 65535, 10, 518]
     values.forEach((value) => {
       const encoded = GdCom.putU16(value)
@@ -100,7 +250,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode uint 32`, () => {
+  it('should encode/decode uint 32', () => {
     const values = [0, 4294967295, 10, 518]
     values.forEach((value) => {
       const encoded = GdCom.putU32(value)
@@ -109,7 +259,7 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  it(`should encode/decode uint 64`, () => {
+  it('should encode/decode uint 64', () => {
     const values = [Long.MAX_UNSIGNED_VALUE.toString(), '0', '10', '518']
     values.forEach((value) => {
       const encoded = GdCom.putU64(value)
@@ -119,7 +269,7 @@ describe('gd-com binary serializer', () => {
   })
 
   // string
-  it(`should encode/decode string`, () => {
+  it('should encode/decode string', () => {
     const values = ['hello', 'world', 'hello world', 'hello world hello world']
     values.forEach((value) => {
       const encoded = GdCom.putString(value)
@@ -129,7 +279,7 @@ describe('gd-com binary serializer', () => {
   })
 
   // float
-  it(`should encode/decode float`, () => {
+  it('should encode/decode float', () => {
     const values = [10.520, -10.520]
     values.forEach((value) => {
       const encoded = GdCom.putFloat(value)
@@ -139,104 +289,12 @@ describe('gd-com binary serializer', () => {
   })
 
   // double
-  it(`should encode/decode double`, () => {
+  it('should encode/decode double', () => {
     const values = [10.520, -10.520]
     values.forEach((value) => {
       const encoded = GdCom.putDouble(value)
       const decoded = GdCom.getDouble(encoded)
       expect(decoded.value).to.deep.closeTo(value, 0.00001)
     })
-  })
-
-  // gdBuffer Test
-
-  it(`gdBuffer should encode/decode`, () => {
-    let buffer = new GdCom.GdBuffer()
-
-    const values = ['test', 'test1', 'test2']
-
-    values.forEach((value) => {
-      buffer.putVar(value)
-      const test = buffer.getVar()
-      expect(test).to.be.equal(value)
-      expect(buffer.getBuffer().equals(Buffer.alloc(0))).to.be.equals(true)
-    })
-  })
-
-  it(`gdBuffer should encode/decode with buffer length`, () => {
-    let buffer = new GdCom.GdBuffer()
-
-    buffer.putVar('test')
-    buffer.putVar('test')
-    buffer.putVar('test')
-    buffer.putVar('test')
-    let test = buffer.getVar()
-    expect(test).to.be.equal('test')
-    test = buffer.getVar()
-    expect(test).to.be.equal('test')
-    test = buffer.getVar()
-    expect(test).to.be.equal('test')
-
-    expect(buffer.getBuffer().length).to.be.equals(12)
-  })
-
-  it(`should encode/decode string and be empty`, () => {
-    let buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
-
-    const values = ['test', 'test1', 'test2']
-
-    values.forEach((value) => {
-      buffer.putVar(value)
-      const test = buffer.getVar()
-      expect(test).to.be.equal(value)
-      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-    })
-  })
-
-  it(`should encode/decode integer and be empty`, () => {
-    let buffer = new GdCom.GdBuffer(Buffer.alloc(0), true)
-
-    const values = [-100, 100, 500, 8520]
-
-    values.forEach((value) => {
-      buffer.putVar(value)
-      const test = buffer.getVar()
-      expect(test).to.be.equal(value)
-      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-    })
-  })
-
-  it(`should encode/decode float and be empty`, () => {
-    let buffer = new GdCom.GdBuffer(Buffer.alloc(0))
-
-    const values = [1.5, -1.5, 500.5, 8520, 8520]
-
-    values.forEach((value) => {
-      buffer.putVar(value)
-      const test = buffer.getVar()
-      expect(test).to.be.equal(value)
-      expect(buffer.getBuffer()).to.be.deep.equals(Buffer.alloc(0))
-    })
-  })
-
-  it(`should encode/decode and contains test4`, () => {
-    let buffer = new GdCom.GdBuffer(Buffer.alloc(0))
-
-    buffer.putVar('test1')
-    buffer.putVar('test2')
-    buffer.putVar('test3')
-    buffer.putVar('test4')
-
-    let test = buffer.getVar()
-    expect(test).to.be.equal('test1')
-    expect(buffer.getBuffer().length).to.be.equals(48)
-
-    test = buffer.getVar()
-    expect(test).to.be.equal('test2')
-    expect(buffer.getBuffer().length).to.be.equals(32)
-
-    test = buffer.getVar()
-    expect(test).to.be.equal('test3')
-    expect(buffer.getBuffer().length).to.be.equals(16)
   })
 })

@@ -3,22 +3,22 @@ const { RECT2 } = require('../../constants')
 /**
  * Decode Rect2
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: Object, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarRect2 (genericDecoder, buf) {
   return {
     value: {
-      x1: buf.readFloatLE(0),
-      y1: buf.readFloatLE(4),
-      x2: buf.readFloatLE(8),
-      y2: buf.readFloatLE(12)
+      x_coordinate: buf.readFloatLE(0),
+      y_coordinate: buf.readFloatLE(4),
+      x_size: buf.readFloatLE(8),
+      y_size: buf.readFloatLE(12)
     },
     length: 16
   }
 }
 
 module.exports = {
-  decode,
+  decode: getVarRect2,
   type: RECT2
 }

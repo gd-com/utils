@@ -1,5 +1,10 @@
+/**
+ * Encode Unsigned Int 32
+ * @param value
+ * @returns {Buffer}
+ */
 function putU32 (value) {
-  let newBuffer = Buffer.allocUnsafe(4)
+  const newBuffer = Buffer.allocUnsafe(4)
   newBuffer.writeUInt32LE(value, 0)
   return newBuffer
 }

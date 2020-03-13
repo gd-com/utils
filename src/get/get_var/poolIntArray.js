@@ -1,25 +1,25 @@
-const { VECTOR3_ARRAY } = require('../../constants')
-const vector3 = require('./vector3')
+const { POOL_INT_ARRAY } = require('../../constants')
+const integer = require('./integer')
 
 /**
- * Decode vector3Array
+ * Decode PoolIntArray
  * @param genericDecoder
- * @param buf
+ * @param buf {Buffer}
  * @param flag
- * @returns {Object}
+ * @returns {{value: Array, length: Number}}
  */
-function decode (genericDecoder, buf, flag) {
+function getVarPoolIntArray (genericDecoder, buf, flag) {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
-  let data = {
+  const data = {
     array: [],
     buffer: buf.slice(4),
     pos: 4
   }
 
   for (let index = 0; index < nbEntries; index++) {
-    const decodedValue = vector3.decode(genericDecoder, data.buffer)
+    const decodedValue = integer.decode(genericDecoder, data.buffer, flag)
     data.array.push(decodedValue.value)
     data.buffer = data.buffer.slice(decodedValue.length)
     data.pos += decodedValue.length
@@ -32,6 +32,6 @@ function decode (genericDecoder, buf, flag) {
 }
 
 module.exports = {
-  decode,
-  type: VECTOR3_ARRAY
+  decode: getVarPoolIntArray,
+  type: POOL_INT_ARRAY
 }

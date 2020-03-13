@@ -1,5 +1,10 @@
+/**
+ * Encode Int 8
+ * @param value
+ * @returns {Buffer}
+ */
 function put8 (value) {
-  let newBuffer = Buffer.allocUnsafe(1)
+  const newBuffer = Buffer.allocUnsafe(1)
   newBuffer.writeInt8(value, 0)
   return newBuffer
 }

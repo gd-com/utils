@@ -2,10 +2,10 @@ const { STRING } = require('../../constants')
 /**
  * Decode String
  * @param genericDecoder
- * @param buf
- * @returns {Object}
+ * @param buf {Buffer}
+ * @returns {{value: String, length: Number}}
  */
-function decode (genericDecoder, buf) {
+function getVarString (genericDecoder, buf) {
   const len = buf.readUInt32LE(0)
   const pad = len % 4 === 0 ? 0 : 4 - (len % 4)
 
@@ -16,6 +16,6 @@ function decode (genericDecoder, buf) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarString,
   type: STRING
 }

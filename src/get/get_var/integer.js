@@ -4,11 +4,11 @@ const Long = require('long')
 /**
  * Decode integer
  * @param genericDecoder
- * @param buf
+ * @param buf {Buffer}
  * @param flag
- * @returns {Object}
+ * @returns {{value: Number, length: Number}}
  */
-function decode (genericDecoder, buf, flag = 0) {
+function getVarInteger (genericDecoder, buf, flag = 0) {
   let result = null
   if (flag === 1) {
     result = {
@@ -26,6 +26,6 @@ function decode (genericDecoder, buf, flag = 0) {
 }
 
 module.exports = {
-  decode,
+  decode: getVarInteger,
   type: INTEGER
 }

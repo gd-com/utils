@@ -1,3 +1,9 @@
+/**
+ * Decode String
+ * @param buffer {Buffer}
+ * @param offset {Number}
+ * @returns {{value: String, length: Number}}
+ */
 function getString (buffer, offset = 0) {
   const len = buffer.readUInt32LE(offset)
 
