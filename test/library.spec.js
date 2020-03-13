@@ -37,12 +37,6 @@ describe('gd-com binary serializer', () => {
         const encoded = GdCom.putVar(value)
         const decoded = GdCom.getVar(encoded)
 
-        // to omit godotType key in custom Object but not in Array
-        if (!Array.isArray(value) && value !== null && typeof value === 'object') {
-          const { godotType, ...withoutType } = value
-          newValue = withoutType
-        }
-
         if (/Float/i.test(objecType)) {
           expect(decoded.value).to.be.closeTo(newValue, 0.00001)
         } else {
@@ -65,11 +59,6 @@ describe('gd-com binary serializer', () => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.VECTOR2)
       const decoded = GdCom.getVar(encoded)
 
-      // to omit godotType key in custom Object but not in Array
-      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
-        const { godotType, ...withoutType } = value
-        newValue = withoutType
-      }
       expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
       expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
     })
@@ -88,11 +77,6 @@ describe('gd-com binary serializer', () => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.RECT2)
       const decoded = GdCom.getVar(encoded)
 
-      // to omit godotType key in custom Object but not in Array
-      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
-        const { godotType, ...withoutType } = value
-        newValue = withoutType
-      }
       expect(decoded.value.x_coordinate).to.be.closeTo(newValue.x_coordinate, 0.00001)
       expect(decoded.value.y_coordinate).to.be.closeTo(newValue.y_coordinate, 0.00001)
       expect(decoded.value.x_size).to.be.closeTo(newValue.x_size, 0.00001)
@@ -113,11 +97,6 @@ describe('gd-com binary serializer', () => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.VECTOR3)
       const decoded = GdCom.getVar(encoded)
 
-      // to omit godotType key in custom Object but not in Array
-      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
-        const { godotType, ...withoutType } = value
-        newValue = withoutType
-      }
       expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
       expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
       expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
@@ -137,11 +116,6 @@ describe('gd-com binary serializer', () => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.PLANE)
       const decoded = GdCom.getVar(encoded)
 
-      // to omit godotType key in custom Object but not in Array
-      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
-        const { godotType, ...withoutType } = value
-        newValue = withoutType
-      }
       expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
       expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
       expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
@@ -162,11 +136,6 @@ describe('gd-com binary serializer', () => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.QUATERNION)
       const decoded = GdCom.getVar(encoded)
 
-      // to omit godotType key in custom Object but not in Array
-      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
-        const { godotType, ...withoutType } = value
-        newValue = withoutType
-      }
       expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
       expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
       expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
@@ -187,11 +156,6 @@ describe('gd-com binary serializer', () => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.AABB)
       const decoded = GdCom.getVar(encoded)
 
-      // to omit godotType key in custom Object but not in Array
-      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
-        const { godotType, ...withoutType } = value
-        newValue = withoutType
-      }
       expect(decoded.value.x_coordinate).to.be.closeTo(newValue.x_coordinate, 0.00001)
       expect(decoded.value.y_coordinate).to.be.closeTo(newValue.y_coordinate, 0.00001)
       expect(decoded.value.z_coordinate).to.be.closeTo(newValue.z_coordinate, 0.00001)
@@ -214,11 +178,6 @@ describe('gd-com binary serializer', () => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.COLOR)
       const decoded = GdCom.getVar(encoded)
 
-      // to omit godotType key in custom Object but not in Array
-      if (!Array.isArray(value) && value !== null && typeof value === 'object') {
-        const { godotType, ...withoutType } = value
-        newValue = withoutType
-      }
       expect(decoded.value.r).to.be.closeTo(newValue.r, 0.00001)
       expect(decoded.value.g).to.be.closeTo(newValue.g, 0.00001)
       expect(decoded.value.b).to.be.closeTo(newValue.b, 0.00001)
