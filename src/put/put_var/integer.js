@@ -19,5 +19,5 @@ function putVarInt (value) {
 
 module.exports = {
   encode: (prepare, value) => putVarInt(value),
-  type: (typeName, value) => typeName === 'number' && Number.isInteger(value)
+  type: (typeName, value) => (typeName === 'number' && Number.isInteger(value)) || typeName === INTEGER
 }

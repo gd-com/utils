@@ -39,5 +39,5 @@ module.exports = {
     }, [])
     return putVarArray(results)
   },
-  type: (typeName, value) => typeName === 'array'
+  type: (typeName, value) => typeName === 'array' || typeName === ARRAY
 }

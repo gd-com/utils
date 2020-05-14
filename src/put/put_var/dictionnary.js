@@ -40,5 +40,5 @@ module.exports = {
     }, [])
     return putVarDictionnary(results)
   },
-  type: (typeName, value) => typeName === 'object'
+  type: (typeName, value) => typeName === 'object' || typeName === DICTIONARY
 }

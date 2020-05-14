@@ -32,15 +32,13 @@ describe('gd-com binary serializer', () => {
       const dataType = data[objecType]
 
       dataType.forEach((value) => {
-        let newValue = value
-
         const encoded = GdCom.putVar(value)
         const decoded = GdCom.getVar(encoded)
 
         if (/Float/i.test(objecType)) {
-          expect(decoded.value).to.be.closeTo(newValue, 0.00001)
+          expect(decoded.value).to.be.closeTo(value, 0.00001)
         } else {
-          expect(decoded.value).to.deep.equal(newValue)
+          expect(decoded.value).to.deep.equal(value)
         }
       })
     })
@@ -54,13 +52,11 @@ describe('gd-com binary serializer', () => {
     ]
 
     dataType.forEach((value) => {
-      let newValue = value
-
       const encoded = GdCom.putVar(value, GdCom.TYPE.VECTOR2)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
-      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
+      expect(decoded.value.x).to.be.closeTo(value.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(value.y, 0.00001)
     })
   })
 
@@ -72,15 +68,13 @@ describe('gd-com binary serializer', () => {
     ]
 
     dataType.forEach((value) => {
-      let newValue = value
-
       const encoded = GdCom.putVar(value, GdCom.TYPE.RECT2)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x_coordinate).to.be.closeTo(newValue.x_coordinate, 0.00001)
-      expect(decoded.value.y_coordinate).to.be.closeTo(newValue.y_coordinate, 0.00001)
-      expect(decoded.value.x_size).to.be.closeTo(newValue.x_size, 0.00001)
-      expect(decoded.value.y_size).to.be.closeTo(newValue.y_size, 0.00001)
+      expect(decoded.value.x_coordinate).to.be.closeTo(value.x_coordinate, 0.00001)
+      expect(decoded.value.y_coordinate).to.be.closeTo(value.y_coordinate, 0.00001)
+      expect(decoded.value.x_size).to.be.closeTo(value.x_size, 0.00001)
+      expect(decoded.value.y_size).to.be.closeTo(value.y_size, 0.00001)
     })
   })
 
@@ -92,14 +86,12 @@ describe('gd-com binary serializer', () => {
     ]
 
     dataType.forEach((value) => {
-      let newValue = value
-
       const encoded = GdCom.putVar(value, GdCom.TYPE.VECTOR3)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
-      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
-      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
+      expect(decoded.value.x).to.be.closeTo(value.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(value.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(value.z, 0.00001)
     })
   })
 
@@ -111,15 +103,13 @@ describe('gd-com binary serializer', () => {
     ]
 
     dataType.forEach((value) => {
-      let newValue = value
-
       const encoded = GdCom.putVar(value, GdCom.TYPE.PLANE)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
-      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
-      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
-      expect(decoded.value.distance).to.be.closeTo(newValue.distance, 0.00001)
+      expect(decoded.value.x).to.be.closeTo(value.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(value.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(value.z, 0.00001)
+      expect(decoded.value.distance).to.be.closeTo(value.distance, 0.00001)
     })
   })
 
@@ -131,15 +121,13 @@ describe('gd-com binary serializer', () => {
     ]
 
     dataType.forEach((value) => {
-      let newValue = value
-
       const encoded = GdCom.putVar(value, GdCom.TYPE.QUATERNION)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x).to.be.closeTo(newValue.x, 0.00001)
-      expect(decoded.value.y).to.be.closeTo(newValue.y, 0.00001)
-      expect(decoded.value.z).to.be.closeTo(newValue.z, 0.00001)
-      expect(decoded.value.w).to.be.closeTo(newValue.w, 0.00001)
+      expect(decoded.value.x).to.be.closeTo(value.x, 0.00001)
+      expect(decoded.value.y).to.be.closeTo(value.y, 0.00001)
+      expect(decoded.value.z).to.be.closeTo(value.z, 0.00001)
+      expect(decoded.value.w).to.be.closeTo(value.w, 0.00001)
     })
   })
 
@@ -151,17 +139,15 @@ describe('gd-com binary serializer', () => {
     ]
 
     dataType.forEach((value) => {
-      let newValue = value
-
       const encoded = GdCom.putVar(value, GdCom.TYPE.AABB)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x_coordinate).to.be.closeTo(newValue.x_coordinate, 0.00001)
-      expect(decoded.value.y_coordinate).to.be.closeTo(newValue.y_coordinate, 0.00001)
-      expect(decoded.value.z_coordinate).to.be.closeTo(newValue.z_coordinate, 0.00001)
-      expect(decoded.value.x_size).to.be.closeTo(newValue.x_size, 0.00001)
-      expect(decoded.value.y_size).to.be.closeTo(newValue.y_size, 0.00001)
-      expect(decoded.value.z_size).to.be.closeTo(newValue.z_size, 0.00001)
+      expect(decoded.value.x_coordinate).to.be.closeTo(value.x_coordinate, 0.00001)
+      expect(decoded.value.y_coordinate).to.be.closeTo(value.y_coordinate, 0.00001)
+      expect(decoded.value.z_coordinate).to.be.closeTo(value.z_coordinate, 0.00001)
+      expect(decoded.value.x_size).to.be.closeTo(value.x_size, 0.00001)
+      expect(decoded.value.y_size).to.be.closeTo(value.y_size, 0.00001)
+      expect(decoded.value.z_size).to.be.closeTo(value.z_size, 0.00001)
     })
   })
 
@@ -173,15 +159,28 @@ describe('gd-com binary serializer', () => {
     ]
 
     dataType.forEach((value) => {
-      let newValue = value
-
       const encoded = GdCom.putVar(value, GdCom.TYPE.COLOR)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.r).to.be.closeTo(newValue.r, 0.00001)
-      expect(decoded.value.g).to.be.closeTo(newValue.g, 0.00001)
-      expect(decoded.value.b).to.be.closeTo(newValue.b, 0.00001)
-      expect(decoded.value.a).to.be.closeTo(newValue.a, 0.00001)
+      expect(decoded.value.r).to.be.closeTo(value.r, 0.00001)
+      expect(decoded.value.g).to.be.closeTo(value.g, 0.00001)
+      expect(decoded.value.b).to.be.closeTo(value.b, 0.00001)
+      expect(decoded.value.a).to.be.closeTo(value.a, 0.00001)
+    })
+  })
+
+  it('should encode/decode variant PoolByteArray', () => {
+    const dataType = [
+      Buffer.from([42, 42, 42, 42]),
+      Buffer.from([1, 2, 3, 4])
+    ]
+
+    dataType.forEach((value) => {
+      const encoded = GdCom.putVar(value, GdCom.TYPE.POOL_BYTE_ARRAY)
+      const decoded = GdCom.getVar(encoded)
+
+      expect(decoded.value).to.be.instanceof(Buffer)
+      expect(Buffer.compare(value, decoded.value)).to.deep.equal(0)
     })
   })
 

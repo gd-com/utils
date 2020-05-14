@@ -12,5 +12,5 @@ function putVarNull () {
 
 module.exports = {
   encode: (prepare, value) => putVarNull(),
-  type: (typeName, value) => typeName === 'null'
+  type: (typeName, value) => typeName === 'null' || typeName === NULL
 }

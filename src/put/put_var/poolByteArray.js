@@ -1,11 +1,6 @@
 const { POOL_BYTE_ARRAY } = require('../../constants')
 const putU32 = require('../put_u32')
 
-/**
- * Encode Boolean
- * @param {Buffer} value
- * @returns {Buffer}
- */
 function putBuffer (value) {
   const len = value.byteLength
   const pad = len % 4 === 0 ? 0 : 4 - len % 4
@@ -24,14 +19,18 @@ function putBuffer (value) {
   return newBuffer
 }
 
-function putVarBuffer (value) {
+/**
+ * Encode PoolByteArray
+ * @param value
+ * @returns {Buffer}
+ */
+function putVarPoolByteArray (value) {
   const type = putU32(POOL_BYTE_ARRAY)
   const data = putBuffer(value)
   return Buffer.concat([type, data])
 }
 
 module.exports = {
-  encode: (prepare, value) => putVarBuffer(value),
-  type: (typeName, value) => typeName === 'buffer'
+  encode: (prepare, value) => putVarPoolByteArray(value),
+  type: (typeName, value) => typeName === 'buffer' || typeName === POOL_BYTE_ARRAY
 }
-

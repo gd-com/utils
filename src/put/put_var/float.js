@@ -29,5 +29,5 @@ function putVarFloat (value) {
 
 module.exports = {
   encode: (prepare, value) => putVarFloat(value),
-  type: (typeName, value) => typeName === 'number' && !Number.isInteger(value)
+  type: (typeName, value) => (typeName === 'number' && !Number.isInteger(value)) || typeName === FLOAT
 }

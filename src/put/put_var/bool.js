@@ -14,5 +14,5 @@ function putVarBool (value) {
 
 module.exports = {
   encode: (prepare, value) => putVarBool(value),
-  type: (typeName, value) => typeName === 'boolean'
+  type: (typeName, value) => typeName === 'boolean' || typeName === BOOL
 }

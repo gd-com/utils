@@ -31,5 +31,5 @@ function putVarString (value) {
 
 module.exports = {
   encode: (prepare, value) => putVarString(value),
-  type: (typeName, value) => typeName === 'string'
+  type: (typeName, value) => typeName === 'string' || typeName === STRING
 }
