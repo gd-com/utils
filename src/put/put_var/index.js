@@ -34,6 +34,10 @@ function getType (value) {
   }
 
   if (isObject(value)) {
+    if (value instanceof Buffer) {
+      return 'buffer'
+    }
+
     return 'object'
   }
   return typeof value
