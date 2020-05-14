@@ -19,9 +19,10 @@ function getVarArray (genericDecoder, buf) {
 
   for (let index = 0; index < nbEntries; index++) {
     const decodedValue = genericDecoder(data.buffer)
+    const nextBufferOffset = (decodedValue.length + ((4 - decodedValue.length % 4) % 4)) + 4 // Pad to 4 bytes + 4 bytes type
     data.array.push(decodedValue.value)
-    data.buffer = data.buffer.slice(decodedValue.length + 4)
-    data.pos += decodedValue.length + 4
+    data.buffer = data.buffer.slice(nextBufferOffset)
+    data.pos += nextBufferOffset
   }
 
   return {

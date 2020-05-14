@@ -22,9 +22,10 @@ function getVarDictionnary (genericDecoder, buf) {
     const nextBuffer = data.buffer.slice(decodedKey.length + 4)
 
     const decodedValue = genericDecoder(nextBuffer)
-    data.pos += decodedValue.length + 4 // 4 type length
+    const nextBufferOffset = (decodedValue.length + ((4 - decodedValue.length % 4) % 4)) + 4 // Pad to 4 bytes + 4 bytes type
+    data.pos += nextBufferOffset
     data.dictionary[decodedKey.value] = decodedValue.value
-    data.buffer = nextBuffer.slice(decodedValue.length + 4)
+    data.buffer = nextBuffer.slice(nextBufferOffset)
   }
 
   return {
