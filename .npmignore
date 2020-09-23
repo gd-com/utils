@@ -7,3 +7,4 @@ yarn.lock
 CHANGELOG.md
 TODO.md
 CONTRIBUTING.md
+.nyc_output
