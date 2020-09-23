@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+* v4.1.1
+  * Fix padding when reading dictionaries and arrays thx @timoschwarzer
+  * putVar POOL_BYTE_ARRAY thx @timoschwarzer
+  * can now force encode to specific type
+  * more tests !
+
 * v4.1.0
   * remove useless function
   * putVar can now encode Variant : AABB Color Plane Quat Rect2 Vector2 Vector3
