@@ -186,9 +186,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * GDQuest
 * IG-Dev
 * **Salsa2k** for the [initial work](https://github.com/salsa2k/godotserver)
-
-## Buy me a coffe
-
-BTC : `3DHU92kNHRbe2374cE2DrxDfE6i6Mu7ZSv`
-
-ETH : `0x316dcd4F84606B7165f6ae2928594c3ef0FF3828`
