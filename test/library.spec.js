@@ -3,7 +3,7 @@ const Long = require('long')
 const dataFile = require('./data-01.json')
 const dataDeepFile = require('./data-02.json')
 
-const GdCom = require('../src')
+const GdCom = require('../dist')
 
 const data = {
   Null: [null],
@@ -167,14 +167,14 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  test('should encode/decode variant PoolByteArray', () => {
+  test('should encode/decode variant RAW_ARRAY', () => {
     const dataType = [
       Buffer.from([42, 42, 42, 42]),
       Buffer.from([1, 2, 3, 4])
     ]
 
     dataType.forEach((value) => {
-      const encoded = GdCom.putVar(value, GdCom.TYPE.POOL_BYTE_ARRAY)
+      const encoded = GdCom.putVar(value, GdCom.TYPE.RAW_ARRAY)
       const decoded = GdCom.getVar(encoded)
 
       expect(decoded.value).toBeInstanceOf(Buffer)
