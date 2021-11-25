@@ -4,8 +4,7 @@
   "description": "Serializer/deserializer utils for godot engine",
   "main": "src/index.js",
   "scripts": {
-    "generate-docs": "node_modules/.bin/jsdoc -c ./jsdoc.json",
-    "lint": "standard lib/**/*.js example/**/*.js test/**/*.js",
+    "lint": "standard src/**/*.js test/**/*.js",
     "test": "jest"
   },
   "repository": {
