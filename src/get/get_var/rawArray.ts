@@ -1,10 +1,12 @@
+import {IGetReturn} from "../../types/IGetReturn";
+
 /**
  * Decode RawArray
  * @param genericDecoder
  * @param buf {Buffer}
  * @returns {{value: Array, length: Number}}
  */
-export function getVarRawArray (genericDecoder, buf) {
+export function getVarRawArray (genericDecoder, buf): IGetReturn<Array<number>> {
   const bufLength = buf.readUInt32LE(0)
 
   return {

@@ -1,5 +1,5 @@
 import {IGetReturn} from "../../types/IGetReturn";
-import {IGodotArray} from "../../types/IGodotArray";
+import {GodotArray} from "../../types/GodotArray";
 
 /**
  * Decode Array
@@ -7,7 +7,7 @@ import {IGodotArray} from "../../types/IGodotArray";
  * @param buf {Buffer}
  * @returns {{value: Array, length: Number}}
  */
-export function getVarArray (genericDecoder, buf): IGetReturn<IGodotArray> {
+export function getVarArray (genericDecoder, buf): IGetReturn<GodotArray<any>> {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 

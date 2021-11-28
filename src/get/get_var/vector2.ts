@@ -4,12 +4,15 @@
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-export function getVarVector2 (genericDecoder, buf) {
+import {IGetReturn} from "../../types/IGetReturn";
+import {GodotVector2} from "../../types/GodotVector2";
+
+export function getVarVector2 (genericDecoder, buf): IGetReturn<GodotVector2> {
   return {
-    value: {
-      x: buf.readFloatLE(0),
-      y: buf.readFloatLE(4)
-    },
+    value: new GodotVector2(
+      buf.readFloatLE(0),
+      buf.readFloatLE(4)
+    ),
     length: 8
   }
 }

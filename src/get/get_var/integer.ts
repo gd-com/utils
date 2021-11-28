@@ -1,4 +1,7 @@
 import Long from 'long'
+import {IGetReturn} from "../../types/IGetReturn";
+import {GodotFloat} from "../../types/GodotFloat";
+import {GodotInteger} from "../../types/GodotInteger";
 
 /**
  * Decode integer
@@ -7,7 +10,7 @@ import Long from 'long'
  * @param flag
  * @returns {{value: Number, length: Number}}
  */
-export function getVarInteger (genericDecoder, buf, flag = 0) {
+export function getVarInteger (genericDecoder, buf, flag = 0): IGetReturn<GodotInteger> {
   let result = null
   if (flag === 1) {
     result = {

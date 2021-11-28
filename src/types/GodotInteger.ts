@@ -1,0 +1,1 @@
+export type GodotInteger = number

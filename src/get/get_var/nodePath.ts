@@ -1,4 +1,6 @@
 import { getVarString } from './string'
+import {IGetReturn} from "../../types/IGetReturn";
+import {GodotNodePath} from "../../types/GodotNodePath";
 
 /**
  * Decode Node Path
@@ -6,7 +8,7 @@ import { getVarString } from './string'
  * @param buf {Buffer}
  * @returns {{value: String, length: Number}}
  */
-export function getVarNodePath (genericDecoder, buf) {
+export function getVarNodePath (genericDecoder, buf): IGetReturn<GodotNodePath> {
   const strlen = buf.readUInt32LE(0)
   const nameCount = strlen & 0x7FFFFFFF
   const subnameCount = buf.readUInt32LE(4)

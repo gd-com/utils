@@ -1,4 +1,7 @@
 import { getVarFloat } from './float'
+import {IGetReturn} from "../../types/IGetReturn";
+import {GodotArray} from "../../types/GodotArray";
+import {GodotFloat} from "../../types/GodotFloat";
 
 /**
  * Decode PoolRealArray
@@ -7,7 +10,7 @@ import { getVarFloat } from './float'
  * @param flag
  * @returns {{value: Array, length: Number}}
  */
-export function getVarRealArray (genericDecoder, buf, flag) {
+export function getVarRealArray (genericDecoder, buf, flag): IGetReturn<GodotArray<GodotFloat>> {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
