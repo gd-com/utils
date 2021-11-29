@@ -1,0 +1,1 @@
+export type GodotNodePath = string;

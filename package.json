@@ -2,10 +2,19 @@
   "name": "@gd-com/utils",
   "version": "4.1.1",
   "description": "Serializer/deserializer utils for godot engine",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
-    "lint": "standard src/**/*.js test/**/*.js",
-    "test": "jest"
+    "build": "tsc",
+    "lint": "ts-standard --fix src/**/*.ts",
+    "prettier": "prettier --write src/**/*.ts",
+    "test": "jest",
+    "publish-lib": "npm run build && npm publish",
+    "publish-beta": "npm run build && npm publish --tag beta",
+    "publish-dryrun": "npm run build && npm publish --dry-run"
   },
   "repository": {
     "type": "git",
@@ -16,9 +25,12 @@
   },
   "homepage": "https://github.com/gd-com/utils#readme",
   "devDependencies": {
+    "@types/node": "^16.11.10",
     "jest": "^27.3.1",
     "nyc": "^15.1.0",
-    "standard": "^16.0.4"
+    "prettier": "^2.5.0",
+    "ts-standard": "^11.0.0",
+    "typescript": "^4.4.4"
   },
   "keywords": [
     "library",
@@ -30,12 +42,15 @@
     "websocket",
     "helper"
   ],
-  "author": "Evandikt",
+  "author": "Tilican",
   "license": "MIT",
   "contributors": [
     "Xavier Sellier <xsellier@gmail.com>"
   ],
   "dependencies": {
-    "long": "^5.1.0"
+    "long": "^5.2.0"
+  },
+  "peerDependencies": {
+    "long": "^5.2.0"
   }
 }

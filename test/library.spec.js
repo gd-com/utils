@@ -3,7 +3,7 @@ const Long = require('long')
 const dataFile = require('./data-01.json')
 const dataDeepFile = require('./data-02.json')
 
-const GdCom = require('../src')
+const GdCom = require('../dist')
 
 const data = {
   Null: [null],
@@ -44,9 +44,9 @@ describe('gd-com binary serializer', () => {
 
   test('should encode/decode variant Vector2', () => {
     const dataType = [
-      { x: 1, y: 2 },
-      { x: -1, y: -2 },
-      { x: -42.4, y: 0.15 }
+      new GdCom.GodotVector2(1,2),
+      new GdCom.GodotVector2(-1,-2),
+      new GdCom.GodotVector2(-42.4,0.15),
     ]
 
     dataType.forEach((value) => {
@@ -60,19 +60,28 @@ describe('gd-com binary serializer', () => {
 
   test('should encode/decode variant Rect2', () => {
     const dataType = [
-      { x_coordinate: 1, y_coordinate: 2, x_size: 3, y_size: 4 },
-      { x_coordinate: -1, y_coordinate: -2, x_size: -3, y_size: -4 },
-      { x_coordinate: -42.54, y_coordinate: 0.520, x_size: 0.520, y_size: -42.54 }
+      new GdCom.GodotRect2(
+        new GdCom.GodotVector2(1,2),
+        new GdCom.GodotVector2(3,4),
+      ),
+      new GdCom.GodotRect2(
+        new GdCom.GodotVector2(-1,-2),
+        new GdCom.GodotVector2(-3,-4),
+      ),
+      new GdCom.GodotRect2(
+        new GdCom.GodotVector2(-42.54,0.520),
+        new GdCom.GodotVector2(0.520,-42.54),
+      ),
     ]
 
     dataType.forEach((value) => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.RECT2)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x_coordinate).toBeCloseTo(value.x_coordinate, 5)
-      expect(decoded.value.y_coordinate).toBeCloseTo(value.y_coordinate, 5)
-      expect(decoded.value.x_size).toBeCloseTo(value.x_size, 5)
-      expect(decoded.value.y_size).toBeCloseTo(value.y_size, 5)
+      expect(decoded.value.coordinate.x).toBeCloseTo(value.coordinate.x, 5)
+      expect(decoded.value.coordinate.y).toBeCloseTo(value.coordinate.y, 5)
+      expect(decoded.value.size.x).toBeCloseTo(value.size.x, 5)
+      expect(decoded.value.size.y).toBeCloseTo(value.size.y, 5)
     })
   })
 
@@ -131,21 +140,30 @@ describe('gd-com binary serializer', () => {
 
   test('should encode/decode variant AABB', () => {
     const dataType = [
-      { x_coordinate: 1, y_coordinate: 2, z_coordinate: 3, x_size: 4, y_size: 5, z_size: 6 },
-      { x_coordinate: -1, y_coordinate: -2, z_coordinate: -3, x_size: -4, y_size: -5, z_size: -6 },
-      { x_coordinate: 1.05, y_coordinate: -42.852, z_coordinate: 3.52, x_size: 4, y_size: 5, z_size: 6 }
+      new GdCom.GodotAabb(
+        new GdCom.GodotVector3(1, 2, 3),
+        new GdCom.GodotVector3(4, 5, 6),
+      ),
+      new GdCom.GodotAabb(
+        new GdCom.GodotVector3(-1, -2, -3),
+        new GdCom.GodotVector3(-4, -5, -6),
+      ),
+      new GdCom.GodotAabb(
+        new GdCom.GodotVector3(1.05, -42.852, 3.52),
+        new GdCom.GodotVector3(4, 5, 6),
+      ),
     ]
 
     dataType.forEach((value) => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.AABB)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x_coordinate).toBeCloseTo(value.x_coordinate, 5)
-      expect(decoded.value.y_coordinate).toBeCloseTo(value.y_coordinate, 5)
-      expect(decoded.value.z_coordinate).toBeCloseTo(value.z_coordinate, 5)
-      expect(decoded.value.x_size).toBeCloseTo(value.x_size, 5)
-      expect(decoded.value.y_size).toBeCloseTo(value.y_size, 5)
-      expect(decoded.value.z_size).toBeCloseTo(value.z_size, 5)
+      expect(decoded.value.coordinate.x).toBeCloseTo(value.coordinate.x, 5)
+      expect(decoded.value.coordinate.y).toBeCloseTo(value.coordinate.y, 5)
+      expect(decoded.value.coordinate.z).toBeCloseTo(value.coordinate.z, 5)
+      expect(decoded.value.size.x).toBeCloseTo(value.size.x, 5)
+      expect(decoded.value.size.y).toBeCloseTo(value.size.y, 5)
+      expect(decoded.value.size.z).toBeCloseTo(value.size.z, 5)
     })
   })
 
@@ -167,14 +185,14 @@ describe('gd-com binary serializer', () => {
     })
   })
 
-  test('should encode/decode variant PoolByteArray', () => {
+  test('should encode/decode variant RAW_ARRAY', () => {
     const dataType = [
       Buffer.from([42, 42, 42, 42]),
       Buffer.from([1, 2, 3, 4])
     ]
 
     dataType.forEach((value) => {
-      const encoded = GdCom.putVar(value, GdCom.TYPE.POOL_BYTE_ARRAY)
+      const encoded = GdCom.putVar(value, GdCom.TYPE.RAW_ARRAY)
       const decoded = GdCom.getVar(encoded)
 
       expect(decoded.value).toBeInstanceOf(Buffer)
@@ -224,7 +242,7 @@ describe('gd-com binary serializer', () => {
     values.forEach((value) => {
       const encoded = GdCom.put64(value)
       const decoded = GdCom.get64(encoded)
-      expect(decoded.value).toEqual(value)
+      expect(decoded.value.toString()).toEqual(value)
     })
   })
 
@@ -261,7 +279,7 @@ describe('gd-com binary serializer', () => {
     values.forEach((value) => {
       const encoded = GdCom.putU64(value)
       const decoded = GdCom.getU64(encoded)
-      expect(decoded.value).toEqual(value)
+      expect(decoded.value.toString()).toEqual(value)
     })
   })
 
