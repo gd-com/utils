@@ -1,6 +1,6 @@
 {
   "name": "@gd-com/utils",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Serializer/deserializer utils for godot engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
