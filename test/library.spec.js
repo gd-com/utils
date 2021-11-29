@@ -140,21 +140,30 @@ describe('gd-com binary serializer', () => {
 
   test('should encode/decode variant AABB', () => {
     const dataType = [
-      { x_coordinate: 1, y_coordinate: 2, z_coordinate: 3, x_size: 4, y_size: 5, z_size: 6 },
-      { x_coordinate: -1, y_coordinate: -2, z_coordinate: -3, x_size: -4, y_size: -5, z_size: -6 },
-      { x_coordinate: 1.05, y_coordinate: -42.852, z_coordinate: 3.52, x_size: 4, y_size: 5, z_size: 6 }
+      new GdCom.GodotAabb(
+        new GdCom.GodotVector3(1, 2, 3),
+        new GdCom.GodotVector3(4, 5, 6),
+      ),
+      new GdCom.GodotAabb(
+        new GdCom.GodotVector3(-1, -2, -3),
+        new GdCom.GodotVector3(-4, -5, -6),
+      ),
+      new GdCom.GodotAabb(
+        new GdCom.GodotVector3(1.05, -42.852, 3.52),
+        new GdCom.GodotVector3(4, 5, 6),
+      ),
     ]
 
     dataType.forEach((value) => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.AABB)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x_coordinate).toBeCloseTo(value.x_coordinate, 5)
-      expect(decoded.value.y_coordinate).toBeCloseTo(value.y_coordinate, 5)
-      expect(decoded.value.z_coordinate).toBeCloseTo(value.z_coordinate, 5)
-      expect(decoded.value.x_size).toBeCloseTo(value.x_size, 5)
-      expect(decoded.value.y_size).toBeCloseTo(value.y_size, 5)
-      expect(decoded.value.z_size).toBeCloseTo(value.z_size, 5)
+      expect(decoded.value.coordinate.x).toBeCloseTo(value.coordinate.x, 5)
+      expect(decoded.value.coordinate.y).toBeCloseTo(value.coordinate.y, 5)
+      expect(decoded.value.coordinate.z).toBeCloseTo(value.coordinate.z, 5)
+      expect(decoded.value.size.x).toBeCloseTo(value.size.x, 5)
+      expect(decoded.value.size.y).toBeCloseTo(value.size.y, 5)
+      expect(decoded.value.size.z).toBeCloseTo(value.size.z, 5)
     })
   })
 
@@ -233,7 +242,7 @@ describe('gd-com binary serializer', () => {
     values.forEach((value) => {
       const encoded = GdCom.put64(value)
       const decoded = GdCom.get64(encoded)
-      expect(decoded.value).toEqual(value)
+      expect(decoded.value.toString()).toEqual(value)
     })
   })
 
@@ -270,7 +279,7 @@ describe('gd-com binary serializer', () => {
     values.forEach((value) => {
       const encoded = GdCom.putU64(value)
       const decoded = GdCom.getU64(encoded)
-      expect(decoded.value).toEqual(value)
+      expect(decoded.value.toString()).toEqual(value)
     })
   })
 

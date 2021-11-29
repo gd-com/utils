@@ -83,8 +83,6 @@ function prepare (value, type?) {
   const typeCode = type || getType(value)
   const encoder = encoderList[`${typeCode}`]
 
-  console.log(encoder)
-
   if (!encoder) {
     throw new Error(`Invalid value: no matching encoder found "${typeCode}"`)
   }

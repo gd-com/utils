@@ -9,7 +9,7 @@ import { IGetReturn } from '../types'
  */
 export function get64 (buffer: Buffer, offset: number = 0): IGetReturn<Long> {
   return {
-    value: Long.fromBytesLE(JSON.parse(buffer.slice(offset).toString())),
+    value: Long.fromBytesLE(buffer.slice(offset).toJSON().data),
     length: 8
   }
 }

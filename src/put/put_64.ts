@@ -4,6 +4,6 @@ import Long from 'long'
  * @param value
  * @returns {Buffer}
  */
-export function put64 (value: number): Buffer {
-  return Buffer.from(Long.fromString(value.toString()).toBytesLE())
+export function put64 (value: Long): Buffer {
+  return Buffer.from(Long.fromValue(value).toBytesLE())
 }

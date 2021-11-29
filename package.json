@@ -48,6 +48,9 @@
     "Xavier Sellier <xsellier@gmail.com>"
   ],
   "dependencies": {
-    "long": "^5.1.0"
+    "long": "^5.2.0"
+  },
+  "peerDependencies": {
+    "long": "^5.2.0"
   }
 }
