@@ -1,6 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotAabb} from "../../types/GodotAabb";
-import {GodotVector3} from "../../types/GodotVector3";
+import {IGetReturn, GodotAabb, GodotVector3} from "../../types";
 
 /**
  * Decode AABB

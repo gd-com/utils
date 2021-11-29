@@ -1,6 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotRect2} from "../../types/GodotRect2";
-import {GodotVector2} from "../../types/GodotVector2";
+import {IGetReturn, GodotRect2, GodotVector2} from "../../types";
 
 /**
  * Decode Rect2

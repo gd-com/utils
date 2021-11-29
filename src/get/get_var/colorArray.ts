@@ -1,7 +1,5 @@
 import { getVarColor } from './color'
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotColor} from "../../types/GodotColor";
-import {GodotArray} from "../../types/GodotArray";
+import {IGetReturn, GodotColor, GodotArray} from "../../types";
 
 /**
  * Decode PoolColorArray
@@ -13,7 +11,11 @@ export function getVarColorArray (genericDecoder, buf): IGetReturn<GodotArray<Go
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
-  const data = {
+  const data: {
+    array: Array<GodotColor>,
+    buffer: Buffer,
+    pos: number,
+  }  = {
     array: [],
     buffer: buf.slice(4),
     pos: 4

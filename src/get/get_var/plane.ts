@@ -1,5 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotPlane} from "../../types/GodotPlane";
+import {IGetReturn, GodotPlane} from "../../types";
 
 /**
  * Decode Plane

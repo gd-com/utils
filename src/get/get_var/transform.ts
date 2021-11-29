@@ -1,6 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotTransform} from "../../types/GodotTransform";
-import {GodotVector3} from "../../types/GodotVector3";
+import {IGetReturn, GodotTransform, GodotVector3} from "../../types";
 
 /**
  * Decode Transform

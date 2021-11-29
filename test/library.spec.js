@@ -44,9 +44,9 @@ describe('gd-com binary serializer', () => {
 
   test('should encode/decode variant Vector2', () => {
     const dataType = [
-      { x: 1, y: 2 },
-      { x: -1, y: -2 },
-      { x: -42.4, y: 0.15 }
+      new GdCom.GodotVector2(1,2),
+      new GdCom.GodotVector2(-1,-2),
+      new GdCom.GodotVector2(-42.4,0.15),
     ]
 
     dataType.forEach((value) => {
@@ -60,19 +60,28 @@ describe('gd-com binary serializer', () => {
 
   test('should encode/decode variant Rect2', () => {
     const dataType = [
-      { x_coordinate: 1, y_coordinate: 2, x_size: 3, y_size: 4 },
-      { x_coordinate: -1, y_coordinate: -2, x_size: -3, y_size: -4 },
-      { x_coordinate: -42.54, y_coordinate: 0.520, x_size: 0.520, y_size: -42.54 }
+      new GdCom.GodotRect2(
+        new GdCom.GodotVector2(1,2),
+        new GdCom.GodotVector2(3,4),
+      ),
+      new GdCom.GodotRect2(
+        new GdCom.GodotVector2(-1,-2),
+        new GdCom.GodotVector2(-3,-4),
+      ),
+      new GdCom.GodotRect2(
+        new GdCom.GodotVector2(-42.54,0.520),
+        new GdCom.GodotVector2(0.520,-42.54),
+      ),
     ]
 
     dataType.forEach((value) => {
       const encoded = GdCom.putVar(value, GdCom.TYPE.RECT2)
       const decoded = GdCom.getVar(encoded)
 
-      expect(decoded.value.x_coordinate).toBeCloseTo(value.x_coordinate, 5)
-      expect(decoded.value.y_coordinate).toBeCloseTo(value.y_coordinate, 5)
-      expect(decoded.value.x_size).toBeCloseTo(value.x_size, 5)
-      expect(decoded.value.y_size).toBeCloseTo(value.y_size, 5)
+      expect(decoded.value.coordinate.x).toBeCloseTo(value.coordinate.x, 5)
+      expect(decoded.value.coordinate.y).toBeCloseTo(value.coordinate.y, 5)
+      expect(decoded.value.size.x).toBeCloseTo(value.size.x, 5)
+      expect(decoded.value.size.y).toBeCloseTo(value.size.y, 5)
     })
   })
 

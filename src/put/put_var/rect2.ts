@@ -10,6 +10,7 @@ import {GodotRect2} from "../../types";
  */
 function subPutVarRect2 (value: GodotRect2): Buffer {
   const type = putU32(TYPE.RECT2)
+  console.log({ rect2: value })
   const coordinateX = putFloat(value.coordinate.x)
   const coordinateY = putFloat(value.coordinate.y)
   const sizeX = putFloat(value.size.x)

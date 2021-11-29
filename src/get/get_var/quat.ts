@@ -1,5 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotQuat} from "../../types/GodotQuat";
+import {IGetReturn, GodotQuat} from "../../types";
 
 /**
  * Decode Quat

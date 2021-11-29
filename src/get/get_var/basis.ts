@@ -1,6 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotBasis} from "../../types/GodotBasis";
-import {GodotVector3} from "../../types/GodotVector3";
+import {IGetReturn, GodotBasis, GodotVector3} from "../../types";
 
 /**
  * Decode BASIS

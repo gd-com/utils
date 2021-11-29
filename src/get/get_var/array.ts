@@ -1,5 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotArray} from "../../types/GodotArray";
+import {IGetReturn, GodotArray} from "../../types";
 
 /**
  * Decode Array
@@ -12,7 +11,11 @@ export function getVarArray (genericDecoder, buf): IGetReturn<GodotArray<any>> {
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 
   // start at 4 cause of nbEntries
-  const data = {
+  const data: {
+    array: Array<any>,
+    buffer: Buffer,
+    pos: number,
+  } = {
     array: [],
     buffer: buf.slice(4),
     pos: 4

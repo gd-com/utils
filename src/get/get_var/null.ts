@@ -1,5 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotNull} from "../../types/GodotNull";
+import {IGetReturn, GodotNull} from "../../types";
 
 /**
  * Decode null

@@ -1,7 +1,5 @@
 import Long from 'long'
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotFloat} from "../../types/GodotFloat";
-import {GodotInteger} from "../../types/GodotInteger";
+import {IGetReturn, GodotInteger} from "../../types";
 
 /**
  * Decode integer
@@ -11,7 +9,7 @@ import {GodotInteger} from "../../types/GodotInteger";
  * @returns {{value: Number, length: Number}}
  */
 export function getVarInteger (genericDecoder, buf, flag = 0): IGetReturn<GodotInteger> {
-  let result = null
+  let result: IGetReturn<GodotInteger>;
   if (flag === 1) {
     result = {
       value: Long.fromBytesLE(buf.slice(0)).toNumber(),

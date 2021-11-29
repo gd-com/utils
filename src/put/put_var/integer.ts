@@ -1,7 +1,6 @@
 import { TYPE } from '../../constants'
 import { putU16 } from '../put_u16'
 import  { put32 } from '../put_32'
-import * as buffer from "buffer";
 
 /**
  * Encode Integer
@@ -18,4 +17,4 @@ export function subputVarInt(value: number): Buffer {
   return Buffer.concat([type, flag, data])
 }
 
-export const putVarInt = (prepare, value: number): buffer => subputVarInt(value)
+export const putVarInt = (prepare, value: number): Buffer => subputVarInt(value)

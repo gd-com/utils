@@ -1,5 +1,4 @@
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotBoolean} from "../../types/GodotBoolean";
+import {IGetReturn, GodotBoolean} from "../../types";
 
 /**
  * Decode boolean

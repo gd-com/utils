@@ -1,13 +1,11 @@
+import {IGetReturn, GodotTransform2D, GodotVector2} from "../../types";
+
 /**
  * Decode Transform2d
  * @param genericDecoder
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotTransform2D} from "../../types/GodotTransform2D";
-import {GodotVector2} from "../../types/GodotVector2";
-
 export function getVarTransform2d (genericDecoder, buf): IGetReturn<GodotTransform2D> {
   return {
     value: new GodotTransform2D(

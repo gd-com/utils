@@ -32,7 +32,7 @@ function subPutVarDictionnary (value: GodotDictionnary<any>): Buffer {
 }
 
 export const putVarDictionnary = (prepare, dictionary: GodotDictionnary<any>): Buffer => {
-  const results = Object.keys(dictionary).reduce((rawData, key) => {
+  const results = Object.keys(dictionary).reduce((rawData: Array<any>, key: string) => {
     const rawKey = prepare(key)
     const rawValue = prepare(dictionary[key])
     rawData.push(rawKey, rawValue)

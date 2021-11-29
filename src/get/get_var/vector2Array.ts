@@ -1,7 +1,5 @@
 import { getVarVector2 } from './vector2'
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotArray} from "../../types/GodotArray";
-import {GodotVector2} from "../../types/GodotVector2";
+import {IGetReturn, GodotArray, GodotVector2} from "../../types";
 
 /**
  * Decode Vector2Array
@@ -13,7 +11,11 @@ export function getVarVector2Array (genericDecoder, buf): IGetReturn<GodotArray<
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
-  const data = {
+  const data: {
+    array: Array<GodotVector2>,
+    buffer: Buffer,
+    pos: number,
+  }  = {
     array: [],
     buffer: buf.slice(4),
     pos: 4

@@ -1,7 +1,5 @@
 import { getVarString } from './string'
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotString} from "../../types/GodotString";
-import {GodotArray} from "../../types/GodotArray";
+import {IGetReturn, GodotString, GodotArray} from "../../types";
 
 /**
  * Decode PoolStringArray
@@ -13,7 +11,11 @@ export function getVarStringArray (genericDecoder, buf): IGetReturn<GodotArray<G
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
-  const data = {
+  const data: {
+    array: Array<string>,
+    buffer: Buffer,
+    pos: number,
+  }  = {
     array: [],
     buffer: buf.slice(4),
     pos: 4

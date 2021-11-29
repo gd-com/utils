@@ -1,3 +1,5 @@
+import {IGetReturn, GodotFloat} from "../../types";
+
 /**
  * Decode float
  * @param genericDecoder
@@ -5,11 +7,8 @@
  * @param flag
  * @returns {{value: Number, length: Number}}
  */
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotFloat} from "../../types/GodotFloat";
-
 export function getVarFloat (genericDecoder, buf, flag): IGetReturn<GodotFloat> {
-  let result = null
+  let result: IGetReturn<GodotFloat>;
   // always encode real as double cf : marshalls.cpp L842
   // but sometimes can be float if double is not necessary
   if (flag === 1) {

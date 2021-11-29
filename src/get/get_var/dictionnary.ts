@@ -1,11 +1,11 @@
+import {IGetReturn, GodotDictionnary} from "../../types";
+
 /**
  * Decode Dictionnary
  * @param genericDecoder
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-import {IGetReturn} from "../../types/IGetReturn";
-import {GodotDictionnary} from "../../types/GodotDictionnary";
 
 export function getVarDictionnary (genericDecoder, buf): IGetReturn<GodotDictionnary<any>> {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
