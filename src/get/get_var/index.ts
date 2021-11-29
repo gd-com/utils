@@ -1,5 +1,3 @@
-import { TYPE } from '../../constants'
-
 import { getVarNull } from './null'
 import { getVarBool } from "./bool";
 import {getVarInteger} from "./integer";
@@ -25,6 +23,8 @@ import {getVarStringArray} from "./stringArray";
 import {getVarVector2Array} from "./vector2Array";
 import {getVarVector3Array} from "./vector3Array";
 import {getVarColorArray} from "./colorArray";
+import {IGetReturn} from "../../types";
+import { TYPE } from '../../constants'
 
 const decoderList = {
   [TYPE.NULL]: getVarNull,
@@ -73,7 +73,7 @@ function decode (buffer, offset = 0) {
  * @param buf {Buffer}
  * @returns {{value: *, length: Number}}
  */
-export function getVar (buf) {
+export function getVar (buf): IGetReturn<any> {
   const data = decode(buf)
   return { value: data.value, length: data.length + 4 } // +4 cause we don't export type length
 }

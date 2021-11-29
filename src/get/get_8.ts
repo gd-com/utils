@@ -1,4 +1,4 @@
-import {IGetReturn} from "../types/IGetReturn";
+import { IGetReturn } from '../types'
 
 /**
  * Decode Int 8

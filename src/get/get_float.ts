@@ -1,4 +1,4 @@
-import {IGetReturn} from "../types/IGetReturn";
+import { IGetReturn } from '../types'
 
 /**
  * Decode Float
@@ -6,7 +6,10 @@ import {IGetReturn} from "../types/IGetReturn";
  * @param offset {Number}
  * @returns {{value: Number, length: Number}}
  */
-export function getFloat (buffer: Buffer, offset: number = 0): IGetReturn<number> {
+export function getFloat (
+  buffer: Buffer,
+  offset: number = 0
+): IGetReturn<number> {
   return {
     value: buffer.readFloatLE(offset),
     length: 4

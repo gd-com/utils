@@ -1,7 +1,7 @@
 import { TYPE } from '../../constants'
 import { putU32 } from '../put_u32'
 
-function putBuffer (value) {
+function putBuffer (value: Buffer): Buffer {
   const len = value.byteLength
   const pad = len % 4 === 0 ? 0 : 4 - len % 4
   const newBuffer = Buffer.allocUnsafe(4 + len + pad)
@@ -24,10 +24,10 @@ function putBuffer (value) {
  * @param value
  * @returns {Buffer}
  */
-function subPutVarRawArray (value) {
+function subPutVarRawArray (value: Buffer): Buffer {
   const type = putU32(TYPE.RAW_ARRAY)
   const data = putBuffer(value)
   return Buffer.concat([type, data])
 }
 
-export const putVarRawArray = (prepare, value) => subPutVarRawArray(value)
+export const putVarRawArray = (prepare, value: Buffer): Buffer => subPutVarRawArray(value)

@@ -10,6 +10,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "ts-standard --fix src/**/*.ts",
+    "prettier": "prettier --write src/**/*.ts",
     "test": "jest",
     "publish-lib": "npm run build && npm publish",
     "publish-beta": "npm run build && npm publish --tag beta",
@@ -27,6 +28,7 @@
     "@types/node": "^16.11.10",
     "jest": "^27.3.1",
     "nyc": "^15.1.0",
+    "prettier": "^2.5.0",
     "ts-standard": "^11.0.0",
     "typescript": "^4.4.4"
   },

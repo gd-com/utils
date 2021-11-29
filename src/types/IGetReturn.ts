@@ -1,4 +1,4 @@
-export type IGetReturn<T> = {
-  value: T,
+export interface IGetReturn<T> {
+  value: T
   length: number
 }

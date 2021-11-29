@@ -1,11 +1,12 @@
 import { TYPE } from '../../constants'
+import {GodotDictionnary} from "../../types";
 
 /**
  * Encode dictionnary
  * @param value
  * @returns {Buffer}
  */
-function subPutVarDictionnary (value) {
+function subPutVarDictionnary (value: GodotDictionnary<any>): Buffer {
   let len = 8
 
   for (const i in value) {
@@ -30,7 +31,7 @@ function subPutVarDictionnary (value) {
   return buf
 }
 
-export const putVarDictionnary = (prepare, dictionary) => {
+export const putVarDictionnary = (prepare, dictionary: GodotDictionnary<any>): Buffer => {
   const results = Object.keys(dictionary).reduce((rawData, key) => {
     const rawKey = prepare(key)
     const rawValue = prepare(dictionary[key])

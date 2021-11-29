@@ -4,7 +4,7 @@ import { TYPE } from '../../constants'
  * @param value
  * @returns {Buffer}
  */
-function subPutVarArray (value) {
+function subPutVarArray (value: Array<any>): Buffer {
   let len = 8
 
   for (const i in value) {
@@ -30,7 +30,7 @@ function subPutVarArray (value) {
   return buf
 }
 
-export function putVarArray(prepare, array) {
+export function putVarArray(prepare, array: Array<any>): Buffer {
   const results = array.reduce((rawData, item) => {
     const data = prepare(item)
     rawData.push(data)

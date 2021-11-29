@@ -1,7 +1,7 @@
 import { TYPE } from '../../constants'
 import { putU32 } from '../put_u32'
 
-function putString (value) {
+function putString (value: string): Buffer {
   const len = Buffer.byteLength(value)
   const pad = len % 4 === 0 ? 0 : 4 - len % 4
   const newBuffer = Buffer.allocUnsafe(4 + len + pad)
@@ -23,10 +23,10 @@ function putString (value) {
  * @param value
  * @returns {Buffer}
  */
-function subPutVarString(value) {
+function subPutVarString(value: string): Buffer {
   const type = putU32(TYPE.STRING)
   const data = putString(value)
   return Buffer.concat([type, data])
 }
 
-export const putVarString = (prepare, value) => subPutVarString(value);
+export const putVarString = (prepare, value: string): Buffer => subPutVarString(value);

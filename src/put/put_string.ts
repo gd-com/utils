@@ -3,7 +3,7 @@
  * @param value
  * @returns {Buffer}
  */
-export function putString (value) {
+export function putString (value: string): Buffer {
   const len = Buffer.byteLength(value)
   const newBuffer = Buffer.allocUnsafe(4 + len)
 

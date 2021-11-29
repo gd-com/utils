@@ -45,7 +45,7 @@ const encoderList: Record<number, Function | null> = {
   [TYPE.COLOR_ARRAY]: null,
 }
 
-function getType (value) {
+function getType (value: any) {
   if (value == null) {
     return TYPE.NULL
   }
@@ -97,6 +97,6 @@ function prepare (value, type = undefined) {
  * @param {TYPE} type
  * @returns {*}
  */
-export function putVar (value, type) {
+export function putVar (value: any, type?: TYPE): Buffer {
   return prepare(value, type)
 }

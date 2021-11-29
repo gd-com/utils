@@ -7,7 +7,7 @@ import { putFloat } from '../put_float'
  * @param value
  * @returns {Buffer}
  */
-function subPutVarFloat (value) {
+function subPutVarFloat (value: number): Buffer {
   // always encode real as double cf : marshalls.cpp L842
   // if (x64) { // TODO x64
   // /* eslint-enable */
@@ -27,4 +27,4 @@ function subPutVarFloat (value) {
   return Buffer.concat([type, flag, data])
 }
 
-export const putVarFloat = (prepare, value) => subPutVarFloat(value)
+export const putVarFloat = (prepare, value: number): Buffer => subPutVarFloat(value)

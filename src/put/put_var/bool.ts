@@ -6,10 +6,10 @@ import { putU32 } from '../put_u32'
  * @param value
  * @returns {Buffer}
  */
-function subPutVarBool (value) {
+function subPutVarBool (value: boolean): Buffer {
   const type = putU32(TYPE.BOOL)
   const data = putU32(value ? 1 : 0)
   return Buffer.concat([type, data])
 }
 
-export const putVarBool = (prepare, value) => subPutVarBool(value)
+export const putVarBool = (prepare, value: boolean): Buffer => subPutVarBool(value)
