@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+* v4.1.2
+  * Typescript
+  * Migrate all tests to Jest
+
 * v4.1.1
   * Fix padding when reading dictionaries and arrays thx @timoschwarzer
   * putVar POOL_BYTE_ARRAY thx @timoschwarzer
