@@ -8,11 +8,12 @@ import {IGetReturn, GodotInteger} from "../../types";
  * @param flag
  * @returns {{value: Number, length: Number}}
  */
+
 export function getVarInteger (genericDecoder, buf, flag = 0): IGetReturn<GodotInteger> {
   let result: IGetReturn<GodotInteger>;
   if (flag === 1) {
     result = {
-      value: Long.fromBytesLE(buf.slice(0)).toNumber(),
+      value: Long.fromBytesLE(buf.slice(0)),
       length: 8
     }
   } else {

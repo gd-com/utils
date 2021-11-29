@@ -6,7 +6,7 @@ import {IGetReturn, GodotRect2, GodotVector2} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-export function getVarRect2 (genericDecoder, buf): IGetReturn<GodotRect2> {
+export function getVarRect2 (genericDecoder, buf: Buffer): IGetReturn<GodotRect2> {
   return {
     value: new GodotRect2(
       new GodotVector2(buf.readFloatLE(0), buf.readFloatLE(4)),

@@ -3,8 +3,8 @@
  * @param value
  * @returns {Buffer}
  */
-export function put32 (value: number): Buffer {
-  const newBuffer = Buffer.allocUnsafe(4)
-  newBuffer.writeInt32LE(value, 0)
-  return newBuffer
+export function put32(value: number): Buffer {
+  const newBuffer = Buffer.allocUnsafe(4);
+  newBuffer.writeInt32LE(value, 0);
+  return newBuffer;
 }

@@ -28,5 +28,5 @@ export enum TYPE {
   VECTOR2_ARRAY= 24,
   VECTOR3_ARRAY= 25,
   COLOR_ARRAY= 26,
-  MAX= 27
+  // MAX= 27
 }

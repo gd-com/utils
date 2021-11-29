@@ -6,7 +6,7 @@ import {IGetReturn, GodotArray} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Array, length: Number}}
  */
-export function getVarArray (genericDecoder, buf): IGetReturn<GodotArray<any>> {
+export function getVarArray (genericDecoder, buf: Buffer): IGetReturn<GodotArray<any>> {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 

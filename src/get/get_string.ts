@@ -1,4 +1,4 @@
-import { IGetReturn } from '../types'
+import { IGetReturn } from "../types";
 
 /**
  * Decode String
@@ -7,16 +7,16 @@ import { IGetReturn } from '../types'
  * @returns {{value: String, length: Number}}
  */
 
-export function getString (
+export function getString(
   buffer: Buffer,
   offset: number = 0
 ): IGetReturn<string> {
-  const len = buffer.readUInt32LE(offset)
+  const len = buffer.readUInt32LE(offset);
 
   return {
     value: buffer
-      .toString('utf8', offset + 4, offset + 4 + len)
-      .replace('\u0000', ''),
-    length: 4 + len
-  }
+      .toString("utf8", offset + 4, offset + 4 + len)
+      .replace("\u0000", ""),
+    length: 4 + len,
+  };
 }

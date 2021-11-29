@@ -3,8 +3,8 @@
  * @param value
  * @returns {Buffer}
  */
-export function putU16 (value: number): Buffer {
-  const newBuffer = Buffer.allocUnsafe(2)
-  newBuffer.writeUInt16LE(value, 0)
-  return newBuffer
+export function putU16(value: number): Buffer {
+  const newBuffer = Buffer.allocUnsafe(2);
+  newBuffer.writeUInt16LE(value, 0);
+  return newBuffer;
 }

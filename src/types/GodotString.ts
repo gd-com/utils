@@ -1,1 +1,1 @@
-export type GodotString = string
+export type GodotString = string;

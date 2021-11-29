@@ -7,7 +7,7 @@ import {IGetReturn, GodotVector3, GodotArray} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Array, length: Number}}
  */
-export function getVarVector3Array (genericDecoder, buf): IGetReturn<GodotArray<GodotVector3>> {
+export function getVarVector3Array (genericDecoder, buf: Buffer): IGetReturn<GodotArray<GodotVector3>> {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries

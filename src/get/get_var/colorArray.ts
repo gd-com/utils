@@ -7,7 +7,7 @@ import {IGetReturn, GodotColor, GodotArray} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Array, length: Number}}
  */
-export function getVarColorArray (genericDecoder, buf): IGetReturn<GodotArray<GodotColor>> {
+export function getVarColorArray (genericDecoder, buf: Buffer): IGetReturn<GodotArray<GodotColor>> {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries

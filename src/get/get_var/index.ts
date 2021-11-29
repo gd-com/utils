@@ -23,10 +23,10 @@ import {getVarStringArray} from "./stringArray";
 import {getVarVector2Array} from "./vector2Array";
 import {getVarVector3Array} from "./vector3Array";
 import {getVarColorArray} from "./colorArray";
-import {IGetReturn} from "../../types";
+import {IDecoderList, IGetReturn} from "../../types";
 import { TYPE } from '../../constants'
 
-const decoderList = {
+const decoderList: IDecoderList = {
   [TYPE.NULL]: getVarNull,
   [TYPE.BOOL]: getVarBool,
   [TYPE.INTEGER]: getVarInteger,
@@ -73,7 +73,7 @@ function decode (buffer, offset = 0) {
  * @param buf {Buffer}
  * @returns {{value: *, length: Number}}
  */
-export function getVar (buf): IGetReturn<any> {
+export function getVar (buf: Buffer): IGetReturn<any> {
   const data = decode(buf)
   return { value: data.value, length: data.length + 4 } // +4 cause we don't export type length
 }

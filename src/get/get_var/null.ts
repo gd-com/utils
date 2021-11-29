@@ -6,7 +6,7 @@ import {IGetReturn, GodotNull} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Null, length: Number}}
  */
-export function getVarNull (genericDecoder, buf): IGetReturn<GodotNull> {
+export function getVarNull (genericDecoder, buf: Buffer): IGetReturn<GodotNull> {
   return {
     value: null,
     length: 0

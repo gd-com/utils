@@ -6,7 +6,7 @@ import {IGetReturn, GodotAabb, GodotVector3} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: AABB, length: Number}}
  */
-export function getVarAABB (genericDecoder, buf): IGetReturn<GodotAabb> {
+export function getVarAABB (genericDecoder, buf: Buffer): IGetReturn<GodotAabb> {
   return {
     value: new GodotAabb(
       new GodotVector3(

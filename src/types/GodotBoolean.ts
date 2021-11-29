@@ -1,1 +1,1 @@
-export type GodotBoolean = boolean
+export type GodotBoolean = boolean;

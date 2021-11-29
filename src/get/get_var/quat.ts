@@ -6,7 +6,7 @@ import {IGetReturn, GodotQuat} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-export function getVarQuat (genericDecoder, buf): IGetReturn<GodotQuat> {
+export function getVarQuat (genericDecoder, buf: Buffer): IGetReturn<GodotQuat> {
   return {
     value: new GodotQuat(
       buf.readFloatLE(0),

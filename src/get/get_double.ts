@@ -1,4 +1,4 @@
-import { IGetReturn } from '../types'
+import { IGetReturn } from "../types";
 
 /**
  * Decode Double
@@ -6,12 +6,12 @@ import { IGetReturn } from '../types'
  * @param offset {Number}
  * @returns {{value: Number, length: Number}}
  */
-export function getDouble (
+export function getDouble(
   buffer: Buffer,
   offset: number = 0
 ): IGetReturn<number> {
   return {
     value: buffer.readDoubleLE(offset),
-    length: 8
-  }
+    length: 8,
+  };
 }

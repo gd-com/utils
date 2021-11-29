@@ -7,7 +7,7 @@ import {IGetReturn, GodotDictionnary} from "../../types";
  * @returns {{value: Object, length: Number}}
  */
 
-export function getVarDictionnary (genericDecoder, buf): IGetReturn<GodotDictionnary<any>> {
+export function getVarDictionnary (genericDecoder, buf: Buffer): IGetReturn<GodotDictionnary<any>> {
   const nbEntries = buf.readUInt32LE(0) & 0x7FFFFFFF
   // const shared = !!buf.readUInt32LE(0) & 0x80000000
 

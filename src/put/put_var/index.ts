@@ -14,8 +14,9 @@ import {putVarArray} from "./array";
 import {putVarRawArray} from "./rawArray";
 import {putVarQuat} from "./quat";
 import {putVarPlane} from "./plane";
+import {IEncoderList} from "../../types";
 
-const encoderList: Record<number, Function | null> = {
+const encoderList: IEncoderList = {
   [TYPE.NULL]: putVarNull,
   [TYPE.BOOL]: putVarBool,
   [TYPE.INTEGER]: putVarInt,
@@ -24,25 +25,25 @@ const encoderList: Record<number, Function | null> = {
   [TYPE.VECTOR2]: putVarVector2,
   [TYPE.RECT2]: putVarRect2,
   [TYPE.VECTOR3]: putVarVector3,
-  [TYPE.TRANSFORM2D]: null,
+  [TYPE.TRANSFORM2D]: undefined,
   [TYPE.PLANE]: putVarPlane,
   [TYPE.QUAT]: putVarQuat,
   [TYPE.AABB]: putVarAABB,
-  [TYPE.BASIS]: null,
-  [TYPE.TRANSFORM]: null,
+  [TYPE.BASIS]: undefined,
+  [TYPE.TRANSFORM]: undefined,
   [TYPE.COLOR]: putVarColor,
-  [TYPE.NODE_PATH]: null,
-  [TYPE.RID]: null,
-  [TYPE.OBJECT]: null,
+  [TYPE.NODE_PATH]: undefined,
+  [TYPE.RID]: undefined,
+  [TYPE.OBJECT]: undefined,
   [TYPE.DICTIONARY]: putVarDictionnary,
   [TYPE.ARRAY]: putVarArray,
   [TYPE.RAW_ARRAY]: putVarRawArray,
-  [TYPE.INT_ARRAY]: null,
-  [TYPE.REAL_ARRAY]: null,
-  [TYPE.STRING_ARRAY]: null,
-  [TYPE.VECTOR2_ARRAY]: null,
-  [TYPE.VECTOR3_ARRAY]: null,
-  [TYPE.COLOR_ARRAY]: null,
+  [TYPE.INT_ARRAY]: undefined,
+  [TYPE.REAL_ARRAY]: undefined,
+  [TYPE.STRING_ARRAY]: undefined,
+  [TYPE.VECTOR2_ARRAY]: undefined,
+  [TYPE.VECTOR3_ARRAY]: undefined,
+  [TYPE.COLOR_ARRAY]: undefined,
 }
 
 function getType (value: any) {

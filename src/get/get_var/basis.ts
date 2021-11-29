@@ -6,11 +6,11 @@ import {IGetReturn, GodotBasis, GodotVector3} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-export function getVarBasis (genericDecoder, buf): IGetReturn<GodotBasis> {
+export function getVarBasis (genericDecoder, buf: Buffer): IGetReturn<GodotBasis> {
 
-  const vector3x = new GodotVector3(buf.readFloatLE(buf, 0), buf.readFloatLE(buf, 4), buf.readFloatLE(buf, 8));
-  const vector3y = new GodotVector3(buf.readFloatLE(buf, 12), buf.readFloatLE(buf, 16), buf.readFloatLE(buf, 20));
-  const vector3z = new GodotVector3(buf.readFloatLE(buf, 24), buf.readFloatLE(buf, 28), buf.readFloatLE(buf, 32));
+  const vector3x = new GodotVector3(buf.readFloatLE(0), buf.readFloatLE(4), buf.readFloatLE(8));
+  const vector3y = new GodotVector3(buf.readFloatLE(12), buf.readFloatLE(16), buf.readFloatLE(20));
+  const vector3z = new GodotVector3(buf.readFloatLE(24), buf.readFloatLE(28), buf.readFloatLE(32));
 
   return {
     value: new GodotBasis(vector3x, vector3y, vector3z),

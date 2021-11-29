@@ -6,7 +6,7 @@ import {IGetReturn, GodotTransform2D, GodotVector2} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-export function getVarTransform2d (genericDecoder, buf): IGetReturn<GodotTransform2D> {
+export function getVarTransform2d (genericDecoder, buf: Buffer): IGetReturn<GodotTransform2D> {
   return {
     value: new GodotTransform2D(
       new GodotVector2(

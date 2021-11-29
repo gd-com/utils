@@ -1,1 +1,1 @@
-export type GodotNull = null
+export type GodotNull = null;

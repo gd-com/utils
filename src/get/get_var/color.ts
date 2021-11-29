@@ -6,7 +6,7 @@ import {IGetReturn, GodotColor} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-export function getVarColor (genericDecoder, buf): IGetReturn<GodotColor> {
+export function getVarColor (genericDecoder, buf: Buffer): IGetReturn<GodotColor> {
   return {
     value: new GodotColor(
       buf.readFloatLE(0),

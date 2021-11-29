@@ -6,7 +6,7 @@ import {IGetReturn, GodotPlane} from "../../types";
  * @param buf {Buffer}
  * @returns {{value: Object, length: Number}}
  */
-export function getVarPlane (genericDecoder, buf): IGetReturn<GodotPlane> {
+export function getVarPlane (genericDecoder, buf: Buffer): IGetReturn<GodotPlane> {
   return {
     value: new GodotPlane(
       buf.readFloatLE(0),

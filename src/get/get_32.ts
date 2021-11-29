@@ -1,4 +1,4 @@
-import { IGetReturn } from '../types'
+import { IGetReturn } from "../types";
 
 /**
  * Decode Int 32
@@ -6,9 +6,9 @@ import { IGetReturn } from '../types'
  * @param offset {Number}
  * @returns {{value: Number, length: Number}}
  */
-export function get32 (buffer: Buffer, offset: number = 0): IGetReturn<number> {
+export function get32(buffer: Buffer, offset: number = 0): IGetReturn<number> {
   return {
     value: buffer.readInt32LE(offset),
-    length: 4
-  }
+    length: 4,
+  };
 }
