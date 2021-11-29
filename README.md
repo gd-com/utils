@@ -2,7 +2,7 @@
 
 Binary serialization helper godot and nodejs !
 
-Written with this [api](https://docs.godotengine.org/en/latest/tutorials/io/binary_serialization_api.html)
+Written with this [api](https://docs.godotengine.org/en/stable/tutorials/misc/binary_serialization_api.html)
 
 ## Requirements
 
