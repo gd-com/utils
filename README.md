@@ -17,19 +17,23 @@ Written with this [api](https://docs.godotengine.org/en/stable/tutorials/misc/bi
 ##### For an example take a look *[@gd-com/examples](https://github.com/gd-com/examples)* !
 
 ```javascript
-const gdCom = require('@gd-com/utils') // var { GdBuffer } = require('@gd-com/utils')
+const gdCom = require('@gd-com/utils')
 
-const test1 = gdCom.putVar(8)
+const myByffer = gdCom.putVar(8)
 
-const lengthBuffer = Buffer.alloc(4)
-lengthBuffer.writeUInt32LE(test1.length, 0)
-
-const finalBuffer = Buffer.concat([lengthBuffer, test1])
-
-console.log(finalBuffer)
+console.log(myByffer) // for UDP or WebSocket
+console.log(gdCom.prefixWithLength(myByffer)) // for TCP
 
 ```
 ## Available from gdCom
+
+### Helpers
+
+| Method | Description                                                                                                                                 | Return                                           |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| prefixWithLength(buffer)       | Prefix the buffer passed in parameter by its size (required only for TCP)                                                                   |  Buffer |
+| StreamTcp | To optimize Godot send from time to time several packets in the same packet (only for TCP), to deserialize well it is necessary to use this | Class       | 
+
 
 ### Encode and Decode
 
@@ -98,32 +102,9 @@ console.log(finalBuffer)
 | POOL_COLOR_ARRAY | 26 |
 | MAX | 27 |
 
-### StreamTcp Splitter
-
-```javascript
-const Transform = require('stream').Transform
-
-class StreamTcp extends Transform {
-  _transform (chunk, enc, done) {
-    let buffer = chunk
-    while (buffer.length > 0) {
-      const length = buffer.readUInt16LE(0)
-
-      const bufferSplitted = buffer.slice(4, length + 4) // 4 cause the length bytes is in buffer
-      buffer = buffer.slice(length + 4, buffer.length) // 4 cause the length bytes is in buffer
-
-      this.push(bufferSplitted)
-    }
-    done()
-  }
-}
-
-module.exports = StreamTcp
-```
-
 ```javascript
 const net = require('net')
-const { putVar, getVar } = require('@gd-com/utils')
+const { putVar, getVar, StreamTcp, prefixWithLength } = require('@gd-com/utils')
 
 const tcpSplit = new StreamTcp()
 
@@ -136,10 +117,8 @@ let server = net.createServer((socket) => {
 
     const packetToSend = putVar(Math.random())
 
-    // we need to put the packet length on top cause it's tcp
-    const lengthBuffer = Buffer.alloc(4)
-    lengthBuffer.writeUInt32LE(packetToSend.length, 0)
-    const finalBuffer = Buffer.concat([lengthBuffer, packetToSend])
+    // we need to prefix the packet with packet length cause it's tcp
+    const finalBuffer = prefixWithLength(packetToSend)
 
     console.log('send :', finalBuffer)
     socket.write(finalBuffer)

@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+* v4.1.3
+  * Export StreamTCP and prefixWithLength 
+  * more tests !
+
 * v4.1.2
   * Typescript
   * Migrate all tests to Jest
