@@ -1,1 +1,1 @@
-export type GodotFloat = number;
+export type GodotFloat = number

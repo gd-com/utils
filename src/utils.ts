@@ -2,7 +2,6 @@ import { Transform } from 'stream'
 
 export class StreamTcp extends Transform {
   private _buffer: Buffer;
-  private _length: number | null;
 
   constructor(opts) {
     super({
@@ -10,20 +9,20 @@ export class StreamTcp extends Transform {
       objectMode: true,
     })
     this._buffer = Buffer.from([])
-    this._length = null
   }
 
-  _transform (chunk, enc, done) {
-    if (this._buffer.length === this._length) {
-      this.push(this._buffer)
-      this._buffer = Buffer.from([])
-      this._length = null
-    }
+  _transform(chunk, enc, done) {
+    this._buffer = Buffer.concat([this._buffer, chunk])
 
-    if (this._length === null) {
-      this._length = chunk.readUInt16LE(0)
-    } else {
-      this._buffer = Buffer.concat([this._buffer, chunk], this._buffer.length + chunk.length)
+    while (this._buffer.length >= 4) {
+      let _length = this._buffer.readUInt16LE(0)
+
+      if (this._buffer.length >= (_length + 4)) {
+        this.push(this._buffer.slice(4, _length + 4))
+        this._buffer = this._buffer.slice(_length + 4)
+      } else {
+        break;
+      }
     }
 
     done()

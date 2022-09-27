@@ -1,1 +1,1 @@
-export type GodotDictionnary<T> = Record<string, T>;
+export type GodotDictionnary<T> = Record<string, T>

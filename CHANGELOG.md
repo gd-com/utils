@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+* v4.1.4
+  * Fix bug on StreamTCP 
+  * more tests !
+
 * v4.1.3
   * Export StreamTCP and prefixWithLength 
   * more tests !

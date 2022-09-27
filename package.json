@@ -1,6 +1,6 @@
 {
   "name": "@gd-com/utils",
-  "version": "4.1.3",
+  "version": "4.1.4",
   "description": "Serializer/deserializer utils for godot engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,6 +12,7 @@
     "lint": "ts-standard --fix src/**/*.ts",
     "prettier": "prettier --write src/**/*.ts",
     "test": "jest",
+    "test:clear": "jest --clearCache",
     "publish-lib": "npm run build && npm publish",
     "publish-beta": "npm run build && npm publish --tag beta",
     "publish-dryrun": "npm run build && npm publish --dry-run"

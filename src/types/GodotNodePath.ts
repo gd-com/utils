@@ -1,1 +1,1 @@
-export type GodotNodePath = string;
+export type GodotNodePath = string

@@ -1,3 +1,3 @@
-import Long from "long";
+import Long from 'long'
 
-export type GodotInteger = number | Long;
+export type GodotInteger = number | Long

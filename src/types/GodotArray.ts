@@ -1,1 +1,1 @@
-export type GodotArray<T> = T[];
+export type GodotArray<T> = T[]

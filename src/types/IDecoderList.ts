@@ -1,3 +1,3 @@
-import { TYPE } from "../constants";
+import { TYPE } from '../constants'
 
-export type IDecoderList = Record<TYPE, Function | undefined>;
+export type IDecoderList = Record<TYPE, Function | undefined>

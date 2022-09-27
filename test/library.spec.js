@@ -677,5 +677,22 @@ describe('gd-com binary serializer', () => {
         done();
       }, 100);
     })
+
+    test('push split data', (done) => {
+      const callback = jest.fn();
+
+      const tcpSplit = new GdCom.StreamTcp()
+
+      tcpSplit.on('data', callback)
+
+      tcpSplit.write(Buffer.from([8, 0, 0, 0]))
+      tcpSplit.write(Buffer.from([1, 0, 0, 0]))
+      tcpSplit.write(Buffer.from([1, 0, 0, 0]))
+
+      setTimeout(() => {
+        expect(callback).toHaveBeenCalledTimes(1);
+        done();
+      }, 1);
+    })
   })
 })

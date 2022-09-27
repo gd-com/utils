@@ -1,5 +1,5 @@
-import Long from "long";
-import { IGetReturn } from "../types";
+import Long from 'long'
+import { IGetReturn } from '../types'
 
 /**
  * Decode Unsigned Int 64
@@ -7,9 +7,9 @@ import { IGetReturn } from "../types";
  * @param offset {Number}
  * @returns {{value: Number, length: Number}}
  */
-export function getU64(buffer: Buffer, offset: number = 0): IGetReturn<Long> {
+export function getU64 (buffer: Buffer, offset: number = 0): IGetReturn<Long> {
   return {
     value: Long.fromBytesLE(buffer.slice(offset).toJSON().data, true),
-    length: 8,
-  };
+    length: 8
+  }
 }
