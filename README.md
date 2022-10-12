@@ -9,7 +9,7 @@ Written with this [api](https://docs.godotengine.org/en/latest/tutorials/misc/bi
 - Godot 4.0 or greater
 - NodeJS 16 LTS or greater
 
-For Godot 3.X go *[@gd-com/utils v3](https://github.com/gd-com/utils/tree/v3)*
+For Godot 3 go *[@gd-com/utils v3](https://github.com/gd-com/utils/tree/v3)*
 
 ## How to install
 
