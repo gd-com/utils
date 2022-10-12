@@ -2,18 +2,18 @@
 
 Binary serialization helper godot and nodejs !
 
-Written with this [api](https://docs.godotengine.org/en/3.6/tutorials/io/binary_serialization_api.html)
-
-Warning Websocket works only in Godot 3.1 or greater 
+Written with this [api](https://docs.godotengine.org/en/latest/tutorials/misc/binary_serialization_api.html)
 
 ## Requirements
 
-- Godot 3.0 ( 3.1 for websockets ) or greater
-- NodeJS 10.14.0 LTS or greater
+- Godot 4.0 or greater
+- NodeJS 16 LTS or greater
+
+For Godot 3.X go *[@gd-com/utils v3](https://github.com/gd-com/utils/tree/v3)*
 
 ## How to install
 
-`npm install --save @gd-com/utils@^4.1.4`
+`npm install --save @gd-com/utils`
 
 ## Examples
 

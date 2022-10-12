@@ -1,20 +1,18 @@
-import { getVarInteger } from './integer'
-import {IGetReturn, GodotArray, GodotInteger} from "../../types";
-import Long from "long";
+import { getVarFloat } from './float'
+import {IGetReturn, GodotArray, GodotFloat} from "../../types";
 
 /**
- * Decode PoolIntArray
+ * Decode PoolRealArray
  * @param genericDecoder
  * @param buf {Buffer}
- * @param flag
  * @returns {{value: Array, length: Number}}
  */
-export function getVarIntArray (genericDecoder, buf, flag): IGetReturn<GodotArray<GodotInteger | Long>> {
+export function getVarFloat32Array (genericDecoder, buf): IGetReturn<GodotArray<GodotFloat>> {
   const nbEntries = buf.readUInt32LE(0)
 
   // start at 4 cause of nbEntries
   const data: {
-    array: Array<number | Long>,
+    array: Array<number>,
     buffer: Buffer,
     pos: number,
   }  = {
@@ -24,7 +22,7 @@ export function getVarIntArray (genericDecoder, buf, flag): IGetReturn<GodotArra
   }
 
   for (let index = 0; index < nbEntries; index++) {
-    const decodedValue = getVarInteger(genericDecoder, data.buffer, flag)
+    const decodedValue = getVarFloat(genericDecoder, data.buffer, 0)
     data.array.push(decodedValue.value)
     data.buffer = data.buffer.slice(decodedValue.length)
     data.pos += decodedValue.length

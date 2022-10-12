@@ -17,8 +17,10 @@ import {getVarNodePath} from "./nodePath";
 import {getVarDictionnary} from "./dictionnary";
 import {getVarArray} from "./array";
 import {getVarRawArray} from "./rawArray";
-import {getVarIntArray} from "./intArray";
-import {getVarRealArray} from "./realArray";
+import {getVarInt32Array} from "./int32Array";
+import {getVarInt64Array} from "./int64Array";
+import {getVarFloat32Array} from "./float32Array";
+import {getVarFloat64Array} from "./float64Array";
 import {getVarStringArray} from "./stringArray";
 import {getVarVector2Array} from "./vector2Array";
 import {getVarVector3Array} from "./vector3Array";
@@ -48,8 +50,10 @@ const decoderList: IDecoderList = {
   [TYPE.DICTIONARY]: getVarDictionnary,
   [TYPE.ARRAY]: getVarArray,
   [TYPE.RAW_ARRAY]: getVarRawArray,
-  [TYPE.INT_ARRAY]: getVarIntArray,
-  [TYPE.REAL_ARRAY]: getVarRealArray,
+  [TYPE.INT_32_ARRAY]: getVarInt32Array,
+  [TYPE.INT_64_ARRAY]: getVarInt64Array,
+  [TYPE.FLOAT_32_ARRAY]: getVarFloat32Array,
+  [TYPE.FLOAT_64_ARRAY]: getVarFloat64Array,
   [TYPE.STRING_ARRAY]: getVarStringArray,
   [TYPE.VECTOR2_ARRAY]: getVarVector2Array,
   [TYPE.VECTOR3_ARRAY]: getVarVector3Array,
