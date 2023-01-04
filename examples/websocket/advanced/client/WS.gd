@@ -20,7 +20,7 @@ func _connection_closed():
 
 func _connection_error():
 	print("Connection Error")
-    
+	
 func _process(delta):
 	if ws.get_connection_status() == ws.CONNECTION_CONNECTING || ws.get_connection_status() == ws.CONNECTION_CONNECTED:
 		ws.poll()

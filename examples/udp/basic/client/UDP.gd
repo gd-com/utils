@@ -3,10 +3,10 @@ extends Node
 var connection = PacketPeerUDP.new()
 var test = null
 var values = [
-    true,false,
-    1, -1, 500, -500,
-    1.2, -1.2, 50.1, -50.1, 80.852078542,
-    "test1", "test2", "test3"
+	true,false,
+	1, -1, 500, -500,
+	1.2, -1.2, 50.1, -50.1, 80.852078542,
+	"test1", "test2", "test3"
 ]
 
 func _ready():
