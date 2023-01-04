@@ -2,14 +2,14 @@
 # yarn lockfile v1
 
 
-"@gd-com/utils@^4.1.4":
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/@gd-com/utils/-/utils-4.1.4.tgz#86e5cde13f34ef4d6aec1cfa7f49f2e083d832fc"
-  integrity sha512-fwo4fjVc4WoN1Wg4FdktMWaOoTBwBKrX1RtmgQsb0mQSPkaWMsLM72kHiYRsdNu3u8yz8vjXDoMH0wsgpL59LA==
+"@gd-com/utils@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@gd-com/utils/-/utils-5.0.0.tgz#510de74fdf634648d933ffaa2b925968b4511d3a"
+  integrity sha512-gddq0BoZVtL/IfldtPxk5HH0n6PAPNG9W0FGKIh/u4V1jo8SJpsynAiE1xOQn5PoZ8Bljr/stnO+zkg1DY3aVw==
   dependencies:
     long "^5.2.0"
 
 long@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/long/-/long-5.2.0.tgz#2696dadf4b4da2ce3f6f6b89186085d94d52fd61"
-  integrity sha512-9RTUNjK60eJbx3uz+TEGF7fUr29ZDxR5QzXcyDpeSfeH28S9ycINflOgOlppit5U+4kNTe83KQnMEerw7GmE8w==
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/long/-/long-5.2.1.tgz#e27595d0083d103d2fa2c20c7699f8e0c92b897f"
+  integrity sha512-GKSNGeNAtw8IryjjkhZxuKB3JzlcLTwjtiQCHKvqQet81I93kXslhDQruGI/QsddO83mcDToBVy7GqGS/zYf/A==

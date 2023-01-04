@@ -6,19 +6,20 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
 config/name="certs-generator"
 run/main_scene="res://ROOT.tscn"
+config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
 [display]
 
+window/size/resizable=false
 window/size/width=400
 window/size/height=300
-window/size/resizable=false
 
 [gui]
 

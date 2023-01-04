@@ -23,6 +23,7 @@ let server = net.createServer((socket) => {
 
   socket.pipe(tcpSplit).on('data', (data) => {
     let recieve = new Buffer.from(data)
+    console.log(recieve)
 
     const type = getU16(recieve)
 

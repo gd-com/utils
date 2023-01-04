@@ -50,7 +50,7 @@ func connect_to_host(host: String, port: int) -> void:
 		emit_signal("error")
 		return
 
-func send(data: PoolByteArray) -> bool:
+func send(data: PackedByteArray) -> bool:
 	if _status != _ws.CONNECTION_CONNECTED:
 		print("Error: Stream is not currently connected.")
 		return false

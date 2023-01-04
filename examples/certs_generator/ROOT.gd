@@ -7,9 +7,8 @@ var not_before = "20201023000000"
 var not_after =  "20251023000000"
 
 func _ready():
-	var dir = Directory.new()
-	if not dir.dir_exists("res://certs"):
-		dir.make_dir("res://certs")
+	if not DirAccess.dir_exists_absolute("res://certs"):
+		DirAccess.make_dir_absolute("res://certs")
 
 func GenerateX509(name: String):
 	var X509_cert_filename = name + ".crt"

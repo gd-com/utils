@@ -10,6 +10,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@gd-com/utils": "^4.1.0"
+    "@gd-com/utils": "^5.0.0"
   }
 }

@@ -6,7 +6,7 @@ signal disconnected
 signal error
 
 var _status: int = 0
-var _stream: StreamPeerSSL = StreamPeerSSL.new()
+var _stream: StreamPeerTLS = StreamPeerTLS.new()
 var _cert: X509Certificate = X509Certificate.new()
 var CN = "Certs Generator"
 
@@ -15,6 +15,7 @@ func _ready() -> void:
 	_cert.load('res://certs/x509.crt')
 
 func _process(_delta: float) -> void:
+	_stream.poll()
 	var new_status: int = _stream.get_status()
 	if new_status != _status:
 		_status = new_status
@@ -63,7 +64,7 @@ func connect_to_host(host: String, port: int) -> void:
 	if error != OK:
 		print("Error upgrading connection to SSL: ", error)
 
-func send(data: PoolByteArray) -> bool:
+func send(data: PackedByteArray) -> bool:
 	if _status != _stream.STATUS_CONNECTED:
 		print("Error: Stream is not currently connected.")
 		return false

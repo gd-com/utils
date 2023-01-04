@@ -15,15 +15,15 @@ var values = [
 ]
 
 func _ready() -> void:
-	_client.connect("connected", self, "_handle_client_connected")
-	_client.connect("disconnected", self, "_handle_client_disconnected")
-	_client.connect("error", self, "_handle_client_error")
-	_client.connect("data", self, "_handle_client_data")
+	_client.connect("connected",Callable(self,"_handle_client_connected"))
+	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
+	_client.connect("error",Callable(self,"_handle_client_error"))
+	_client.connect("data",Callable(self,"_handle_client_data"))
 	add_child(_client)
 	_client.connect_to_host(HOST, PORT)
 
 func _connect_after_timeout(timeout: float) -> void:
-	yield(get_tree().create_timer(timeout), "timeout") # Delay for timeout
+	await get_tree().create_timer(timeout).timeout # Delay for timeout
 	_client.connect_to_host(HOST, PORT)
 
 func _handle_client_connected() -> void:
@@ -33,7 +33,7 @@ func _handle_client_connected() -> void:
 	bufferToSend.put_var(values.pop_front())
 	_client.send(bufferToSend.data_array)
 
-func _handle_client_data(data: PoolByteArray) -> void:
+func _handle_client_data(data: PackedByteArray) -> void:
 	var buffer = StreamPeerBuffer.new()
 	buffer.data_array = data
 	

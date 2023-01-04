@@ -4,9 +4,9 @@ var ws = null
 
 func _ready():
 	ws = WebSocketClient.new()
-	ws.connect("connection_established", self, "_connection_established")
-	ws.connect("connection_closed", self, "_connection_closed")
-	ws.connect("connection_error", self, "_connection_error")
+	ws.connect("connection_established",Callable(self,"_connection_established"))
+	ws.connect("connection_closed",Callable(self,"_connection_closed"))
+	ws.connect("connection_error",Callable(self,"_connection_error"))
 	
 	var url = "ws://localhost:8080"
 	print("Connecting to " + url)

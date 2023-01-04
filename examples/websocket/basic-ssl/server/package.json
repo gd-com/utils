@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@gd-com/utils": "^4.1.4",
+    "@gd-com/utils": "^5.0.0",
     "ws": "^8.9.0"
   }
 }
