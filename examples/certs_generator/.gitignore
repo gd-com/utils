@@ -1,0 +1,8 @@
+# misc
+.idea
+.DS_Store
+
+# godot
+.import
+
+certs

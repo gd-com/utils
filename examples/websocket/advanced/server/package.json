@@ -1,0 +1,17 @@
+{
+  "name": "gd-com-websocket-advanced",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/old.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@gd-com/utils": "^4.1.0",
+    "uuid": "^3.3.2",
+    "ws": "^6.1.3"
+  }
+}

@@ -2,29 +2,29 @@
 
 Binary serialization helper godot and nodejs !
 
-Written with this [api](https://docs.godotengine.org/en/stable/tutorials/misc/binary_serialization_api.html)
+Written with this [api](https://docs.godotengine.org/en/3.6/tutorials/io/binary_serialization_api.html)
+
+Warning Websocket works only in Godot 3.1 or greater 
 
 ## Requirements
 
-- Godot 3.X
+- Godot 3.0 ( 3.1 for websockets ) or greater
 - NodeJS 10.14.0 LTS or greater
 
 ## How to install
 
-`npm install --save @gd-com/utils`
+`npm install --save @gd-com/utils@^4.1.4`
 
+## Examples
 
-##### For an example take a look *[@gd-com/examples](https://github.com/gd-com/examples)* !
+### What is certs-generator ?
+This is a Godot project which is just used to generate SSL certificates to test TCP UDP and Websocket in "secure" mode
 
-```javascript
-const gdCom = require('@gd-com/utils')
+### Basic vs Advanced
 
-const myByffer = gdCom.putVar(8)
+- **Basic** is a simple example who explain how to send variant
+- **Advanced** is a more complex example who explain how to send custom packets
 
-console.log(myByffer) // for UDP or WebSocket
-console.log(gdCom.prefixWithLength(myByffer)) // for TCP
-
-```
 ## Available from gdCom
 
 ### Helpers
@@ -70,7 +70,6 @@ console.log(gdCom.prefixWithLength(myByffer)) // for TCP
 | putString(value) | Buffer |
 
 #### TYPE
-
 | Name | Value |
 |-------------------------------|------------------------------|
 | NULL | 0 |
@@ -102,42 +101,7 @@ console.log(gdCom.prefixWithLength(myByffer)) // for TCP
 | POOL_COLOR_ARRAY | 26 |
 | MAX | 27 |
 
-```javascript
-const net = require('net')
-const { putVar, getVar, StreamTcp, prefixWithLength } = require('@gd-com/utils')
-
-const tcpSplit = new StreamTcp()
-
-let server = net.createServer((socket) => {
-  socket.pipe(tcpSplit).on('data', (data) => {
-    const packet = new Buffer.from(data)
-
-    const decoded = getVar(packet)
-    console.log('receive :', decoded.value)
-
-    const packetToSend = putVar(Math.random())
-
-    // we need to prefix the packet with packet length cause it's tcp
-    const finalBuffer = prefixWithLength(packetToSend)
-
-    console.log('send :', finalBuffer)
-    socket.write(finalBuffer)
-  })
-
-  socket.on('error', () => console.log('Bye :('))
-})
-
-server.on('error', (err) => {
-  throw err
-})
-
-server.listen(8090, '127.0.0.1', () => {
-  console.log(`Server launched TCP 127.0.0.1:${8090}`)
-})
-```
-
 ## Test
-
 ```
 git clone git@github.com:gd-com/utils.git gd-com-utils
 cd gd-com-utils
@@ -146,17 +110,13 @@ npm run lint && npm run test
 ```
 
 ## Contributing
-
 Please read [CONTRIBUTING](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## TODO & CHANGELOG
 [CHANGELOG](CHANGELOG.md)
-
 [TODO](TODO.md)
 
-
 ## License
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Thanks
