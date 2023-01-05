@@ -5,58 +5,52 @@ signal data
 signal disconnected
 signal error
 
-var _status: int = 0
-var _ws: WebSocketClient = WebSocketClient.new()
+var _status: int = WebSocketPeer.STATE_CONNECTING
+var _stream: WebSocketPeer = WebSocketPeer.new()
 var _cert: X509Certificate = X509Certificate.new()
-var CN = "Certs Generator"
 
 func _ready() -> void:
-	_ws.set_verify_ssl_enabled(false)
-	_ws.set_trusted_ssl_certificate(_cert)
-	_status = _ws.get_connection_status()
+	_status = _stream.get_ready_state()
 	_cert.load('res://certs/x509.crt')
 
 func _process(_delta: float) -> void:
-	var new_status: int = _ws.get_connection_status()
+	_stream.poll()
+	var new_status: int = _stream.get_ready_state()
 	if new_status != _status:
 		_status = new_status
 		match _status:
-			_ws.CONNECTION_DISCONNECTED:
+			_stream.STATE_CLOSED:
 				print("Disconnected from host.")
 				emit_signal("disconnected")
-			_ws.CONNECTION_CONNECTED:
+			_stream.STATE_CONNECTING:
+				print("Connecting to host.")
+			_stream.STATE_OPEN:
 				print("Connected to host.")
 				emit_signal("connected")
-			_ws.CONNECTION_CONNECTING:
-				print("Connecting ...")
-				
-	if _status == _ws.CONNECTION_CONNECTED || _status == _ws.CONNECTION_CONNECTING:
-		# Poll the stream to ensure connection is valid.
-		_ws.poll()
+			_stream.STATE_CLOSING:
+				print("Closing with socket stream.")
+				emit_signal("error")
 
-	if _status == _ws.CONNECTION_CONNECTED:
-		var available_packets: int = _ws.get_peer(1).get_available_packet_count()
-		if available_packets > 0:
-			var data: Array = _ws.get_peer(1).get_packet()
-			emit_signal("data", data)
+	if _status == _stream.STATE_OPEN:
+		var available_packet_count: int = _stream.get_available_packet_count()
+		if available_packet_count > 0:
+			emit_signal("data", _stream.get_packet())
 
 func connect_to_host(host: String, port: int) -> void:
-	print("Connecting to %s:%d" % [host, port])
+	var url = "wss://%s:%d" % [host, port]
+	print("Connecting to %s" % [url])
 	# Reset status so we can tell if it changes to error again.
-	_status = _ws.CONNECTION_DISCONNECTED
-	var error: int = _ws.connect_to_url("wss://" + host + ":" + String(port))
-	if error != OK:
-		print("Error connecting to host: ", error)
+	_status = _stream.STATE_CONNECTING
+	if _stream.connect_to_url(url, true, _cert) != OK:
+		print("Error connecting to host.")
 		emit_signal("error")
-		return
 
-func send(data: PackedByteArray) -> bool:
-	if _status != _ws.CONNECTION_CONNECTED:
+func send(dataToSend) -> bool:
+	if _status != _stream.STATE_OPEN:
 		print("Error: Stream is not currently connected.")
 		return false
-
-	var error: int = _ws.get_peer(1).put_packet(data)
-	if error != OK:
-		print("Error writing to stream: ", error)
+	var errorCode: int = _stream.send(dataToSend)
+	if errorCode != OK:
+		print("Error writing to stream: ", errorCode)
 		return false
 	return true

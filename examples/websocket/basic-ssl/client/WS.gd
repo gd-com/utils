@@ -28,6 +28,7 @@ func _connect_after_timeout(timeout: float) -> void:
 
 func _handle_client_connected() -> void:
 	print("Client connected to server.")
+	
 	# send a first variant !
 	var bufferToSend = StreamPeerBuffer.new()
 	bufferToSend.put_var(values.pop_front())
@@ -37,8 +38,8 @@ func _handle_client_data(data: PackedByteArray) -> void:
 	var buffer = StreamPeerBuffer.new()
 	buffer.data_array = data
 	
-	print("Recieve : ", buffer.get_var())
-
+	print("Client receive : ", buffer.get_var(), values.size())
+	
 	if values.size() > 0 :
 		var bufferToSend = StreamPeerBuffer.new()
 		bufferToSend.put_var(values.pop_front())

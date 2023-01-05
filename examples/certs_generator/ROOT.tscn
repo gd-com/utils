@@ -11,11 +11,21 @@ offset_bottom = 299.0
 
 [node name="LineEdit" type="LineEdit" parent="Panel"]
 layout_mode = 0
-offset_left = 109.0
-offset_top = 60.0
-offset_right = 260.0
-offset_bottom = 112.0
+offset_left = 112.0
+offset_top = 14.0
+offset_right = 263.0
+offset_bottom = 66.0
 text = "x509"
+placeholder_text = "Cert name"
+
+[node name="LineEditCN" type="LineEdit" parent="Panel"]
+layout_mode = 1
+offset_left = 112.0
+offset_top = 83.0
+offset_right = 263.0
+offset_bottom = 135.0
+text = "127.0.0.1"
+placeholder_text = "CN"
 
 [node name="Button" type="Button" parent="Panel"]
 layout_mode = 0
