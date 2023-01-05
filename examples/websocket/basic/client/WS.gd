@@ -1,31 +1,54 @@
 extends Node
 
-var ws = null
+const HOST: String = "127.0.0.1"
+const PORT: int = 8080
+const RECONNECT_TIMEOUT: float = 3.0
 
-func _ready():
-	ws = WebSocketClient.new()
-	ws.connect("connection_established",Callable(self,"_connection_established"))
-	ws.connect("connection_closed",Callable(self,"_connection_closed"))
-	ws.connect("connection_error",Callable(self,"_connection_error"))
-	
-	var url = "ws://localhost:8080"
-	print("Connecting to " + url)
-	ws.connect_to_url(url)
-	
-func _connection_established(protocol):
-	print("Connection established with protocol: ", protocol)
-	
-func _connection_closed():
-	print("Connection closed")
+const Client = preload("res://networking.gd")
+var _client: Client = Client.new()
 
-func _connection_error():
-	print("Connection error")
+var values = [
+	true,false,
+	1, -1, 500, -500,
+	1.2, -1.2, 50.1, -50.1, 80.852078542,
+	"test1", "test2", "test3"
+]
+
+func _ready() -> void:
+	_client.connect("connected",Callable(self,"_handle_client_connected"))
+	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
+	_client.connect("error",Callable(self,"_handle_client_error"))
+	_client.connect("data",Callable(self,"_handle_client_data"))
+	add_child(_client)
+	_client.connect_to_host(HOST, PORT)
+
+func _connect_after_timeout(timeout: float) -> void:
+	await get_tree().create_timer(timeout).timeout # Delay for timeout
+	_client.connect_to_host(HOST, PORT)
+
+func _handle_client_connected() -> void:
+	print("Client connected to server.")
 	
-func _process(delta):
-	if ws.get_connection_status() == ws.CONNECTION_CONNECTING || ws.get_connection_status() == ws.CONNECTION_CONNECTED:
-		ws.poll()
-	if ws.get_peer(1).is_connected_to_host():
-		ws.get_peer(1).put_var("HI")
-		if ws.get_peer(1).get_available_packet_count() > 0 :
-			var test = ws.get_peer(1).get_var()
-			print('recieve %s' % test)
+	# send a first variant !
+	var bufferToSend = StreamPeerBuffer.new()
+	bufferToSend.put_var(values.pop_front())
+	_client.send(bufferToSend.data_array)
+
+func _handle_client_data(data: PackedByteArray) -> void:
+	var buffer = StreamPeerBuffer.new()
+	buffer.data_array = data
+	
+	print("Client receive : ", buffer.get_var(), values.size())
+	
+	if values.size() > 0 :
+		var bufferToSend = StreamPeerBuffer.new()
+		bufferToSend.put_var(values.pop_front())
+		_client.send(bufferToSend.data_array)
+
+func _handle_client_disconnected() -> void:
+	print("Client disconnected from server.")
+	_connect_after_timeout(RECONNECT_TIMEOUT) # Try to reconnect after 3 seconds
+
+func _handle_client_error() -> void:
+	print("Client error.")
+	_connect_after_timeout(RECONNECT_TIMEOUT) # Try to reconnect after 3 seconds

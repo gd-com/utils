@@ -5,12 +5,19 @@ const wss = new WebSocket.Server({ port: 8080 })
 
 wss.on('connection', ws => {
   console.log('connected')
-  ws.on('message', (message) => {
-    let recieveBuff = Buffer.from(message)
-    let recieve = gdCom.getVar(recieveBuff)
-    console.log(recieve.value)
+  ws.on('message', (data) => {
+    const packetWithLength = new Buffer.from(data)
+    const length = packetWithLength.readUInt16LE(0)
 
-    let buffer = gdCom.putVar(Math.random())
-    ws.send(buffer)
+    const packet = packetWithLength.slice(4, length + 4)
+
+    const decoded = gdCom.getVar(packet)
+    console.log('receive :', decoded.value)
+
+    // we need to put the packet length on top cause it's tcp
+    const packetToSend = gdCom.prefixWithLength(gdCom.putVar(Math.random()))
+
+    console.log('send :', packetToSend)
+    ws.send(packetToSend)
   })
 })
