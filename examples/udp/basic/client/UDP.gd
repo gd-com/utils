@@ -12,7 +12,7 @@ var values = [
 func _ready():
 	print("Start client UDP")
 	# Connect
-	connection.set_dest_address("127.0.0.1", 9091)
+	connection.connect_to_host("127.0.0.1", 9091)
 	connection.put_var(null)
 
 func _process(_delta):

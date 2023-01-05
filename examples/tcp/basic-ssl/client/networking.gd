@@ -8,7 +8,7 @@ signal error
 var _status: int = 0
 var _stream: StreamPeerTLS = StreamPeerTLS.new()
 var _cert: X509Certificate = X509Certificate.new()
-var CN = "Certs Generator"
+var CN = "localhost"
 
 func _ready() -> void:
 	_status = _stream.get_status()
@@ -36,8 +36,6 @@ func _process(_delta: float) -> void:
 				emit_signal("error")
 
 	if _status == _stream.STATUS_CONNECTED:
-		# Poll the stream to ensure connection is valid and check for availalbe bytes.
-		_stream.poll()
 		var available_bytes: int = _stream.get_available_bytes()
 		if available_bytes > 0:
 			var data: Array = _stream.get_partial_data(available_bytes)
@@ -58,9 +56,8 @@ func connect_to_host(host: String, port: int) -> void:
 		print("Error connecting to host: ", error)
 		emit_signal("error")
 		return
-	
-	# CN !!
-	error = _stream.connect_to_stream(tcp, true, CN, _cert)
+
+	error = _stream.connect_to_stream(tcp, false, CN, _cert)
 	if error != OK:
 		print("Error upgrading connection to SSL: ", error)
 

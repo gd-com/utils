@@ -8,7 +8,7 @@ var PORT_SERVER = 9091
 func _ready():
 	print("Start client UDP")
 	# Connect
-	connection.set_dest_address(ADDRESS, PORT_SERVER)
+	connection.connect_to_host(ADDRESS, PORT_SERVER)
 
 func _process(delta):
 	if Input.is_action_just_released("ui_left"):

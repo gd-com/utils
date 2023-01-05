@@ -1,10 +1,8 @@
 extends Node
 
-var CN = "Certs Generator"
+var CN = "localhost"
 var O = "GD-COM"
 var C = "FR"
-var not_before = "20201023000000"
-var not_after =  "20251023000000"
 
 func _ready():
 	if not DirAccess.dir_exists_absolute("res://certs"):
@@ -19,12 +17,7 @@ func GenerateX509(name: String):
 	var CNOC = "CN=" + CN + ",O=" + O + ",C=" + C
 	var crypto = Crypto.new()
 	var crypto_key = crypto.generate_rsa(4096)
-	var X509_cert = crypto.generate_self_signed_certificate(
-		crypto_key,
-		CNOC,
-		not_before,
-		not_after
-	)
+	var X509_cert = crypto.generate_self_signed_certificate(crypto_key,CNOC)
 	X509_cert.save(X509_cert_path)
 	crypto_key.save(X509_key_path)
 
