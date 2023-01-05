@@ -1,58 +1,59 @@
 extends Node
 
-var ws = null
+const HOST: String = "127.0.0.1"
+const PORT: int = 8080
+const RECONNECT_TIMEOUT: float = 3.0
 
-func _ready():
-	ws = WebSocketClient.new()
-	ws.connect("connection_established",Callable(self,"_connection_established"))
-	ws.connect("connection_closed",Callable(self,"_connection_closed"))
-	ws.connect("connection_error",Callable(self,"_connection_error"))
-	
-	var url = "ws://localhost:8080"
-	print("Connecting to " + url)
-	ws.connect_to_url(url)
-	
-func _connection_established(protocol):
-	print("Connection Established With Protocol: ", protocol)
-	
-func _connection_closed():
-	print("Connection Closed")
+const Client = preload("res://networking.gd")
+var _client: Client = Client.new()
 
-func _connection_error():
-	print("Connection Error")
-    
-func _process(delta):
-	if ws.get_connection_status() == ws.CONNECTION_CONNECTING || ws.get_connection_status() == ws.CONNECTION_CONNECTED:
-		ws.poll()
-	
-	if ws.get_peer(1).is_connected_to_host():
-		if Input.is_action_just_released("ui_left"):
-				var buffer = StreamPeerBuffer.new()
-				buffer.put_u16(1001)
-				_sendPacket(buffer.get_data_array())
+func _ready() -> void:
+	_client.connect("connected",Callable(self,"_handle_client_connected"))
+	_client.connect("disconnected",Callable(self,"_handle_client_disconnected"))
+	_client.connect("error",Callable(self,"_handle_client_error"))
+	_client.connect("data",Callable(self,"_handle_client_data"))
+	add_child(_client)
+	_client.connect_to_host(HOST, PORT)
 
-		if Input.is_action_just_released("ui_right"):
-				var buffer = StreamPeerBuffer.new()
-				buffer.put_u16(1002)
-				buffer.put_string('an extra parameter')
-				_sendPacket(buffer.get_data_array())
-		
-		if ws.get_peer(1).get_available_packet_count() > 0 :
-			var packet = ws.get_peer(1).get_packet()
-			var buffer = StreamPeerBuffer.new()
-			buffer.set_data_array(packet)
-			
-			var type = buffer.get_u16()
-			print('Recieve %s' % type)
-			match type:
-				1:
-					print("My id is %s !" % buffer.get_string())
-				1003:
-					print("We recieve OK_GO_LEFT !")
-				1004:
-					print("We recieve OK_GO_RIGHT !")
-					# extra data
-					print("Recieve extra %s : " % buffer.get_string())
-			
-func _sendPacket(data):
-	ws.get_peer(1).put_packet(data)
+func _connect_after_timeout(timeout: float) -> void:
+	await get_tree().create_timer(timeout).timeout # Delay for timeout
+	_client.connect_to_host(HOST, PORT)
+
+func _handle_client_connected() -> void:
+	print("Client connected to server.")
+
+func _handle_client_data(data: PackedByteArray) -> void:
+	var buffer = StreamPeerBuffer.new()
+	buffer.data_array = data
+
+	var type = buffer.get_u16()
+	print('Recieve %s' % type)
+	match type:
+		1:
+			print("My id is %s !" % buffer.get_string())
+		1003:
+			print("We recieve OK_GO_LEFT !")
+		1004:
+			print("We recieve OK_GO_RIGHT !")
+			# extra data
+			print("Recieve extra %s : " % buffer.get_string())
+
+func _handle_client_disconnected() -> void:
+	print("Client disconnected from server.")
+	_connect_after_timeout(RECONNECT_TIMEOUT) # Try to reconnect after 3 seconds
+
+func _handle_client_error() -> void:
+	print("Client error.")
+	_connect_after_timeout(RECONNECT_TIMEOUT) # Try to reconnect after 3 seconds
+
+func _process(_delta):
+	if Input.is_action_just_released("ui_left"):
+		var buffer = StreamPeerBuffer.new()
+		buffer.put_u16(1001)
+		_client.send(buffer.get_data_array())
+
+	if Input.is_action_just_released("ui_right"):
+		var buffer = StreamPeerBuffer.new()
+		buffer.put_u16(1002)
+		buffer.put_string('an extra parameter')
+		_client.send(buffer.get_data_array())
